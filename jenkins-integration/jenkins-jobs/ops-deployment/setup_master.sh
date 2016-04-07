@@ -38,19 +38,30 @@ pe_version=2015.3.1 pe_family=2015.3.1 \
 #    * This will overwrite the module(s) installed previously
 # 3. Install the module(s) again
 #    * Additive; won't overwrite the OPS environments
+#ruby193 bundle exec beaker \
+#        --config hosts.yaml \
+#        --load-path lib \
+#        --log-level debug \
+#        --no-color \
+#        --tests \
+#\ #beaker/install/pe/10_install_pe.rb,\
+#\ #beaker/install/shared/40_clone_test_catalogs.rb,\
+#\ #beaker/install/pe/50_install_modules.rb,\
+#\ #beaker/install/pe/98_sync_codedir.rb,\
+#beaker/install/pe/60_classify_nodes.rb,\
+#\ #jenkins-jobs/ops-deployment/install_large_files.rb,\
+#\ #beaker/install/pe/50_install_modules.rb,\
+#\ #beaker/install/pe/98_sync_codedir.rb,\
+#beaker/install/shared/configure_authorization.rb,\
+#beaker/install/pe/99_restart_server.rb
+
 ruby193 bundle exec beaker \
         --config hosts.yaml \
         --load-path lib \
         --log-level debug \
         --no-color \
         --tests \
-\ #beaker/install/pe/10_install_pe.rb,\
-\ #beaker/install/shared/40_clone_test_catalogs.rb,\
-\ #beaker/install/pe/50_install_modules.rb,\
-\ #beaker/install/pe/98_sync_codedir.rb,\
 beaker/install/pe/60_classify_nodes.rb,\
-\ #jenkins-jobs/ops-deployment/install_large_files.rb,\
-\ #beaker/install/pe/50_install_modules.rb,\
-\ #beaker/install/pe/98_sync_codedir.rb,\
 beaker/install/shared/configure_authorization.rb,\
 beaker/install/pe/99_restart_server.rb
+
