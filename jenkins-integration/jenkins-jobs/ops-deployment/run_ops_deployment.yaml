@@ -25,10 +25,11 @@
       - shell:
           "pushd jenkins-integration && \
           ./jenkins-jobs/ops-deployment/setup_master.sh && \
+          ./jenkins-jobs/ops-deployment/run_simulation.sh && \
           popd"
-      - sbt:
-          actions: "run"
-          subdir-path: "./simulation-runner"
+#      - sbt:
+#          actions: "run"
+#          subdir-path: "./simulation-runner"
 
 - project:
     name: ops-deployment
