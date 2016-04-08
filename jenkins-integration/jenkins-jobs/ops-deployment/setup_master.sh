@@ -62,7 +62,6 @@ ruby193 bundle exec beaker \
         --log-level debug \
         --no-color \
         --tests \
-beaker/install/pe/98_sync_codedir.rb,\
 beaker/install/shared/configure_authorization.rb
 
 
