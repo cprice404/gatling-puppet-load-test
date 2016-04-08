@@ -62,6 +62,6 @@ ruby193 bundle exec beaker \
         --log-level debug \
         --no-color \
         --tests \
-jenkins-jobs/ops-deployment/install_catalog_zero.rb,\
-beaker/install/pe/98_sync_codedir.rb
+beaker/install/shared/configure_authorization.rb
+
 
