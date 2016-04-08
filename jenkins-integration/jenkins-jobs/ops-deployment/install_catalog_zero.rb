@@ -9,7 +9,7 @@ EOF
     install_package(master, 'git')
   end
 
-  on(master, 'git clone git@github.com:puppetlabs/test-catalogs-large-files.git --depth 1')
+  on(master, 'git clone git@github.com:puppetlabs/test-catalogs.git --depth 1')
 end
 
 step 'Unzip OPS tarball into code-staging' do
