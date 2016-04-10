@@ -14,11 +14,11 @@
 #  ensure => installed,
 #}
 #->
-#package { 'gcc-c++':
-#  # Needed for building native ruby extensions
-#  ensure => installed,
-#}
-#->
+package { 'gcc-c++':
+  # Needed for building native ruby extensions
+  ensure => installed,
+}
+->
 #file { '/usr/bin/ruby193':
 #  # Install a convenience shim for executing under ruby 1.9.3
 #  ensure  => present,
@@ -39,8 +39,14 @@
 package { 'ruby':
   ensure => installed,
 } ->
+package { 'ruby-devel':
+  ensure => installed,
+} ->
 package { 'bundler':
   ensure => installed,
   provider => gem,
+}
+package { 'zlib-devel':
+  ensure => installed,
 }
 
