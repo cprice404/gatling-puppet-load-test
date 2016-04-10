@@ -85,5 +85,6 @@ pe_version=2015.3.1 pe_family=2015.3.1 \
         --log-level debug \
         --no-color \
         --tests \
+beaker/install/pe/10_install_pe.rb,\
 jenkins-jobs/ops-deployment/hack_hostname_into_etc_hosts.rb,\
 jenkins-jobs/ops-deployment/disable_firewall.rb
