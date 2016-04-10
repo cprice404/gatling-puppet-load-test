@@ -62,28 +62,17 @@ pe_version=2015.3.1 pe_family=2015.3.1 \
 #beaker/install/shared/configure_authorization.rb,\
 #beaker/install/pe/99_restart_server.rb
 
-##ruby193 bundle exec beaker \
-#/usr/local/bin/bundle exec beaker \
-#        --config hosts.yaml \
-#        --load-path lib \
-#        --log-level debug \
-#        --no-color \
-#        --tests \
-#beaker/install/pe/10_install_pe.rb,\
-#jenkins-jobs/ops-deployment/install_large_files.rb,\
-#jenkins-jobs/ops-deployment/install_catalog_zero.rb,\
-#beaker/install/pe/98_sync_codedir.rb,\
-#beaker/install/pe/60_classify_nodes.rb,\
-#beaker/install/shared/configure_authorization.rb,\
-#beaker/install/pe/99_restart_server.rb
-
+#ruby193 bundle exec beaker \
 /usr/local/bin/bundle exec beaker \
         --config hosts.yaml \
         --load-path lib \
         --log-level debug \
         --no-color \
         --tests \
+beaker/install/pe/10_install_pe.rb,\
+jenkins-jobs/ops-deployment/install_large_files.rb,\
+jenkins-jobs/ops-deployment/install_catalog_zero.rb,\
+beaker/install/pe/98_sync_codedir.rb,\
 beaker/install/pe/60_classify_nodes.rb,\
 beaker/install/shared/configure_authorization.rb,\
 beaker/install/pe/99_restart_server.rb
-
