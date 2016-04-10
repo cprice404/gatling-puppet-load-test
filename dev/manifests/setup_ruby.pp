@@ -42,5 +42,5 @@ package { 'ruby':
 package { 'bundler':
   ensure => installed,
   provider => gem,
-}s
+}
 

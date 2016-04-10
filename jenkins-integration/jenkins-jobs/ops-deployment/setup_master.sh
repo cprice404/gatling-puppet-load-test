@@ -19,7 +19,7 @@ eval $(ssh-agent -t 24h -s)
 ssh-add ${HOME}/.ssh/id_rsa*
 
 #ruby193 bundle install --path vendor/bundle
-ruby bundle install --path vendor/bundle
+bundle install --path vendor/bundle
 
 # Define the master host to have PE 2015.3.1 installed.
 # The master is assumed to already be available (likely a dedicated blade), so
@@ -30,7 +30,7 @@ ruby bundle install --path vendor/bundle
 #          | sed -e 's/hypervisor: vmpooler/hypervisor: none/1' \
 #          > hosts.yaml
 pe_version=2015.3.1 pe_family=2015.3.1 \
-        ruby bundle exec beaker-hostgenerator centos6-64mdca \
+        bundle exec beaker-hostgenerator centos6-64mdca \
         | sed -e "s/centos6-64-1/$PUPPET_GATLING_MASTER_BASE_URL/1" \
         | sed -e 's/hypervisor: vmpooler/hypervisor: none/1' \
         > hosts.yaml
@@ -63,7 +63,7 @@ pe_version=2015.3.1 pe_family=2015.3.1 \
 #beaker/install/pe/99_restart_server.rb
 
 #ruby193 bundle exec beaker \
-ruby bundle exec beaker \
+bundle exec beaker \
         --config hosts.yaml \
         --load-path lib \
         --log-level debug \
