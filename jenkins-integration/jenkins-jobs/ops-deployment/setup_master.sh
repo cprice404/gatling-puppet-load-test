@@ -18,16 +18,22 @@ set -e
 eval $(ssh-agent -t 24h -s)
 ssh-add ${HOME}/.ssh/id_rsa*
 
-ruby193 bundle install --path vendor/bundle
+#ruby193 bundle install --path vendor/bundle
+ruby bundle install --path vendor/bundle
 
 # Define the master host to have PE 2015.3.1 installed.
 # The master is assumed to already be available (likely a dedicated blade), so
 # we won't try and borrow a VM from the vmpooler.
+#pe_version=2015.3.1 pe_family=2015.3.1 \
+#          ruby193 bundle exec beaker-hostgenerator centos6-64mdca \
+#          | sed -e "s/centos6-64-1/$PUPPET_GATLING_MASTER_BASE_URL/1" \
+#          | sed -e 's/hypervisor: vmpooler/hypervisor: none/1' \
+#          > hosts.yaml
 pe_version=2015.3.1 pe_family=2015.3.1 \
-          ruby193 bundle exec beaker-hostgenerator centos6-64mdca \
-          | sed -e "s/centos6-64-1/$PUPPET_GATLING_MASTER_BASE_URL/1" \
-          | sed -e 's/hypervisor: vmpooler/hypervisor: none/1' \
-          > hosts.yaml
+        ruby bundle exec beaker-hostgenerator centos6-64mdca \
+        | sed -e "s/centos6-64-1/$PUPPET_GATLING_MASTER_BASE_URL/1" \
+        | sed -e 's/hypervisor: vmpooler/hypervisor: none/1' \
+        > hosts.yaml
 
 # The order that we're running the phases below is important:
 # 1. Install just the catalog zero module(s) and then classify via NC
@@ -56,7 +62,8 @@ pe_version=2015.3.1 pe_family=2015.3.1 \
 #beaker/install/shared/configure_authorization.rb,\
 #beaker/install/pe/99_restart_server.rb
 
-ruby193 bundle exec beaker \
+#ruby193 bundle exec beaker \
+ruby bundle exec beaker \
         --config hosts.yaml \
         --load-path lib \
         --log-level debug \
