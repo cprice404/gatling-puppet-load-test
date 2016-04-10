@@ -21,6 +21,10 @@ rm -rf /etc/puppetlabs/code-staging/environments &&
 mv environments /etc/puppetlabs/code-staging
 EOF
 
+  # remove bad symlink in order to allow production environment to sync.  I believe
+  # that this should no longer be necessary in 2016.1.x
+  on(master, 'rm /etc/puppetlabs/code-staging/environments/production/modules/network/spec/fixtures/modules/network/files')
+
   # Set owner to prevent permissions errors during file sync
   on(master, 'chown -R pe-puppet:pe-puppet /etc/puppetlabs/code-staging/environments')
 end
