@@ -10,23 +10,26 @@
 
 class { 'epel': }
 ->
-yumrepo { 'IUS':
-  baseurl  => 'http://dl.iuscommunity.org/pub/ius/stable/CentOS/6/x86_64/',
-  descr    => 'Repo with Python 3 packages',
-  enabled  => 1,
-  gpgcheck => 0,
-}
-->
-package { 'python34u-pip':
+#yumrepo { 'IUS':
+#  baseurl  => 'http://dl.iuscommunity.org/pub/ius/stable/CentOS/6/x86_64/',
+#  descr    => 'Repo with Python 3 packages',
+#  enabled  => 1,
+#  gpgcheck => 0,
+#}
+#->
+#package { 'python34u-pip':
+#  ensure => installed,
+#}
+#->
+#file { '/usr/bin/pip-python':
+#  # WORKAROUND for PUP-3829
+#  ensure => 'link',
+#  target => '/usr/bin/pip3',
+#}
+#->
+package { 'python-pip':
   ensure => installed,
-}
-->
-file { '/usr/bin/pip-python':
-  # WORKAROUND for PUP-3829
-  ensure => 'link',
-  target => '/usr/bin/pip3',
-}
-->
+} ->
 package { 'jenkins-job-builder':
   ensure   => installed,
   provider => 'pip',
