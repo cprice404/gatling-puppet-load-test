@@ -1,6 +1,7 @@
 class { 'jenkins':
   # Adds exception to firewall for jenkins
   configure_firewall => true,
+  version => '1.642-1.1'
 }
 
 # Loading the git plugin fails silently if the git-client plugin
