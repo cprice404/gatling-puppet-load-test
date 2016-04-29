@@ -17,15 +17,15 @@ set -e
 # Setup SSH agent for SSH access to PUPPET_GATLING_MASTER_BASE_URL
 eval $(ssh-agent -t 24h -s)
 ssh-add ${HOME}/.ssh/id_rsa
-
-# TODO: this relies on knowledge of the CWD.  Fix it to figure out the path
-#  of the currently executing script and use that as the base path so that this
-#  script will be more re-usable.
-source jenkins-jobs/ops-deployment/initialize_ruby_env.sh
-
-#ruby193 bundle install --path vendor/bundle
-#/usr/local/bin/bundle install --path vendor/bundle
-bundle install --path vendor/bundle
+#
+## TODO: this relies on knowledge of the CWD.  Fix it to figure out the path
+##  of the currently executing script and use that as the base path so that this
+##  script will be more re-usable.
+#source jenkins-jobs/ops-deployment/initialize_ruby_env.sh
+#
+##ruby193 bundle install --path vendor/bundle
+##/usr/local/bin/bundle install --path vendor/bundle
+#bundle install --path vendor/bundle
 
 # Define the master host to have PE 2015.3.1 installed.
 # The master is assumed to already be available (likely a dedicated blade), so
