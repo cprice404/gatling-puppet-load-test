@@ -18,5 +18,5 @@ package { 'sbt':
 package { 'nss':
   # This is necessary for 'sbt' to run under java 1.7, which
   # is what is currently pulled in by the rtyler/jenkins module
-  ensure => latest,
+  ensure => latest, # 3.21.0
 }
