@@ -39,12 +39,12 @@ ssh-add ${HOME}/.ssh/id_rsa
 #        /usr/local/bin/bundle exec beaker-hostgenerator centos7-64mdca \
 #        | sed -e "s/centos7-64-1/$PUPPET_GATLING_MASTER_BASE_URL/1" \
 #        | sed -e 's/hypervisor: vmpooler/hypervisor: none/1' \
+##        > hosts.yaml
+#pe_version=2015.3.1 pe_family=2015.3.1 \
+#        bundle exec beaker-hostgenerator centos7-64mdca \
+#        | sed -e "s/centos7-64-1/$PUPPET_GATLING_MASTER_BASE_URL/1" \
+#        | sed -e 's/hypervisor: vmpooler/hypervisor: none/1' \
 #        > hosts.yaml
-pe_version=2015.3.1 pe_family=2015.3.1 \
-        bundle exec beaker-hostgenerator centos7-64mdca \
-        | sed -e "s/centos7-64-1/$PUPPET_GATLING_MASTER_BASE_URL/1" \
-        | sed -e 's/hypervisor: vmpooler/hypervisor: none/1' \
-        > hosts.yaml
 
 # The order that we're running the phases below is important:
 # 1. Install just the catalog zero module(s) and then classify via NC
