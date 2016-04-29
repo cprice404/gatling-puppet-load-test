@@ -22,9 +22,13 @@
           browser-url: http://github.com/puppetlabs/gatling-puppet-load-test
 
     builders:
+#      - shell:
+#              "pushd jenkins-integration && \
+#              ./jenkins-jobs/ops-deployment/setup_master.sh && \
+#              ./jenkins-jobs/ops-deployment/run_simulation.sh && \
+#              popd"
       - shell:
           "pushd jenkins-integration && \
-          ./jenkins-jobs/ops-deployment/setup_master.sh && \
           ./jenkins-jobs/ops-deployment/run_simulation.sh && \
           popd"
 #      - sbt:
