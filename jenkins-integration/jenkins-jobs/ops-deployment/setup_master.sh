@@ -18,17 +18,10 @@ set -e
 eval $(ssh-agent -t 24h -s)
 ssh-add ${HOME}/.ssh/id_rsa
 
-echo ""
-echo "Setting Up Ruby Environment"
-echo ""
-. /usr/local/rvm/scripts/rvm
-rvm use 2.1.6 || exit 1
-rvm list
-export GEM_SOURCE=http://rubygems.delivery.puppetlabs.net
-echo -e "\n\n\n"
-
-which ruby
-which bundle
+# TODO: this relies on knowledge of the CWD.  Fix it to figure out the path
+#  of the currently executing script and use that as the base path so that this
+#  script will be more re-usable.
+source jenkins-jobs/ops-deployment/initialize_ruby_env.sh
 
 #ruby193 bundle install --path vendor/bundle
 #/usr/local/bin/bundle install --path vendor/bundle

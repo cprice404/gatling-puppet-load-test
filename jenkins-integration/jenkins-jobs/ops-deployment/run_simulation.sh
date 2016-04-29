@@ -3,6 +3,11 @@
 set -x
 set -e
 
+# TODO: this relies on knowledge of the CWD.  Fix it to figure out the path
+#  of the currently executing script and use that as the base path so that this
+#  script will be more re-usable.
+source jenkins-jobs/ops-deployment/initialize_ruby_env.sh
+
 bundle exec beaker \
         --config hosts.yaml \
         --load-path lib \
