@@ -29,7 +29,8 @@
 #              ./jenkins-jobs/ops-deployment/run_simulation.sh && \
 #              popd"
       - shell:
-          "pushd jenkins-integration && \
+          "#!/usr/bin/env bash\
+          pushd jenkins-integration && \
           . /usr/local/rvm/scripts/rvm && \
           which rvm && \
           ./jenkins-jobs/ops-deployment/initialize_ruby_env.sh && \
