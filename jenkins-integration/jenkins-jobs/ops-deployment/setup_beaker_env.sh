@@ -3,8 +3,8 @@
 set -e
 set -x
 
-which rvm
 which ruby
 which bundle
+which rvm
 
 bundle install --path vendor/bundle
