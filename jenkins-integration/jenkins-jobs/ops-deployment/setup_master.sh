@@ -95,6 +95,7 @@ jenkins-jobs/ops-deployment/install_large_files.rb,\
 jenkins-jobs/ops-deployment/install_catalog_zero.rb,\
 beaker/install/pe/98_sync_codedir.rb,\
 beaker/install/pe/60_classify_nodes.rb,\
-beaker/install/shared/configure_authorization.rb,\
+beaker/install/shared/configure_permissive_server_auth.rb,\
 beaker/install/pe/99_restart_server.rb
+
 
