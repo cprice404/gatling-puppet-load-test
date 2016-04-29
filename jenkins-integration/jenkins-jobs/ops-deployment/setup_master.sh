@@ -16,7 +16,7 @@ set -e
 
 # Setup SSH agent for SSH access to PUPPET_GATLING_MASTER_BASE_URL
 eval $(ssh-agent -t 24h -s)
-ssh-add ${HOME}/.ssh/id_rsa*
+ssh-add ${HOME}/.ssh/id_rsa
 
 #ruby193 bundle install --path vendor/bundle
 /usr/local/bin/bundle install --path vendor/bundle
