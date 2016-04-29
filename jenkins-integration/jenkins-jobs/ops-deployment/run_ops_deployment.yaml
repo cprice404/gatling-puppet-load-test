@@ -12,12 +12,13 @@
     - string:
         name: PUPPET_GATLING_MASTER_BASE_URL
         description: "The URL of the puppet master SUT"
+        default: "puppetserver-perf-sut54.delivery.puppetlabs.net"
 
     scm:
       - git:
-          url: https://github.com/puppetlabs/gatling-puppet-load-test.git
+          url: https://github.com/cprice404/gatling-puppet-load-test.git
           branches:
-              - master
+              - maint/master/playing-with-nates-dev-env
           browser: githubweb
           browser-url: http://github.com/puppetlabs/gatling-puppet-load-test
 
