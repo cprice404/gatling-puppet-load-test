@@ -36,6 +36,19 @@ step "Install git" do
   on(jenkins, puppet_resource("package git ensure=installed"))
 end
 
+step "Set up SSH key for github access" do
+  if !jenkins.file_exist?("/root/.ssh/id_rsa")
+    result = curl_on jenkins, "-o /root/.ssh/id_rsa 'http://int-resources.ops.puppetlabs.net/QE%20Shared%20Resources/travis_keys/id_rsa'"
+    assert_equal 0, result.exit_code
+
+    on(jenkins, "chmod 600 /root/.ssh/id_rsa")
+  end
+  if !jenkins.file_exist?("/root/.ssh/id_rsa.pub")
+    result = curl_on jenkins, "-o /root/.ssh/id_rsa.pub 'http://int-resources.ops.puppetlabs.net/QE%20Shared%20Resources/travis_keys/id_rsa.pub'"
+    assert_equal 0, result.exit_code
+  end
+end
+
 step "add github to known hosts" do
   # Create known_hosts file with GitHub host key to prevent
   # "Host key verification failed" errors during clones
