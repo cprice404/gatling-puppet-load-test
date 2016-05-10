@@ -1,0 +1,21 @@
+- job-template:
+    name: '{name}-pipeline1'
+
+    builders:
+      - shell: |
+          #!/usr/bin/env bash
+
+          echo "Hi!  I'm job 1"
+- job-template:
+    name: '{name}-pipeline2'
+
+    builders:
+      - shell: |
+          #!/usr/bin/env bash
+
+          echo "Hi!  I'm job 2"
+- project:
+    name: pipeline-test
+    jobs:
+      - "{name}-pipeline1"
+      - "{name}-pipeline2"
