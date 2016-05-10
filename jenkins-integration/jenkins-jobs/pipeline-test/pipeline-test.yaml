@@ -9,8 +9,8 @@
 
     publishers:
       - trigger-parameterized-builds:
-        - project: {name}-pipeline2
-
+        - project: '{name}-pipeline2'
+        
 - job-template:
     name: '{name}-pipeline2'
 
