@@ -6,6 +6,11 @@
           #!/usr/bin/env bash
 
           echo "Hi!  I'm job 1"
+
+    publishers:
+      - trigger-parameterized-builds:
+        - project: {name}-pipeline2
+
 - job-template:
     name: '{name}-pipeline2'
 
