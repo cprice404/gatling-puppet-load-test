@@ -1,22 +1,120 @@
 - job-template:
-    name: '{name}-pipeline1'
+    name: '{task}-{name}-010-provision-sut'
 
     builders:
       - shell: |
           #!/usr/bin/env bash
 
-          echo "Hi!  I'm job 1"
+          echo "Hi!  I should be provisioning your SUT, but I'm not!"
 
     publishers:
       - trigger-parameterized-builds:
-        - project: '{name}-pipeline2'
+        - project: '{task}-{name}-020-install-pe'
           trigger-with-no-params: true
 
 - job-template:
-    name: '{name}-pipeline2'
+    name: '{task}-{name}-020-install-pe'
 
     builders:
       - shell: |
           #!/usr/bin/env bash
 
-          echo "Hi!  I'm job 2"
+          echo "Hi!  I should be installing PE on your SUT, but I'm not!"
+
+    publishers:
+      - trigger-parameterized-builds:
+        - project: '{task}-{name}-030-customize-settings'
+          trigger-with-no-params: true
+
+- job-template:
+    name: '{task}-{name}-030-customize-settings'
+
+    builders:
+      - shell: |
+          #!/usr/bin/env bash
+
+          echo "Hi!  I should be customizing settings on your SUT, but I'm not!"
+
+    publishers:
+      - trigger-parameterized-builds:
+        - project: '{task}-{name}-040-install-puppet-code'
+          trigger-with-no-params: true
+
+- job-template:
+    name: '{task}-{name}-040-install-puppet-code'
+
+    builders:
+      - shell: |
+          #!/usr/bin/env bash
+
+          echo "Hi!  I should be installing Puppet Code into the staging directory on your SUT, but I'm not!"
+
+    publishers:
+      - trigger-parameterized-builds:
+        - project: '{task}-{name}-050-file-sync'
+          trigger-with-no-params: true
+
+- job-template:
+    name: '{task}-{name}-050-file-sync'
+
+    builders:
+      - shell: |
+          #!/usr/bin/env bash
+
+          echo "Hi!  I should be performing a file sync on your SUT, but I'm not!"
+
+    publishers:
+      - trigger-parameterized-builds:
+        - project: '{task}-{name}-060-classify-nodes'
+          trigger-with-no-params: true
+
+- job-template:
+    name: '{task}-{name}-060-classify-nodes'
+
+    builders:
+      - shell: |
+          #!/usr/bin/env bash
+
+          echo "Hi!  I should be classifying nodes on your SUT, but I'm not!"
+
+    publishers:
+      - trigger-parameterized-builds:
+        - project: '{task}-{name}-070-validate-classification'
+          trigger-with-no-params: true
+
+- job-template:
+    name: '{task}-{name}-070-launch-bg-scripts'
+
+    builders:
+      - shell: |
+          #!/usr/bin/env bash
+
+          echo "Hi!  I should be launching background scripts on your SUT, but I'm not!"
+
+    publishers:
+      - trigger-parameterized-builds:
+        - project: '{task}-{name}-080-run-gatling-sim'
+          trigger-with-no-params: true
+
+- job-template:
+    name: '{task}-{name}-080-run-gatling-sim'
+
+    builders:
+      - shell: |
+          #!/usr/bin/env bash
+
+          echo "Hi!  I should be running a gatling simulation against your SUT, but I'm not!"
+
+    publishers:
+      - trigger-parameterized-builds:
+        - project: '{task}-{name}-090-collect-artifacts'
+          trigger-with-no-params: true
+
+- job-template:
+    name: '{task}-{name}-090-collect-artifacts'
+
+    builders:
+      - shell: |
+          #!/usr/bin/env bash
+
+          echo "Hi!  I should be collecting reports / artifacts for your perf test, but I'm not!"

@@ -1,5 +1,13 @@
 - project:
     name: pipeline-test
+    task: perf
     jobs:
-      - "{name}-pipeline1"
-      - "{name}-pipeline2"
+      - "{task}-{name}-010-provision-sut"
+      - "{task}-{name}-020-install-pe"
+      - "{task}-{name}-030-customize-settings"
+      - "{task}-{name}-040-install-puppet-code"
+      - "{task}-{name}-050-file-sync"
+      - "{task}-{name}-060-classify-nodes"
+      - "{task}-{name}-070-launch-bg-scripts"
+      - "{task}-{name}-080-run-gatling-sim"
+      - "{task}-{name}-090-collect-artifacts"
