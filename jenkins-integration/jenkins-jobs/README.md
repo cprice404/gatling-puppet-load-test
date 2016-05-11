@@ -7,11 +7,11 @@ more organized and re-usable.  Stay tuned.
 
 Currently:
 
-The `run_gatling_scenario.yml` is an old template that was our first POC
-of getting something up and running; we're not using it for anything at
-the moment and it will probably be deleted soon.
+The `common` directory contains job templates that are intended to be suitable for
+re-use across different perf testing scenarios.  The `scenarios` directory contains
+job definitions for individual scenarios.
 
-The `ops-deployment/run_ops_deployment.yaml` is the first working end-to-end
+The `scenarios/ops-deployment/run_ops_deployment.yaml` is the first working end-to-end
 POC.  It installs the ops modules and catalog zero and then runs a very
 brief gatling run.  It was intended to be used as a mechanism for validating
 the memory usage improvements in the NC class refresh work.  It will probably

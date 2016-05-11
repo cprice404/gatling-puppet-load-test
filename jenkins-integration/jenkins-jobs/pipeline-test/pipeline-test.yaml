@@ -1,25 +1,3 @@
-- job-template:
-    name: '{name}-pipeline1'
-
-    builders:
-      - shell: |
-          #!/usr/bin/env bash
-
-          echo "Hi!  I'm job 1"
-
-    publishers:
-      - trigger-parameterized-builds:
-        - project: '{name}-pipeline2'
-          trigger-with-no-params: true
-
-- job-template:
-    name: '{name}-pipeline2'
-
-    builders:
-      - shell: |
-          #!/usr/bin/env bash
-
-          echo "Hi!  I'm job 2"
 - project:
     name: pipeline-test
     jobs:
