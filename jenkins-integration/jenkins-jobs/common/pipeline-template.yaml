@@ -83,7 +83,21 @@
           trigger-with-no-params: true
 
 - job-template:
-    name: '{task}-{name}-070-launch-bg-scripts'
+    name: '{task}-{name}-070-validate-classification'
+
+    builders:
+      - shell: |
+          #!/usr/bin/env bash
+
+          echo "Hi!  I should be classifying nodes on your SUT, but I'm not!"
+
+    publishers:
+      - trigger-parameterized-builds:
+        - project: '{task}-{name}-080-launch-bg-scripts'
+          trigger-with-no-params: true
+
+- job-template:
+    name: '{task}-{name}-080-launch-bg-scripts'
 
     builders:
       - shell: |
@@ -93,11 +107,11 @@
 
     publishers:
       - trigger-parameterized-builds:
-        - project: '{task}-{name}-080-run-gatling-sim'
+        - project: '{task}-{name}-090-run-gatling-sim'
           trigger-with-no-params: true
 
 - job-template:
-    name: '{task}-{name}-080-run-gatling-sim'
+    name: '{task}-{name}-090-run-gatling-sim'
 
     builders:
       - shell: |
@@ -107,11 +121,11 @@
 
     publishers:
       - trigger-parameterized-builds:
-        - project: '{task}-{name}-090-collect-artifacts'
+        - project: '{task}-{name}-100-collect-artifacts'
           trigger-with-no-params: true
 
 - job-template:
-    name: '{task}-{name}-090-collect-artifacts'
+    name: '{task}-{name}-100-collect-artifacts'
 
     builders:
       - shell: |
