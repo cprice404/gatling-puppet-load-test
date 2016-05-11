@@ -2,13 +2,4 @@
     name: pipeline-test
     task: perf
     jobs:
-      - "{task}-{name}-010-provision-sut"
-      - "{task}-{name}-020-install-pe"
-      - "{task}-{name}-030-customize-settings"
-      - "{task}-{name}-040-install-puppet-code"
-      - "{task}-{name}-050-file-sync"
-      - "{task}-{name}-060-classify-nodes"
-      - "{task}-{name}-070-validate-classification"
-      - "{task}-{name}-080-launch-bg-scripts"
-      - "{task}-{name}-090-run-gatling-sim"
-      - "{task}-{name}-100-collect-artifacts"
+      - "{task}-{name}-pipeline"
