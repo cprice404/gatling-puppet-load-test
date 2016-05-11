@@ -10,7 +10,8 @@
     publishers:
       - trigger-parameterized-builds:
         - project: '{name}-pipeline2'
-        
+          trigger-with-no-params: true
+
 - job-template:
     name: '{name}-pipeline2'
 
