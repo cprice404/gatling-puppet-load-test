@@ -15,6 +15,7 @@
     publishers:
       - trigger-parameterized-builds:
         - project: '{task}-{name}-020-install-pe'
+          current-parameters: true
 
 - job-template:
     name: '{task}-{name}-020-install-pe'
