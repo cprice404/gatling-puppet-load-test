@@ -13,8 +13,8 @@ println "DIR: " + dir
 
 println "CWD: " + new File(".")
 
-dir.absoluteFile.eachFileRecurse (FileType.FILES) { file ->
-////    println "FILE: " + file
+dir.eachFileRecurse (FileType.FILES) { file ->
+    println "FILE: " + file
     if (file.name.equals("Jenkinsfile")) {
         println "FOUND A JANKFILE: " + file
         println "Parent dir:" + file.parentFile.name
