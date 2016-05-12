@@ -21,7 +21,7 @@ dir.eachFileRecurse (FileType.FILES) { file ->
                             branch(git_branch)
                         }
                     }
-                    scriptPath(file)
+                    scriptPath(file.path)
                 }
             }
         }
