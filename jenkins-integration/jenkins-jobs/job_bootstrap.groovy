@@ -3,7 +3,7 @@ import groovy.io.FileType
 def git_repo = 'git://10.0.19.111/gatling-puppet-load-test'
 def git_branch = 'scratch/master/pipeline-test'
 
-def dir = new File("./jenkins-integration/jenkins-jobs")
+def dir = new File("jenkins-integration/jenkins-jobs")
 dir.eachFileRecurse (FileType.FILES) { file ->
 //    println "FILE: " + file
     if (file.name.equals("Jenkinsfile")) {
