@@ -1,3 +1,13 @@
+- scm:
+    name: gplt-scm
+    scm:
+      - git:
+          url: https://github.com/puppetlabs/gatling-puppet-load-test.git
+          branches:
+              - master
+          browser: githubweb
+          browser-url: http://github.com/puppetlabs/gatling-puppet-load-test
+
 - job-template:
     name: '{task}-{name}-010-provision-sut'
     parameters:
@@ -19,6 +29,7 @@
 
 - job-template:
     name: '{task}-{name}-020-install-pe'
+    scm: gplt-scm
 
     builders:
       - shell: |
