@@ -39,7 +39,7 @@
           pushd jenkins-integration
           source ./jenkins-jobs/common/scripts/initialize_ruby_env.sh
           ./jenkins-jobs/common/scripts/setup_beaker_env.sh
-          ./jenkins-jobs/ops-deployment/setup_master.sh
+          ./jenkins-jobs/common/scripts/setup_master.sh
           popd
     publishers:
       - trigger-parameterized-builds:
