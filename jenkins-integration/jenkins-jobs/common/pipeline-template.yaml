@@ -1,16 +1,20 @@
 - job-template:
     name: '{task}-{name}-010-provision-sut'
+    parameters:
+    - string:
+      name: SUT_HOST
+      description: "The hostname/ip address of the SUT host"
+      default: "puppetserver-perf-sut54.delivery.puppetlabs.net"
 
     builders:
       - shell: |
           #!/usr/bin/env bash
 
-          echo "Hi!  I should be provisioning your SUT, but I'm not!"
+          echo "Hi!  TODO: I should be provisioning your SUT, but I'm not!"
 
     publishers:
       - trigger-parameterized-builds:
         - project: '{task}-{name}-020-install-pe'
-          trigger-with-no-params: true
 
 - job-template:
     name: '{task}-{name}-020-install-pe'
@@ -19,12 +23,14 @@
       - shell: |
           #!/usr/bin/env bash
 
-          echo "Hi!  I should be installing PE on your SUT, but I'm not!"
-
+          pushd jenkins-integration
+          source ./jenkins-jobs/common/scripts/initialize_ruby_env.sh
+          ./jenkins-jobs/common/scripts/setup_beaker_env.sh
+          ./jenkins-jobs/ops-deployment/setup_master.sh
+          popd
     publishers:
       - trigger-parameterized-builds:
         - project: '{task}-{name}-030-customize-settings'
-          trigger-with-no-params: true
 
 - job-template:
     name: '{task}-{name}-030-customize-settings'
@@ -38,7 +44,6 @@
     publishers:
       - trigger-parameterized-builds:
         - project: '{task}-{name}-040-install-puppet-code'
-          trigger-with-no-params: true
 
 - job-template:
     name: '{task}-{name}-040-install-puppet-code'
@@ -47,12 +52,12 @@
       - shell: |
           #!/usr/bin/env bash
 
-          echo "Hi!  I should be installing Puppet Code into the staging directory on your SUT, but I'm not!"
-
+          pushd jenkins-integration
+          ./jenkins-jobs/common/scripts/install_puppet_code.sh
+          popd
     publishers:
       - trigger-parameterized-builds:
         - project: '{task}-{name}-050-file-sync'
-          trigger-with-no-params: true
 
 - job-template:
     name: '{task}-{name}-050-file-sync'
@@ -61,12 +66,12 @@
       - shell: |
           #!/usr/bin/env bash
 
-          echo "Hi!  I should be performing a file sync on your SUT, but I'm not!"
-
+          pushd jenkins-integration
+          ./jenkins-jobs/common/scripts/file_sync.sh
+          popd
     publishers:
       - trigger-parameterized-builds:
         - project: '{task}-{name}-060-classify-nodes'
-          trigger-with-no-params: true
 
 - job-template:
     name: '{task}-{name}-060-classify-nodes'
@@ -75,12 +80,12 @@
       - shell: |
           #!/usr/bin/env bash
 
-          echo "Hi!  I should be classifying nodes on your SUT, but I'm not!"
-
+          pushd jenkins-integration
+          ./jenkins-jobs/common/scripts/classify_nodes.sh
+          popd
     publishers:
       - trigger-parameterized-builds:
         - project: '{task}-{name}-070-validate-classification'
-          trigger-with-no-params: true
 
 - job-template:
     name: '{task}-{name}-070-validate-classification'
@@ -89,12 +94,11 @@
       - shell: |
           #!/usr/bin/env bash
 
-          echo "Hi!  I should be classifying nodes on your SUT, but I'm not!"
+          echo "Hi!  TODO: I should be validating classification on your SUT, but I'm not!"
 
     publishers:
       - trigger-parameterized-builds:
         - project: '{task}-{name}-080-launch-bg-scripts'
-          trigger-with-no-params: true
 
 - job-template:
     name: '{task}-{name}-080-launch-bg-scripts'
@@ -103,12 +107,11 @@
       - shell: |
           #!/usr/bin/env bash
 
-          echo "Hi!  I should be launching background scripts on your SUT, but I'm not!"
+          echo "Hi!  TODO: I should be launching background scripts on your SUT, but I'm not!"
 
     publishers:
       - trigger-parameterized-builds:
         - project: '{task}-{name}-090-run-gatling-sim'
-          trigger-with-no-params: true
 
 - job-template:
     name: '{task}-{name}-090-run-gatling-sim'
@@ -117,12 +120,12 @@
       - shell: |
           #!/usr/bin/env bash
 
-          echo "Hi!  I should be running a gatling simulation against your SUT, but I'm not!"
-
+          pushd jenkins-integration
+          ./jenkins-jobs/common/scripts/run_simulation.sh
+          popd
     publishers:
       - trigger-parameterized-builds:
         - project: '{task}-{name}-100-collect-artifacts'
-          trigger-with-no-params: true
 
 - job-template:
     name: '{task}-{name}-100-collect-artifacts'
@@ -131,7 +134,7 @@
       - shell: |
           #!/usr/bin/env bash
 
-          echo "Hi!  I should be collecting reports / artifacts for your perf test, but I'm not!"
+          echo "Hi!  TODO: I should be collecting reports / artifacts for your perf test, but I'm not!"
 
 - job-group:
     name: "{task}-{name}-pipeline"
