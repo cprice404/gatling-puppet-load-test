@@ -19,21 +19,21 @@ dir.eachFileRecurse (FileType.FILES) { file ->
         println "FOUND A JANKFILE: " + file
         println "Parent dir:" + file.parentFile.name
         job_prefix = file.parentFile.name
-////        workflowJob('thabootstrap') {
-////            definition {
-////                cpsScm {
-////                    scm {
-////                        git {
-////                            remote {
-////                                url(git_repo)
-////                            }
-////                            branch(git_branch)
-////                        }
-////                    }
-////                    scriptPath(file.absolutePath)
-////                }
-////            }
-////        }
+        workflowJob(job_prefix) {
+            definition {
+                cpsScm {
+                    scm {
+                        git {
+                            remote {
+                                url(git_repo)
+                            }
+                            branch(git_branch)
+                        }
+                    }
+                    scriptPath(file.absolutePath)
+                }
+            }
+        }
     }
 }
 //
