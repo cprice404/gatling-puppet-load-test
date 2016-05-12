@@ -1,7 +1,7 @@
 import groovy.io.FileType
 
-def repo = 'git://10.0.19.111/gatling-puppet-load-test'
-def branch = 'scratch/master/pipeline-test'
+def git_repo = 'git://10.0.19.111/gatling-puppet-load-test'
+def git_branch = 'scratch/master/pipeline-test'
 
 def dir = new File(".")
 dir.eachFileRecurse (FileType.FILES) { file ->
@@ -16,9 +16,9 @@ dir.eachFileRecurse (FileType.FILES) { file ->
                     scm {
                         git {
                             remote {
-                                url(repo)
+                                url(git_repo)
                             }
-                            branch(branch)
+                            branch(git_branch)
                         }
                     }
                     scriptPath(file)
