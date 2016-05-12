@@ -2,9 +2,9 @@
     name: '{task}-{name}-010-provision-sut'
     parameters:
     - string:
-      name: SUT_HOST
-      description: "The hostname/ip address of the SUT host"
-      default: "puppetserver-perf-sut54.delivery.puppetlabs.net"
+        name: SUT_HOST
+        description: "The hostname/ip address of the SUT host"
+        default: "puppetserver-perf-sut54.delivery.puppetlabs.net"
 
     builders:
       - shell: |
