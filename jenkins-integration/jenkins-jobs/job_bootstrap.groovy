@@ -6,6 +6,8 @@ def git_branch = 'scratch/master/pipeline-test'
 //def dir = new File("jenkins-integration/jenkins-jobs")
 def dir = new File(".").absoluteFile
 
+println("script directory: ${new File(__FILE__).parent.absolutePath}")
+
 println "DIR: " + dir
 
 println "CWD: " + new File(".")
