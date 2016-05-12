@@ -7,7 +7,7 @@ def git_branch = 'scratch/master/pipeline-test'
 //def dir = new File(".").absoluteFile
 
 println("script directory: ${new File(__FILE__).parentFile.absolutePath}")
-dir = new File(__FILE__).parentFile.absolutePath
+dir = new File(__FILE__).parentFile.absoluteFile
 
 println "DIR: " + dir
 
