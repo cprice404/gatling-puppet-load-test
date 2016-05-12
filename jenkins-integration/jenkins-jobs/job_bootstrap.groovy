@@ -14,11 +14,11 @@ println "DIR: " + dir
 println "CWD: " + new File(".")
 
 dir.eachFileRecurse (FileType.FILES) { file ->
-    println "FILE: " + file
+//    println "FILE: " + file
     if (file.name.equals("Jenkinsfile")) {
         println "FOUND A JANKFILE: " + file
         println "Parent dir:" + file.parentFile.name
-//        job_prefix = file.parentFile.name
+        job_prefix = file.parentFile.name
 ////        workflowJob('thabootstrap') {
 ////            definition {
 ////                cpsScm {
