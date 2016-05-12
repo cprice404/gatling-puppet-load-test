@@ -9,33 +9,50 @@ def git_branch = 'scratch/master/pipeline-test'
 println("script directory: ${new File(__FILE__).parentFile.absolutePath}")
 dir = new File(__FILE__).parentFile.absoluteFile
 
+root_dir = dir
+while (root_dir.name != "jenkins-integration") {
+    root_dir = root_dir.parentFile
+}
+
+println "root_dir: " + root_dir
+
+
+
 println "DIR: " + dir
 
 println "CWD: " + new File(".")
 
-dir.eachFileRecurse (FileType.FILES) { file ->
-//    println "FILE: " + file
-    if (file.name.equals("Jenkinsfile")) {
-        println "FOUND A JANKFILE: " + file
-        println "Parent dir:" + file.parentFile.name
-        job_prefix = file.parentFile.name
-        workflowJob(job_prefix) {
-            definition {
-                cpsScm {
-                    scm {
-                        git {
-                            remote {
-                                url(git_repo)
-                            }
-                            branch(git_branch)
-                        }
-                    }
-                    scriptPath(file.absolutePath)
-                }
-            }
-        }
-    }
-}
+//dir.eachFileRecurse (FileType.FILES) { file ->
+////    println "FILE: " + file
+//    if (file.name.equals("Jenkinsfile")) {
+//        println "FOUND A JANKFILE: " + file
+//        println "Parent dir:" + file.parentFile.name
+//        job_prefix = file.parentFile.name
+//        workflowJob(job_prefix) {
+//            definition {
+//                cpsScm {
+//                    scm {
+//                        git {
+//                            remote {
+//                                url(git_repo)
+//                            }
+//                            branch(git_branch)
+//                        }
+//                    }
+//                    scriptPath(file.absolutePath)
+//                }
+//            }
+//        }
+//    }
+//}
+
+
+
+
+
+
+
+
 //
 //list.each {
 //    println it.path
