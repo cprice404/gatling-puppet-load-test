@@ -29,7 +29,8 @@
 
 - job-template:
     name: '{task}-{name}-020-install-pe'
-    scm: gplt-scm
+    scm:
+      - gplt-scm
 
     builders:
       - shell: |
