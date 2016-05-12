@@ -2,9 +2,9 @@
     name: gplt-scm
     scm:
       - git:
-          url: https://github.com/puppetlabs/gatling-puppet-load-test.git
+          url: git://10.0.19.111/gatling-puppet-load-test
           branches:
-              - master
+              - scratch/master/pipeline-test
           browser: githubweb
           browser-url: http://github.com/puppetlabs/gatling-puppet-load-test
 
