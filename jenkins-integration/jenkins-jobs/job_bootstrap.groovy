@@ -1,8 +1,8 @@
-//import groovy.io.FileType
+import groovy.io.FileType
 //
 //def list = []
 //
-//def dir = new File(".")
+def dir = new File(".")
 //dir.eachFileRecurse (FileType.FILES) { file ->
 //    list << file
 //}
@@ -11,7 +11,7 @@
 //    println it.path
 //}
 
-println "FOOOOO!"
+println "FOOOOO!: " + dir
 
 
 workflowJob('thabootstrap') {
