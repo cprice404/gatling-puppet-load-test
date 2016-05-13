@@ -14,6 +14,7 @@ def build(git_url, git_branch, job_name) {
         }
 
         stage '020-install-pe'
+        echo "SKIP PE INSTALL?: ${SKIP_PE_INSTALL}"
         if (SKIP_PE_INSTALL) {
             echo "Skipping PE install because SKIP_PE_INSTALL is set."
         } else {
