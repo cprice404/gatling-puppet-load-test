@@ -25,5 +25,4 @@ pe_version=2015.3.1 pe_family=2015.3.1 \
 
 # without this set +x, rvm will log 10 gigs of garbage
 set +x
-#set +x
 popd
