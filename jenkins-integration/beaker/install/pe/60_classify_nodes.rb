@@ -8,7 +8,7 @@ def classify_pe_nodes(classifier, nodes)
   nodes = group_by_environment(nodes)
   nodes.each_pair do |env, node_configs|
     node_configs.each do |config|
-      classifier.find_or_create_new_node_group_model(
+      classifier.find_or_create_node_group_model(
         'name' => "#{config['certname_prefix']}-group",
         'parent' => production_id,
         'environment' => env,
