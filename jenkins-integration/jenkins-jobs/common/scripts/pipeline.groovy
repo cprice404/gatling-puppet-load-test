@@ -12,7 +12,7 @@ def build(git_url, git_branch) {
         sh "${script_dir}/010_setup_beaker.sh"
 
         stage '020-install-pe'
-        echo "Hi! TODO: I should be installing PE on the SUT, but I'm not."
+        sh "${script_dir}/020_install_pe.sh"
 
         stage '030-customize-settings'
         echo "Hi! TODO: I should be customizing PE settings on the SUT, but I'm not."
