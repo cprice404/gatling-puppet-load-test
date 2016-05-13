@@ -1,14 +1,14 @@
 import groovy.io.FileType
 import java.nio.file.Paths
 
-def git_repo = 'git://10.0.19.111/gatling-puppet-load-test'
+def git_repo = 'git://10.32.128.152/gatling-puppet-load-test'
 def git_branch = 'scratch/master/pipeline-test'
 
 String relativize(File root_dir, File f) {
     Paths.get(root_dir.absolutePath).relativize(Paths.get(f.absolutePath))
 }
 
-def createScript(String pipeline_script) {
+def createScript(git_repo, git_branch, pipeline_script) {
     """
 def pipeline =  node {
     git url: '${git_repo}', branch: '${git_branch}'
@@ -51,7 +51,7 @@ dir.eachFileRecurse (FileType.FILES) { file ->
         workflowJob(job_prefix + "2") {
             definition {
                 cps {
-                    script(createScript(relative_script))
+                    script(createScript(git_repo, git_branch, relative_script))
                 }
             }
         }
