@@ -27,7 +27,7 @@ def build(git_url, git_branch) {
         sh "${script_dir}/040_install_puppet_code.sh"
 
         stage '050-file-sync'
-        echo "Hi! TODO: I should be performing a file sync on the SUT, but I'm not."
+        sh "${script_dir}/050_file_sync.sh"
 
         stage '060-classify-nodes'
         echo "Hi! TODO: I should be classifying nodes on SUT, but I'm not."
