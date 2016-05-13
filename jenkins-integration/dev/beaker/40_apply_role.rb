@@ -1,5 +1,6 @@
 test_name "Apply puppet role for driver node in dev env"
 
 step "Apply role on dev machine" do
-  on(jenkins, puppet("apply", "-e", "'include ::puppetserver_perf_driver::role::puppetserver::perf::driver::dev'"))
+  # TODO: docs here about how to set environment for dev
+  on(jenkins, puppet("apply", "--environment", "jenkins_parameterized_trigger_plugin", "-e", "'include ::puppetserver_perf_driver::role::puppetserver::perf::driver::dev'"))
 end
