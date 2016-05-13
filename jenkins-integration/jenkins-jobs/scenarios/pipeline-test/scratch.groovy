@@ -6,6 +6,6 @@ def sayHello() {
 
 sayHello()
 
-if ("false") {
+if (new Boolean("false")) {
     println "false is truthy"
 }
