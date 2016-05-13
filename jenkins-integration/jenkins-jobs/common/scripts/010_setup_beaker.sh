@@ -23,6 +23,6 @@ pe_version=2015.3.1 pe_family=2015.3.1 \
         | sed -e 's/hypervisor: vmpooler/hypervisor: none/1' \
         > hosts.yaml
 
-# without this set +e, rvm will log 10 gigs of garbage
-set +e
+# without this set +x, rvm will log 10 gigs of garbage
+set +x
 popd
