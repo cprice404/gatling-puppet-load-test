@@ -3,14 +3,15 @@ def build(git_url, git_branch) {
 
     node {
         git url: git_url,
-            branch: git_branch
+                branch: git_branch
 
         stage '000-provision-sut'
         echo "Hi! TODO: I should be provisioning your SUT, but I'm not."
 
         stage '010-setup-beaker'
-        echo "SUT_HOST IS: '${SUT_HOST}'"
-        sh "${script_dir}/010_setup_beaker.sh"
+        withEnv(["SUT_HOST=${SUT_HOST}"]) {}
+            sh "${script_dir}/010_setup_beaker.sh"
+        }
 
         stage '020-install-pe'
         sh "${script_dir}/020_install_pe.sh"
