@@ -15,7 +15,11 @@ end
 step 'Unzip OPS tarball into code-staging' do
   on(master, <<-EOF)
 cd /root/test-catalogs-large-files/ops-environment-2015.12.07 &&
-cat ops_environments.tar.gz.* > ops_environment.tar.gz &&
+cat ops_environments.tar.gz.* > ops_environment.tar.gz
+EOF
+
+  on(master, <<-EOF)
+cd /root/test-catalogs-large-files/ops-environment-2015.12.07 &&
 tar xvzf ops_environment.tar.gz &&
 rm -rf /etc/puppetlabs/code-staging/environments &&
 mv environments /etc/puppetlabs/code-staging
