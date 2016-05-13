@@ -10,6 +10,7 @@ fi
 set -e
 set -x
 
+pwd
 bundle install --path vendor/bundle
 
 # Define the master host to have PE 2015.3.1 installed.
