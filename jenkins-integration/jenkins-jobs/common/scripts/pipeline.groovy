@@ -5,12 +5,14 @@ def build(git_url, git_branch) {
         git url: git_url,
             branch: git_branch
 
-        stage '010-provision-sut'
+        stage '000-provision-sut'
         echo "Hi! TODO: I should be provisioning your SUT, but I'm not."
+
+        stage '010-setup-beaker'
+        sh "${script_dir}/010_setup_beaker.sh"
 
         stage '020-install-pe'
         echo "Hi! TODO: I should be installing PE on the SUT, but I'm not."
-        sh "${script_dir}/020_install_pe.sh"
 
         stage '030-customize-settings'
         echo "Hi! TODO: I should be customizing PE settings on the SUT, but I'm not."
