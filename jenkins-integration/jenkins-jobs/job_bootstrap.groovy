@@ -49,6 +49,11 @@ dir.eachFileRecurse (FileType.FILES) { file ->
         job_prefix = file.parentFile.name
         relative_script = relativize(root_dir, file)
         workflowJob(job_prefix + "2") {
+            parameters {
+                stringParam('SUT_HOST',
+                        'puppetserver-perf-sut54.delivery.puppetlabs.net',
+                        'The host/IP address of the system to use as the SUT')
+            }
             definition {
                 cps {
                     script(createScript(git_repo, git_branch, relative_script))
