@@ -1,1 +1,5 @@
-echo 'hello from hello.groovy!'
+def sayHello() {
+    echo 'hello from hello.groovy!'
+}
+
+return this
