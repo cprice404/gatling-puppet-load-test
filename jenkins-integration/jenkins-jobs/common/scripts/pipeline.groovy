@@ -8,14 +8,7 @@ def build(git_url, git_branch) {
 
         stage '020-install-pe'
         echo "Hi! TODO: I should be installing PE on the SUT, but I'm not."
-        sh """
-#!/usr/bin/env bash
-
-pushd jenkins-integration
-source ./jenkins-jobs/common/scripts/initialize_ruby_env.sh
-./jenkins-jobs/common/scripts/setup_beaker_env.sh
-./jenkins-jobs/common/scripts/setup_master.sh
-popd
+        sh "
 """
 
         stage '030-customize-settings'
