@@ -1,4 +1,4 @@
-def build(git_url, git_branch) {
+def build(git_url, git_branch, job_name) {
     def script_dir = "./jenkins-integration/jenkins-jobs/common/scripts"
 
     node {
@@ -41,7 +41,8 @@ def build(git_url, git_branch) {
         echo "Hi! TODO: I should be launching background scripts on your SUT, but I'm not."
 
         stage '090-run-gatling-sim'
-        withEnv(["PUPPET_GATLING_SIMULATION_CONFIG=${PUPPET_GATLING_SIMULATION_CONFIG}",]) {
+        withEnv(["PUPPET_GATLING_SIMULATION_CONFIG=${PUPPET_GATLING_SIMULATION_CONFIG}",
+                 "PUPPET_GATLING_SIMULATION_ID=${job_name}"]) {
             sh "${script_dir}/090_run_simulation.sh"
         }
 

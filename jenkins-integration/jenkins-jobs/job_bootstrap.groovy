@@ -8,13 +8,13 @@ String relativize(File root_dir, File f) {
     Paths.get(root_dir.absolutePath).relativize(Paths.get(f.absolutePath))
 }
 
-def createScript(git_repo, git_branch, job_script) {
+def createScript(git_repo, git_branch, job_name, job_script) {
     """
 def job =  node {
     git url: '${git_repo}', branch: '${git_branch}'
     load '${job_script}'
 }
-job.createPipeline('${git_repo}', '${git_branch}')
+job.createPipeline('${git_repo}', '${git_branch}', '${job_name}')
 """
 }
 
@@ -60,7 +60,7 @@ dir.eachFileRecurse (FileType.FILES) { file ->
             }
             definition {
                 cps {
-                    script(createScript(git_repo, git_branch, relative_script))
+                    script(createScript(git_repo, git_branch, job_prefix, relative_script))
                 }
             }
         }
