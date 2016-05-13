@@ -30,7 +30,9 @@ def build(git_url, git_branch) {
         //sh "${script_dir}/050_file_sync.sh"
 
         stage '060-classify-nodes'
-        sh "${script_dir}/060_classify_nodes.sh"
+        withEnv(["PUPPET_GATLING_SIMULATION_CONFIG=${PUPPET_GATLING_SIMULATION_CONFIG}"]) {
+            sh "${script_dir}/060_classify_nodes.sh"
+        }
 
         stage '070-validate-classification'
         echo "Hi! TODO: I should be validating classification on your SUT, but I'm not."

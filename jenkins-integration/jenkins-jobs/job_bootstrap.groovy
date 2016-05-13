@@ -55,7 +55,7 @@ dir.eachFileRecurse (FileType.FILES) { file ->
                         'The host/IP address of the system to use as the SUT')
                 stringParam('PUPPET_GATLING_SIMULATION_CONFIG',
                         'simulation-runner/config/scenarios/ops-scenario.json',
-                        'The path to the ')
+                        'The path to the gplt gatling scenario config file.')
                 booleanParam('SKIP_PE_INSTALL', false, 'If checked, will skip over the PE Install step.  Useful if you are doing development and already have a PE SUT.')
             }
             definition {
