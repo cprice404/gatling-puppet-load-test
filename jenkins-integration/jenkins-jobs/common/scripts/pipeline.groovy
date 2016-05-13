@@ -41,7 +41,9 @@ def build(git_url, git_branch) {
         echo "Hi! TODO: I should be launching background scripts on your SUT, but I'm not."
 
         stage '090-run-gatling-sim'
-        sh "${script_dir}/090_run_simulation.sh"
+        withEnv(["PUPPET_GATLING_SIMULATION_CONFIG=${PUPPET_GATLING_SIMULATION_CONFIG}"]) {
+            sh "${script_dir}/090_run_simulation.sh"
+        }
 
         stage '100-collect-artifacts'
         echo "Hi! TODO: I should be collecting the final job artifacts, but I'm not."

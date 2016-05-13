@@ -7,6 +7,12 @@ source jenkins-jobs/common/scripts/initialize_ruby_env.sh
 # - local keystore file that gatling can use to talk to the SUT
 # - executes gatling simulation
 
+
+if [ -z "$PUPPET_GATLING_SIMULATION_CONFIG" ]; then
+    echo "Missing required environment variable PUPPET_GATLING_SIMULATION_CONFIG"
+    exit 1
+fi
+
 set -x
 set -e
 
