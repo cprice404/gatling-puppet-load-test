@@ -1,5 +1,8 @@
 #!/bin/bash
 
+pushd jenkins-integration
+source jenkins-jobs/common/scripts/initialize_ruby_env.sh
+
 # This job sets up the following:
 # - OPS environments installed on master
 # - CatalogZero module added to production environment
@@ -25,6 +28,9 @@ bundle exec beaker \
         --log-level debug \
         --no-color \
         --tests \
-jenkins-jobs/ops-deployment/install_large_files.rb,\
-jenkins-jobs/ops-deployment/install_catalog_zero.rb
+jenkins-jobs/scenarios/ops-deployment/install_large_files.rb,\
+jenkins-jobs/scenarios/ops-deployment/install_catalog_zero.rb
 
+# without this set +x, rvm will log 10 gigs of garbage
+set +x
+popd
