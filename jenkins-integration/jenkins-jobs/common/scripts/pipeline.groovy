@@ -9,7 +9,7 @@ def build(git_url, git_branch) {
         echo "Hi! TODO: I should be provisioning your SUT, but I'm not."
 
         stage '010-setup-beaker'
-        withEnv(["SUT_HOST=${SUT_HOST}"]) {}
+        withEnv(["SUT_HOST=${SUT_HOST}"]) {
             sh "${script_dir}/010_setup_beaker.sh"
         }
 
