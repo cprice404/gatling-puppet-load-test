@@ -1,14 +1,14 @@
 #!/bin/bash
 
-set -x
-set -e
-
 pushd jenkins-integration
-source jenkins-jobs/ops-deployment/initialize_ruby_env.sh
+source jenkins-jobs/common/scripts/initialize_ruby_env.sh
 
 # This job sets up the following:
 # - local keystore file that gatling can use to talk to the SUT
 # - executes gatling simulation
+
+set -x
+set -e
 
 bundle exec beaker \
         --config hosts.yaml \
