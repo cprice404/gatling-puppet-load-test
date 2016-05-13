@@ -24,3 +24,4 @@ pe_version=2015.3.1 pe_family=2015.3.1 \
         > hosts.yaml
 popd
 set +x
+set +e
