@@ -28,6 +28,6 @@ on(master, curl)
 
 # TODO: improve this
 # sleep for 10 minutes to make sure the file sync has completed
-puts "sleeping 600 to wait for file sync to complete; should change this to monitor the file sync status endpoint"
-sleep 600
-puts "Done sleeping"
+step "Sleeping 600 to wait for file sync to complete; should change this to monitor the file sync status endpoint"
+sleep 300
+step "Done sleeping"
