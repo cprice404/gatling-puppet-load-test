@@ -11,8 +11,8 @@ source jenkins-jobs/common/scripts/initialize_ruby_env.sh
 #  end up using the metadata from the nodes.json files to actually
 #  accomplish this)
 
-if [ -z "$PUPPET_GATLING_SCENARIO" ]; then
-    echo "Missing required environment variable PUPPET_GATLING_SCENARIO"
+if [ -z "$PUPPET_GATLING_SIMULATION_CONFIG" ]; then
+    echo "Missing required environment variable PUPPET_GATLING_SIMULATION_CONFIG"
     exit 1
 fi
 
