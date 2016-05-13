@@ -14,7 +14,7 @@ def job =  node {
     git url: '${git_repo}', branch: '${git_branch}'
     load '${job_script}'
 }
-job.createPipeline()
+job.createPipeline('${git_repo}', '${git_branch}')
 """
 }
 
