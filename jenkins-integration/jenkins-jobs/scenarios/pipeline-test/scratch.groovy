@@ -5,3 +5,7 @@ def sayHello() {
 }
 
 sayHello()
+
+if ("false") {
+    println "false is truthy"
+}
