@@ -1,1 +1,6 @@
 echo 'hello from another_scenario-test dir'
+
+dir = new File(__FILE__).parentFile.absoluteFile
+
+echo "the dir is: ${dir}"
+
