@@ -1,5 +1,8 @@
 #!/bin/bash
 
+pushd jenkins-integration
+source jenkins-jobs/common/scripts/initialize_ruby_env.sh
+
 # This job sets up the following:
 # - Node classified via NC to have catalog zero module
 
@@ -23,4 +26,6 @@ bundle exec beaker \
         --tests \
 beaker/install/pe/60_classify_nodes.rb
 
-
+# without this set +x, rvm will log 10 gigs of garbage
+set +x
+popd
