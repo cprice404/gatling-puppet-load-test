@@ -1,4 +1,6 @@
 def build(git_url, git_branch) {
+    def script_dir = "./jenkins-integration/jenkins-jobs/common/scripts"
+
     node {
         git url: git_url,
             branch: git_branch
@@ -8,8 +10,7 @@ def build(git_url, git_branch) {
 
         stage '020-install-pe'
         echo "Hi! TODO: I should be installing PE on the SUT, but I'm not."
-        sh "
-"""
+        sh "${script_dir}/020_install_pe.sh"
 
         stage '030-customize-settings'
         echo "Hi! TODO: I should be customizing PE settings on the SUT, but I'm not."
