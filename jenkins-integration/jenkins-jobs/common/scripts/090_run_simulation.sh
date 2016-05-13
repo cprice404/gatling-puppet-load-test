@@ -22,9 +22,10 @@ beaker/install/shared/configure_gatling_auth.rb
 # without this set +x, rvm will log 10 gigs of garbage
 set +x
 popd
+pushd simulation-runner
 
 set -x
-pushd simulation-runner
+
 PUPPET_GATLING_MASTER_BASE_URL=https://$PUPPET_GATLING_MASTER_BASE_URL:8140 sbt run
 # without this set +x, rvm will log 10 gigs of garbage
 set +x
