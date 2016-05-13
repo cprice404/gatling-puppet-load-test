@@ -12,4 +12,6 @@ def pipeline = node {
 
 pipeline.sayHello()
 
+echo "ENVIRONMENT IS: ${env}"
+
 
