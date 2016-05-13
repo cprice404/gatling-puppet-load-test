@@ -27,7 +27,7 @@ def build(git_url, git_branch) {
         sh "${script_dir}/040_install_puppet_code.sh"
 
         stage '050-file-sync'
-        #sh "${script_dir}/050_file_sync.sh"
+        //sh "${script_dir}/050_file_sync.sh"
 
         stage '060-classify-nodes'
         sh "${script_dir}/060_classify_nodes.sh"
