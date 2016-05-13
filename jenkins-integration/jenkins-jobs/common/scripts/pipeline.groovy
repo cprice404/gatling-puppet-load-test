@@ -24,7 +24,7 @@ def build(git_url, git_branch) {
         echo "Hi! TODO: I should be customizing PE settings on the SUT, but I'm not."
 
         stage '040-install-puppet-code'
-        echo "Hi! TODO: I should be installing puppet code on the SUT, but I'm not."
+        sh "${script_dir}/040_install_puppet_code.sh"
 
         stage '050-file-sync'
         echo "Hi! TODO: I should be performing a file sync on the SUT, but I'm not."
