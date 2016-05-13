@@ -8,6 +8,16 @@ String relativize(File root_dir, File f) {
     Paths.get(root_dir.absolutePath).relativize(Paths.get(f.absolutePath))
 }
 
+def createScript(String pipeline_script) {
+    """
+def pipeline =  node {
+    git url: '${git_repo}', branch: '${git_branch}'
+    load '${pipeline_script}'
+}
+pipeline.build()
+"""
+}
+
 dir = new File(__FILE__).parentFile.absoluteFile
 
 def root_dir = dir
@@ -32,6 +42,16 @@ dir.eachFileRecurse (FileType.FILES) { file ->
                         }
                     }
                     scriptPath(relative_jenkinsfile)
+                }
+            }
+        }
+    } else if (file.name.equals("pipeline.groovy")) {
+        job_prefix = file.parentFile.name
+        relative_script = relativize(root_dir, file)
+        workflowJob(job_prefix + "2") {
+            definition {
+                cps {
+                    script(createScript(relative_script))
                 }
             }
         }
