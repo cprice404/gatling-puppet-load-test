@@ -11,10 +11,15 @@ source jenkins-jobs/common/scripts/initialize_ruby_env.sh
 #  end up using the metadata from the nodes.json files to actually
 #  accomplish this)
 
+if [ -z "$PUPPET_GATLING_SCENARIO" ]; then
+    echo "Missing required environment variable PUPPET_GATLING_SCENARIO"
+    exit 1
+fi
+
 set -x
 set -e
 
-# Setup SSH agent for SSH access to PUPPET_GATLING_MASTER_BASE_URL
+# Setup SSH agent for SSH access to SUT
 eval $(ssh-agent -t 24h -s)
 ssh-add ${HOME}/.ssh/id_rsa
 

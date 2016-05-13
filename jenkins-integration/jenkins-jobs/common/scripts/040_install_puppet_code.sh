@@ -18,7 +18,7 @@ source jenkins-jobs/common/scripts/initialize_ruby_env.sh
 set -x
 set -e
 
-# Setup SSH agent for SSH access to PUPPET_GATLING_MASTER_BASE_URL
+# Setup SSH agent for SSH access to SUT
 eval $(ssh-agent -t 24h -s)
 ssh-add ${HOME}/.ssh/id_rsa
 
