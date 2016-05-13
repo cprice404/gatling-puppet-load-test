@@ -1,6 +1,8 @@
 echo 'hello from another_scenario-test dir'
 
-dir = new File(__FILE__).parentFile.absoluteFile
+//dir = new File(__FILE__).parentFile.absoluteFile
 
-echo "the dir is: ${dir}"
+//echo "the dir is: ${dir}"
+
+load 'jenkins-jobs/common/scripts/hello.groovy'
 
