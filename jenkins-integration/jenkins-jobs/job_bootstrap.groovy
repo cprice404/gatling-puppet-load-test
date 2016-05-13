@@ -53,6 +53,7 @@ dir.eachFileRecurse (FileType.FILES) { file ->
                 stringParam('SUT_HOST',
                         'puppetserver-perf-sut54.delivery.puppetlabs.net',
                         'The host/IP address of the system to use as the SUT')
+                booleanParam('SKIP_PE_INSTALL', false, 'If checked, will skip over the PE Install step.  Useful if you are doing development and already have a PE SUT.')
             }
             definition {
                 cps {
