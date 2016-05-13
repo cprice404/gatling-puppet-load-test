@@ -6,7 +6,7 @@ echo 'hello from another_scenario-test dir'
 node {
     git url: 'git://10.32.128.152/gatling-puppet-load-test',
             branch: 'scratch/master/pipeline-test'
-    load 'jenkins-jobs/common/scripts/hello.groovy'
+    load 'jenkins-integration/jenkins-jobs/common/scripts/hello.groovy'
 }
 
 
