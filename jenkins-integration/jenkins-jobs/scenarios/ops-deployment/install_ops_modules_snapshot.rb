@@ -1,4 +1,4 @@
-test_name 'Prepare OPS master for Gatling testing'
+test_name 'Deploy snapshot of SysOps modules into staging dir on SUT'
 
 step 'Clone test-catalogs-large-files repo onto master' do
   create_remote_file(master, '/root/.ssh/known_hosts', <<-EOF)

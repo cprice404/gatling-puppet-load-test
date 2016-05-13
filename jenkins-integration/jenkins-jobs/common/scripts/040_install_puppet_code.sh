@@ -29,7 +29,7 @@ bundle exec beaker \
         --no-color \
         --tests \
 jenkins-jobs/scenarios/ops-deployment/install_large_files.rb,\
-jenkins-jobs/scenarios/ops-deployment/install_catalog_zero.rb
+jenkins-jobs/scenarios/ops-deployment/install_ops_modules_snapshot.rb
 
 # without this set +x, rvm will log 10 gigs of garbage
 set +x
