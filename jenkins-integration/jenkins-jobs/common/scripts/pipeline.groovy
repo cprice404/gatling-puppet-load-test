@@ -7,7 +7,7 @@ def build(job_name) {
 //        git url: git_url,
 //                branch: git_branch
 
-        SKIP_PE_INSTALL = new Boolean(SKIP_PE_INSTALL)
+        SKIP_PE_INSTALL = (SKIP_PE_INSTALL == "true")
 
         stage '000-provision-sut'
         echo "Hi! TODO: I should be provisioning your SUT, but I'm not."
