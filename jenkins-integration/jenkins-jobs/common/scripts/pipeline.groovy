@@ -12,7 +12,7 @@ def build(job_name) {
         stage '000-provision-sut'
         echo "Hi! TODO: I should be provisioning your SUT, but I'm not."
 
-        step([$class: 'GatlingBuildAction'])
+//        step([$class: 'GatlingBuildAction'])
 
         stage '010-setup-beaker'
         withEnv(["SUT_HOST=${SUT_HOST}"]) {
