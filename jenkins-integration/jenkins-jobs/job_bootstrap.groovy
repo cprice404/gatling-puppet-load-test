@@ -63,25 +63,25 @@ dir.eachFileRecurse (FileType.FILES) { file ->
                 }
             }
         }
-    } else if (file.name.equals("job.groovy")) {
-        job_prefix = file.parentFile.name
-        relative_script = relativize(root_dir, file)
-        workflowJob(job_prefix + "2") {
-            parameters {
-                stringParam('SUT_HOST',
-                        'puppetserver-perf-sut54.delivery.puppetlabs.net',
-                        'The host/IP address of the system to use as the SUT')
-                stringParam('PUPPET_GATLING_SIMULATION_CONFIG',
-                        '../simulation-runner/config/scenarios/ops-scenario.json',
-                        'The path to the gplt gatling scenario config file.')
-                booleanParam('SKIP_PE_INSTALL', false, 'If checked, will skip over the PE Install step.  Useful if you are doing development and already have a PE SUT.')
-            }
-            definition {
-                cps {
-//                    script(createScript(git_repo, git_branch, job_prefix, relative_script))
-                    script(createScript(job_prefix, relative_script))
-                }
-            }
-        }
+//    } else if (file.name.equals("job.groovy")) {
+//        job_prefix = file.parentFile.name
+//        relative_script = relativize(root_dir, file)
+//        workflowJob(job_prefix + "2") {
+//            parameters {
+//                stringParam('SUT_HOST',
+//                        'puppetserver-perf-sut54.delivery.puppetlabs.net',
+//                        'The host/IP address of the system to use as the SUT')
+//                stringParam('PUPPET_GATLING_SIMULATION_CONFIG',
+//                        '../simulation-runner/config/scenarios/ops-scenario.json',
+//                        'The path to the gplt gatling scenario config file.')
+//                booleanParam('SKIP_PE_INSTALL', false, 'If checked, will skip over the PE Install step.  Useful if you are doing development and already have a PE SUT.')
+//            }
+//            definition {
+//                cps {
+////                    script(createScript(git_repo, git_branch, job_prefix, relative_script))
+//                    script(createScript(job_prefix, relative_script))
+//                }
+//            }
+//        }
     }
 }

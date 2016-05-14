@@ -1,34 +1,5 @@
-//echo 'hello from another_scenario-test dir'
-//
-////dir = new File(__FILE__).parentFile.absoluteFile
-//
-////echo "the dir is: ${dir}"
-//
-//def pipeline = node {
-//    git url: 'git://10.32.128.152/gatling-puppet-load-test',
-//            branch: 'scratch/master/pipeline-test'
-//    load 'jenkins-integration/jenkins-jobs/common/scripts/hello.groovy'
-//}
-//
-//pipeline.sayHello()
-//
-//echo "ENVIRONMENT IS: ${env.keys}"
-
-//def job =
-echo "RUNNING THE JANKFILE"
 node {
-    echo "ABOUT TO CHECKOUT SCM"
     checkout scm
-    echo "CHECKED OUT SCM"
     pipeline = load 'jenkins-integration/jenkins-jobs/common/scripts/pipeline.groovy'
 }
 pipeline.build('taco')
-
-
-//def createPipeline(git_url, git_branch,  job_name) {
-//    pipeline.build(git_url, git_branch, job_name)
-//def createPipeline(job_name) {
-//    pipeline.build(job_name)
-//}
-//
-//return this;
