@@ -12,6 +12,8 @@ def build(job_name) {
         stage '000-provision-sut'
         echo "Hi! TODO: I should be provisioning your SUT, but I'm not."
 
+        step([$class: 'GatlingBuildAction'])
+
         stage '010-setup-beaker'
         withEnv(["SUT_HOST=${SUT_HOST}"]) {
             sh "${script_dir}/010_setup_beaker.sh"
@@ -54,7 +56,7 @@ def build(job_name) {
         stage '100-collect-artifacts'
         echo "Hi! TODO: I should be collecting the final job artifacts, but I'm not."
 //        step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
-        step([$class: 'GatlingBuildAction'])
+//        step([$class: 'GatlingBuildAction'])
 
     }
 
