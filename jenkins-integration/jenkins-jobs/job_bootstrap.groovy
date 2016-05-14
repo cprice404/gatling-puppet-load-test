@@ -63,7 +63,7 @@ dir.eachFileRecurse (FileType.FILES) { file ->
                 }
             }
             publishers {
-                archiveGatling()
+                archiveArtifacts('build/test-output/**/*.html')
             }
         }
 //    } else if (file.name.equals("job.groovy")) {
