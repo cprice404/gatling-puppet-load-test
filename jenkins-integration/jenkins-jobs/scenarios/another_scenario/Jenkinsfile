@@ -16,12 +16,12 @@
 
 //def job =
 echo "RUNNING THE JANKFILE"
-//node {
-//    echo "ABOUT TO CHECKOUT SCM"
+node {
+    echo "ABOUT TO CHECKOUT SCM"
 //    checkout scm
 //    echo "CHECKED OUT SCM"
 //    pipeline = load 'jenkins-integration/jenkins-jobs/common/scripts/pipeline.groovy'
-//}
+}
 //pipeline.build('taco')
 
 
