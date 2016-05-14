@@ -21,6 +21,7 @@ def createScript(job_name, job_script) {
     """
 def job =  node {
     checkout scm
+    load '${job_script}'
 }
 job.createPipeline('${job_name}')
 """
