@@ -62,6 +62,9 @@ dir.eachFileRecurse (FileType.FILES) { file ->
                     scriptPath(relative_jenkinsfile)
                 }
             }
+            publishers {
+                archiveGatling()
+            }
         }
 //    } else if (file.name.equals("job.groovy")) {
 //        job_prefix = file.parentFile.name
