@@ -1,9 +1,11 @@
-def build(git_url, git_branch, job_name) {
+//def build(git_url, git_branch, job_name) {
+def build(job_name) {
     def script_dir = "./jenkins-integration/jenkins-jobs/common/scripts"
 
     node {
-        git url: git_url,
-                branch: git_branch
+        checkout scm
+//        git url: git_url,
+//                branch: git_branch
 
         SKIP_PE_INSTALL = new Boolean(SKIP_PE_INSTALL)
 
