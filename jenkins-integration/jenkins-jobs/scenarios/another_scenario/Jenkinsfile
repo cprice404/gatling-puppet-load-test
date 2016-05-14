@@ -15,11 +15,14 @@
 //echo "ENVIRONMENT IS: ${env.keys}"
 
 //def job =
-node {
-    checkout scm
-    pipeline = load 'jenkins-integration/jenkins-jobs/common/scripts/pipeline.groovy'
-}
-pipeline.build('taco')
+echo "RUNNING THE JANKFILE"
+//node {
+//    echo "ABOUT TO CHECKOUT SCM"
+//    checkout scm
+//    echo "CHECKED OUT SCM"
+//    pipeline = load 'jenkins-integration/jenkins-jobs/common/scripts/pipeline.groovy'
+//}
+//pipeline.build('taco')
 
 
 //def createPipeline(git_url, git_branch,  job_name) {
