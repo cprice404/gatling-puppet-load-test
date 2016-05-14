@@ -1,8 +1,8 @@
 import groovy.io.FileType
 import java.nio.file.Paths
 
-//def git_repo = 'git://10.32.128.152/gatling-puppet-load-test'
-//def git_branch = 'scratch/master/pipeline-test'
+def git_repo = 'git://10.32.128.152/gatling-puppet-load-test'
+def git_branch = 'scratch/master/pipeline-test'
 
 String relativize(File root_dir, File f) {
     Paths.get(root_dir.absolutePath).relativize(Paths.get(f.absolutePath))
