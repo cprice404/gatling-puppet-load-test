@@ -54,6 +54,7 @@ def build(job_name) {
         }
 
         stage '100-collect-artifacts'
+        gatlingArchive()
         echo "Hi! TODO: I should be collecting the final job artifacts, but I'm not."
 //        step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
 //        step([$class: 'GatlingBuildAction'])
