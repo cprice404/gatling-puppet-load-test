@@ -106,7 +106,7 @@ def multipass_pipeline(jobs) {
         SKIP_PE_INSTALL = (SKIP_PE_INSTALL == "true")
 
         echo "LOOPING OVER JOBS:" + jobs
-        for (job in jobs)
+        for (job in jobs) {
 //        jobs.each { job ->
             job_name = job['job_name']
 
