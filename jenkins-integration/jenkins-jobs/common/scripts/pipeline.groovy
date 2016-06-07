@@ -56,7 +56,7 @@ def step100_collect_artifacts() {
     gatlingArchive()
 }
 
-def script_dir = "./jenkins-integration/jenkins-jobs/common/scripts"
+SCRIPT_DIR = "./jenkins-integration/jenkins-jobs/common/scripts"
 
 def single_pipeline(job_name) {
     node {
@@ -68,22 +68,22 @@ def single_pipeline(job_name) {
         step000_provision_sut()
 
         stage '010-setup-beaker'
-        step010_setup_beaker(script_dir)
+        step010_setup_beaker(SCRIPT_DIR)
 
         stage '020-install-pe'
-        step020_install_pe(SKIP_PE_INSTALL, script_dir)
+        step020_install_pe(SKIP_PE_INSTALL, SCRIPT_DIR)
 
         stage '030-customize-settings'
         step030_customize_settings()
 
         stage '040-install-puppet-code'
-        step040_install_puppet_code(script_dir)
+        step040_install_puppet_code(SCRIPT_DIR)
 
         stage '050-file-sync'
         step050_file_sync(script_dir)
 
         stage '060-classify-nodes'
-        step060_classify_nodes(script_dir)
+        step060_classify_nodes(SCRIPT_DIR)
 
         stage '070-validate-classification'
         step070_classify_nodes()
@@ -92,7 +92,7 @@ def single_pipeline(job_name) {
         step080_launch_bg_scripts()
 
         stage '090-run-gatling-sim'
-        step090_run_gatling_sim(job_name, script_dir)
+        step090_run_gatling_sim(job_name, SCRIPT_DIR)
 
         stage '100-collect-artifacts'
         step100_collect_artifacts()
@@ -109,14 +109,14 @@ def multipass_pipeline(jobs) {
             stage job['job_name']
             step000_provision_sut()
             step010_setup_beaker(script_dir)
-            step020_install_pe(SKIP_PE_INSTALL, script_dir)
+            step020_install_pe(SKIP_PE_INSTALL, SCRIPT_DIR)
             step030_customize_settings()
-            step040_install_puppet_code(script_dir)
-            step050_file_sync(script_dir)
-            step060_classify_nodes(script_dir)
+            step040_install_puppet_code(SCRIPT_DIR)
+            step050_file_sync(SCRIPT_DIR)
+            step060_classify_nodes(SCRIPT_DIR)
             step070_classify_nodes()
             step080_launch_bg_scripts()
-            step090_run_gatling_sim(job_name, script_dir)
+            step090_run_gatling_sim(job_name, SCRIPT_DIR)
             step100_collect_artifacts()
         }
     }
