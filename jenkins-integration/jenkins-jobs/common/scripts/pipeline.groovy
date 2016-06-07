@@ -105,7 +105,29 @@ def single_pipeline(job_name) {
 //        step([$class: 'GatlingBuildAction'])
 
     }
+}
 
+def multipass_pipeline(jobs) {
+    jobs.each { job ->
+        node {
+            checkout scm
+
+            SKIP_PE_INSTALL = (SKIP_PE_INSTALL == "true")
+
+            stage job['job_name']
+            step000_provision_sut()
+            step010_setup_beaker(script_dir)
+            step020_install_pe(SKIP_PE_INSTALL, script_dir)
+            step030_customize_settings()
+            step040_install_puppet_code(script_dir)
+            step050_file_sync(script_dir)
+            step060_classify_nodes(script_dir)
+            step070_classify_nodes()
+            step080_launch_bg_scripts()
+            step090_run_gatling_sim(job_name, script_dir)
+            step100_collect_artifacts()
+        }
+    }
 }
 
 
