@@ -106,7 +106,9 @@ def multipass_pipeline(jobs) {
 
             SKIP_PE_INSTALL = (SKIP_PE_INSTALL == "true")
 
-            stage job['job_name']
+            job_name = job['job_name']
+
+            stage job_name
             step000_provision_sut()
             step010_setup_beaker(SCRIPT_DIR)
             step020_install_pe(SKIP_PE_INSTALL, SCRIPT_DIR)
