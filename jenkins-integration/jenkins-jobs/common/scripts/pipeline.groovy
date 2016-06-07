@@ -107,9 +107,9 @@ def multipass_pipeline(jobs) {
 
         echo "LOOPING OVER JOBS:" + jobs
         jobs.each { job ->
-            echo "RUNNING JOB:"
-
             job_name = job['job_name']
+
+            echo "RUNNING JOB:" + job_name
 
             stage job_name
             step000_provision_sut()
