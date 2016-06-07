@@ -40,6 +40,8 @@ dir.eachFileRecurse (FileType.FILES) { file ->
         job_prefix = file.parentFile.name
         relative_jenkinsfile = relativize(root_dir, file)
         workflowJob(job_prefix) {
+            // TODO: this should be moved into the Jenkinsfile by use of
+            // the 'properties' step, see https://issues.jenkins-ci.org/browse/JENKINS-32780
             parameters {
                 stringParam('SUT_HOST',
                         'puppetserver-perf-sut54.delivery.puppetlabs.net',

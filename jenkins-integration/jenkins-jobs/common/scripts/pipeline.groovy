@@ -1,4 +1,10 @@
 //def build(git_url, git_branch, job_name) {
+
+def step000_provision_sut() {
+    echo "Hi from new step000 method! TODO: I should be provisioning your SUT, but I'm not."
+}
+
+
 def build(job_name) {
     def script_dir = "./jenkins-integration/jenkins-jobs/common/scripts"
 
@@ -10,7 +16,7 @@ def build(job_name) {
         SKIP_PE_INSTALL = (SKIP_PE_INSTALL == "true")
 
         stage '000-provision-sut'
-        echo "Hi! TODO: I should be provisioning your SUT, but I'm not."
+        step000_provision_sut()
 
 //        step([$class: 'GatlingBuildAction'])
 
