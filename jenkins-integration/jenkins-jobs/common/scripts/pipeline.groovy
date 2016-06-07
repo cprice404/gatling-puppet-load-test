@@ -80,7 +80,7 @@ def single_pipeline(job_name) {
         step040_install_puppet_code(SCRIPT_DIR)
 
         stage '050-file-sync'
-        step050_file_sync(script_dir)
+        step050_file_sync(SCRIPT_DIR)
 
         stage '060-classify-nodes'
         step060_classify_nodes(SCRIPT_DIR)
@@ -108,7 +108,7 @@ def multipass_pipeline(jobs) {
 
             stage job['job_name']
             step000_provision_sut()
-            step010_setup_beaker(script_dir)
+            step010_setup_beaker(SCRIPT_DIR)
             step020_install_pe(SKIP_PE_INSTALL, SCRIPT_DIR)
             step030_customize_settings()
             step040_install_puppet_code(SCRIPT_DIR)
