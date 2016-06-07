@@ -56,20 +56,16 @@ def step100_collect_artifacts() {
     gatlingArchive()
 }
 
-def single_pipeline(job_name) {
-    def script_dir = "./jenkins-integration/jenkins-jobs/common/scripts"
+def script_dir = "./jenkins-integration/jenkins-jobs/common/scripts"
 
+def single_pipeline(job_name) {
     node {
         checkout scm
-//        git url: git_url,
-//                branch: git_branch
 
         SKIP_PE_INSTALL = (SKIP_PE_INSTALL == "true")
 
         stage '000-provision-sut'
         step000_provision_sut()
-
-//        step([$class: 'GatlingBuildAction'])
 
         stage '010-setup-beaker'
         step010_setup_beaker(script_dir)
@@ -100,10 +96,6 @@ def single_pipeline(job_name) {
 
         stage '100-collect-artifacts'
         step100_collect_artifacts()
-//        echo "Hi! TODO: I should be collecting the final job artifacts, but I'm not."
-//        step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
-//        step([$class: 'GatlingBuildAction'])
-
     }
 }
 
