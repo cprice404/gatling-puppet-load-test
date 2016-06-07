@@ -100,11 +100,14 @@ def single_pipeline(job_name) {
 }
 
 def multipass_pipeline(jobs) {
-    jobs.each { job ->
-        node {
-            checkout scm
+    node {
+        checkout scm
 
-            SKIP_PE_INSTALL = (SKIP_PE_INSTALL == "true")
+        SKIP_PE_INSTALL = (SKIP_PE_INSTALL == "true")
+
+        echo "LOOPING OVER JOBS:" + jobs
+        jobs.each { job ->
+            echo "RUNNING JOB:"
 
             job_name = job['job_name']
 
