@@ -102,7 +102,7 @@ def single_pipeline(job_name) {
         step100_collect_artifacts()
 
         stage '900-collect-driver-artifacts'
-        step900_collect_driver_artifacts
+        step900_collect_driver_artifacts()
     }
 }
 
@@ -114,6 +114,8 @@ def multipass_pipeline(jobs) {
 
         echo "LOOPING OVER JOBS:" + jobs
         for (job in jobs) {
+            // NOTE: jenkins does not appear to like groovy's
+            // closure syntax
 //        jobs.each { job ->
             job_name = job['job_name']
 
@@ -133,6 +135,11 @@ def multipass_pipeline(jobs) {
             step100_collect_sut_artifacts()
         }
 
+        // it's critical that the gatling archiving happens outside
+        // of the loop.  If it happens inside of the loop, the first
+        // run will be archived and the second one will hit a minor
+        // error that prevents the summary graph from showing both
+        // sets of results.
         step900_collect_driver_artifacts()
     }
 }
