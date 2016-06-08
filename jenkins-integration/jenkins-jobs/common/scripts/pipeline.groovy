@@ -52,7 +52,11 @@ def step090_run_gatling_sim(job_name, script_dir) {
     }
 }
 
-def step100_collect_artifacts() {
+def step100_collect_sut_artifacts() {
+    echo "Hi! TODO: I should be collecting artifacts from your SUT, but I'm not."
+}
+
+def step900_collect_driver_artifacts() {
     gatlingArchive()
 }
 
@@ -94,8 +98,11 @@ def single_pipeline(job_name) {
         stage '090-run-gatling-sim'
         step090_run_gatling_sim(job_name, SCRIPT_DIR)
 
-        stage '100-collect-artifacts'
+        stage '100-collect-sut-artifacts'
         step100_collect_artifacts()
+
+        stage '900-collect-driver-artifacts'
+        step900_collect_driver_artifacts
     }
 }
 
@@ -123,8 +130,10 @@ def multipass_pipeline(jobs) {
             step070_classify_nodes()
             step080_launch_bg_scripts()
             step090_run_gatling_sim(job_name, SCRIPT_DIR)
-            step100_collect_artifacts()
+            step100_collect_sut_artifacts()
         }
+
+        step900_collect_driver_artifacts()
     }
 }
 
