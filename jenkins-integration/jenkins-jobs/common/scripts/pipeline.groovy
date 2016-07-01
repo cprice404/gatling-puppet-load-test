@@ -99,7 +99,7 @@ def single_pipeline(job_name) {
         step090_run_gatling_sim(job_name, SCRIPT_DIR)
 
         stage '100-collect-sut-artifacts'
-        step100_collect_artifacts()
+        step100_collect_sut_artifacts()
 
         stage '900-collect-driver-artifacts'
         step900_collect_driver_artifacts()
