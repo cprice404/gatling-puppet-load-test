@@ -29,6 +29,10 @@ case $SUT_HOST in
     ;;
 esac
 
+echo "About to SSH to razor server to request node reinstall for node '${RAZOR_NODE}'"
+whoami
+ls -l ~/.ssh
+cat ~/.ssh/id_rsa.pub
 ssh jenkins@boot-razor1-prod.ops.puppetlabs.net razor reinstall-node --name $RAZOR_NODE
 ssh $SUT_HOST reboot
 sleep 10
