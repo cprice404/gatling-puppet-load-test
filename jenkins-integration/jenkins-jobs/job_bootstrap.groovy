@@ -8,7 +8,7 @@ import java.nio.file.Paths
 // accomplish the same by simply modifying the values in the Jenkins gui
 // on the 'configuration' screen for the seed job.
 
-def git_repo = 'git://10.0.19.111/feature/master/SERVER-328-provision-SUT/gatling-puppet-load-test'
+def git_repo = 'git://10.0.19.111/gatling-puppet-load-test'
 def git_branch = 'feature/master/SERVER-328-provision-SUT'
 
 String relativize(File root_dir, File f) {
