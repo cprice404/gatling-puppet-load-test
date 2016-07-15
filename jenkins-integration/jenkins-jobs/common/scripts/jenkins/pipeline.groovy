@@ -1,5 +1,9 @@
-def step000_provision_sut() {
-    echo "Hi from new step000 method! TODO: I should be provisioning your SUT, but I'm not."
+def step000_provision_sut(SKIP_PROVISIONING, script_dir) {
+    echo "SKIP PROVISIONING?: ${SKIP_PROVISIONING} (${SKIP_PROVISIONING.class})"
+    if (SKIP_PROVISIONING) {
+    withEnv(["SUT_HOST=${SUT_HOST}"]) {
+        sh "${script_dir}/000_provision_sut.sh"
+    }
 }
 
 def step010_setup_beaker(script_dir) {

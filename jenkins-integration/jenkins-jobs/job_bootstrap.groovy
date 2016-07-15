@@ -8,8 +8,8 @@ import java.nio.file.Paths
 // accomplish the same by simply modifying the values in the Jenkins gui
 // on the 'configuration' screen for the seed job.
 
-def git_repo = 'https://github.com/puppetlabs/gatling-puppet-load-test.git'
-def git_branch = 'master'
+def git_repo = 'git://feature/master/SERVER-328-provision-SUT/gatling-puppet-load-test'
+def git_branch = 'feature/master/SERVER-328-provision-SUT'
 
 String relativize(File root_dir, File f) {
     Paths.get(root_dir.absolutePath).relativize(Paths.get(f.absolutePath))
@@ -49,6 +49,7 @@ scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
                         '../simulation-runner/config/scenarios/ops-scenario.json',
                         'The path to the gplt gatling scenario config file.')
                 booleanParam('SKIP_PE_INSTALL', false, 'If checked, will skip over the PE Install step.  Useful if you are doing development and already have a PE SUT.')
+                booleanParam('SKIP_PROVISIONING', true, 'If checked, will skip over the Razor provisioning step.  Useful if you already have an SUT provisioned, e.g. via the VM Pooler.')
             }
             definition {
                 cpsScm {
