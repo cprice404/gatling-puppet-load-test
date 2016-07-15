@@ -1,9 +1,10 @@
 def step000_provision_sut(SKIP_PROVISIONING, script_dir) {
     echo "SKIP PROVISIONING?: ${SKIP_PROVISIONING} (${SKIP_PROVISIONING.class})"
-//    if (SKIP_PROVISIONING) {
-//    withEnv(["SUT_HOST=${SUT_HOST}"]) {
-//        sh "${script_dir}/000_provision_sut.sh"
-//    }
+    if (SKIP_PROVISIONING) {
+        withEnv(["SUT_HOST=${SUT_HOST}"]) {
+            sh "${script_dir}/000_provision_sut.sh"
+        }
+    }
 }
 
 def step010_setup_beaker(script_dir) {
@@ -69,9 +70,10 @@ def single_pipeline(job_name) {
         checkout scm
 
         SKIP_PE_INSTALL = (SKIP_PE_INSTALL == "true")
+        SKIP_PROVISIONING = (SKIP_PROVISIONING == "true")
 
         stage '000-provision-sut'
-        step000_provision_sut()
+        step000_provision_sut(SKIP_PROVISIONING, script_dir)
 
         stage '010-setup-beaker'
         step010_setup_beaker(SCRIPT_DIR)
