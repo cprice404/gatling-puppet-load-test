@@ -1,6 +1,6 @@
 def step000_provision_sut(SKIP_PROVISIONING, script_dir) {
     echo "SKIP PROVISIONING?: ${SKIP_PROVISIONING} (${SKIP_PROVISIONING.class})"
-    if (SKIP_PROVISIONING) {
+    if (!SKIP_PROVISIONING) {
         withEnv(["SUT_HOST=${SUT_HOST}"]) {
             sh "${script_dir}/000_provision_sut.sh"
         }
