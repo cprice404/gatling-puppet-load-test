@@ -73,7 +73,7 @@ def single_pipeline(job_name) {
         SKIP_PROVISIONING = (SKIP_PROVISIONING == "true")
 
         stage '000-provision-sut'
-        step000_provision_sut(SKIP_PROVISIONING, script_dir)
+        step000_provision_sut(SKIP_PROVISIONING, SCRIPT_DIR)
 
         stage '010-setup-beaker'
         step010_setup_beaker(SCRIPT_DIR)
