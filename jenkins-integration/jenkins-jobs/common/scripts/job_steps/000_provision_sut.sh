@@ -33,13 +33,14 @@ echo "About to SSH to razor server to request node reinstall for node '${RAZOR_N
 whoami
 ls -l ~/.ssh
 cat ~/.ssh/id_rsa.pub
+# I'm pretty sure these flags mean "super secure"
 ssh -o StrictHostKeyChecking=no jenkins@boot-razor1-prod.ops.puppetlabs.net razor reinstall-node --name $RAZOR_NODE
-ssh $SUT_HOST reboot
+ssh -o StrictHostKeyChecking=no $SUT_HOST reboot
 sleep 10
 ATTEMPTS=0
 while [ $SUT_HOST -lt 20 ]; do
    echo "Attempting to connect to ${SUT_HOST}"
-   if `ssh $SUT_HOST true`; then
+   if `ssh -o StrictHostKeyChecking=no $SUT_HOST true`; then
      break;
    else
      echo "Unable to connect; sleeping 1 min before retrying"
