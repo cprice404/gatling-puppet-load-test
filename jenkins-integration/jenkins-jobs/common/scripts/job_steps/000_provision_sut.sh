@@ -33,7 +33,7 @@ echo "About to SSH to razor server to request node reinstall for node '${RAZOR_N
 whoami
 ls -l ~/.ssh
 cat ~/.ssh/id_rsa.pub
-ssh jenkins@boot-razor1-prod.ops.puppetlabs.net razor reinstall-node --name $RAZOR_NODE
+ssh -o StrictHostKeyChecking=no jenkins@boot-razor1-prod.ops.puppetlabs.net razor reinstall-node --name $RAZOR_NODE
 ssh $SUT_HOST reboot
 sleep 10
 ATTEMPTS=0
