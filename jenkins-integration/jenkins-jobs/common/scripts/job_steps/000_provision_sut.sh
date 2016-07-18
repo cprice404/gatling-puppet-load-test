@@ -40,7 +40,8 @@ ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@${SUT_HOST}
 # this line actually does the reboot, which will sever the connection and result
 #  in a non-zero exit code, so we add '|| true' so the bash script won't exit.
 ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@${SUT_HOST} reboot || true
-sleep 10
+# wait for the reboot to get underway
+sleep 60
 ATTEMPTS=0
 while [ $SUT_HOST -lt 20 ]; do
    echo "Attempting to connect to ${SUT_HOST}"
