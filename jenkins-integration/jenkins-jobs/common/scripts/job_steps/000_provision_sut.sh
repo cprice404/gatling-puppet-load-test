@@ -35,12 +35,16 @@ ls -l ~/.ssh
 cat ~/.ssh/id_rsa.pub
 # I'm pretty sure these flags mean "super secure"
 ssh -o StrictHostKeyChecking=no jenkins@boot-razor1-prod.ops.puppetlabs.net razor reinstall-node --name $RAZOR_NODE
-ssh -o StrictHostKeyChecking=no root@${SUT_HOST} reboot
+# this first ssh to the SUT just ensures that our credentials are OK
+ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@${SUT_HOST} true
+# this line actually does the reboot, which will sever the connection and result
+#  in a non-zero exit code, so we add '|| true' so the bash script won't exit.
+ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@${SUT_HOST} reboot || true
 sleep 10
 ATTEMPTS=0
 while [ $SUT_HOST -lt 20 ]; do
    echo "Attempting to connect to ${SUT_HOST}"
-   if `ssh -o StrictHostKeyChecking=no root@${SUT_HOST} true`; then
+   if `ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@${SUT_HOST} true`; then
      break;
    else
      echo "Unable to connect; sleeping 1 min before retrying"
