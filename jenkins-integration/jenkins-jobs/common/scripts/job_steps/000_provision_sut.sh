@@ -43,12 +43,14 @@ ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@${SUT_HOST}
 # wait for the reboot to get underway
 sleep 300
 ATTEMPTS=0
+SUCCESS=0
 set +e
 while [ $ATTEMPTS -lt 20 ]; do
    echo "Attempting to connect to ${SUT_HOST}"
    eval "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@${SUT_HOST} true"
    ret_code=$?
-   if [ $ret_code != 0 ]; then
+   if [ $ret_code -eq 0 ]; then
+     let SUCCESS=1
      break;
    else
      echo "Unable to connect; sleeping 1 min before retrying"
@@ -57,6 +59,11 @@ while [ $ATTEMPTS -lt 20 ]; do
    fi
 done
 set -e
+
+if [ $SUCCESS -ne 1 ]; then
+   echo "Provisioning failed; unable to reconnect to provisioned SUT after 20 minutes."
+   exit 1
+fi
 
 echo "Provisioning complete"
 
