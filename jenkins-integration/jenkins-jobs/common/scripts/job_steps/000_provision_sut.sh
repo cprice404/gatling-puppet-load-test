@@ -43,9 +43,11 @@ ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@${SUT_HOST}
 # wait for the reboot to get underway
 sleep 300
 ATTEMPTS=0
-while [ $SUT_HOST -lt 20 ]; do
+while [ $ATTEMPTS -lt 20 ]; do
    echo "Attempting to connect to ${SUT_HOST}"
-   if `ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@${SUT_HOST} true`; then
+   eval "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@${SUT_HOST} true"
+   ret_code=$?
+   if [ $ret_code != 0 ]; then
      break;
    else
      echo "Unable to connect; sleeping 1 min before retrying"
