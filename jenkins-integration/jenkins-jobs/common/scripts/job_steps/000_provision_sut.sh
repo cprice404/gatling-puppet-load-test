@@ -43,6 +43,7 @@ ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@${SUT_HOST}
 # wait for the reboot to get underway
 sleep 300
 ATTEMPTS=0
+set +e
 while [ $ATTEMPTS -lt 20 ]; do
    echo "Attempting to connect to ${SUT_HOST}"
    eval "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@${SUT_HOST} true"
@@ -55,6 +56,7 @@ while [ $ATTEMPTS -lt 20 ]; do
      let ATTEMPTS=ATTEMPTS+1
    fi
 done
+set -e
 
 echo "Provisioning complete"
 
