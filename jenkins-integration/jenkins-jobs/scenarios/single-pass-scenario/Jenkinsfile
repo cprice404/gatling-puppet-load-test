@@ -6,7 +6,7 @@ node {
 pipeline.single_pipeline([
         job_name: 'singletest',
         code_deploy: [
-                type: CodeDeployType.R10K,
+                type: pipeline.CodeDeployType.R10K,
 
 
 
