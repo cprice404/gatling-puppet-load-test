@@ -1,3 +1,6 @@
+
+println "CLASSLOADER URLS: " + this.class.classLoader.getURLs()
+
 import puppetlabs.jenkins.puppetserver.perf_testing.CodeDeployType
 
 println "LOADING PIPELINE.GROOVY: CDT.R10K:" + CodeDeployType.R10K
