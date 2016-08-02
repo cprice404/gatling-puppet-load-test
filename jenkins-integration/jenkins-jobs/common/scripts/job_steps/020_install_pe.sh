@@ -1,7 +1,7 @@
 #!/bin/bash
 
 pushd jenkins-integration
-source jenkins-jobs/common/scripts/job_steps/initialize_ruby_env.sh
+source jenkins-jobs/common/scripts/job-steps/initialize_ruby_env.sh
 
 # This job sets up the following:
 # - PE 2015.3.1 installation on provided master
