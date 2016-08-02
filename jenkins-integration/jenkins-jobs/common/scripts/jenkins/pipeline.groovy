@@ -1,9 +1,9 @@
 
 println "CLASSLOADER URLS: " + this.class.classLoader.getURLs()
 
-import puppetlabs.jenkins.puppetserver.perf_testing.CodeDeployType
-
-println "LOADING PIPELINE.GROOVY: CDT.R10K:" + CodeDeployType.R10K
+//import puppetlabs.jenkins.puppetserver.perf_testing.CodeDeployType
+//
+//println "LOADING PIPELINE.GROOVY: CDT.R10K:" + CodeDeployType.R10K
 
 def step000_provision_sut(SKIP_PROVISIONING, script_dir) {
     echo "SKIP PROVISIONING?: ${SKIP_PROVISIONING} (${SKIP_PROVISIONING.class})"
