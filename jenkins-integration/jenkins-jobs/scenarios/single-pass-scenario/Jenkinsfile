@@ -2,4 +2,13 @@ node {
     checkout scm
     pipeline = load 'jenkins-integration/jenkins-jobs/common/scripts/jenkins/pipeline.groovy'
 }
-pipeline.single_pipeline('singletest')
+
+pipeline.single_pipeline([
+        job_name: 'singletest',
+        code_deploy: [
+                type: CodeDeployType.R10K,
+
+
+
+        ]
+])

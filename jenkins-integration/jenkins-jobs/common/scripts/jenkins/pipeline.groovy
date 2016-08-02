@@ -1,3 +1,7 @@
+enum CodeDeployType {
+    R10K
+}
+
 def step000_provision_sut(SKIP_PROVISIONING, script_dir) {
     echo "SKIP PROVISIONING?: ${SKIP_PROVISIONING} (${SKIP_PROVISIONING.class})"
     if (!SKIP_PROVISIONING) {
@@ -65,7 +69,7 @@ def step900_collect_driver_artifacts() {
 
 SCRIPT_DIR = "./jenkins-integration/jenkins-jobs/common/scripts/job-steps"
 
-def single_pipeline(job_name) {
+def single_pipeline(job) {
     node {
         checkout scm
 
@@ -100,7 +104,7 @@ def single_pipeline(job_name) {
         step080_launch_bg_scripts()
 
         stage '090-run-gatling-sim'
-        step090_run_gatling_sim(job_name, SCRIPT_DIR)
+        step090_run_gatling_sim(job['name'], SCRIPT_DIR)
 
         stage '100-collect-sut-artifacts'
         step100_collect_sut_artifacts()
