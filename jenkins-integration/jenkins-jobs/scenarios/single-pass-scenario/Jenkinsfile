@@ -1,5 +1,8 @@
 node {
     checkout scm
+
+    println "CLASSLOADER URLS: " + this.class.classLoader.getURLs()
+
     pipeline = load 'jenkins-integration/jenkins-jobs/common/scripts/jenkins/pipeline.groovy'
 }
 

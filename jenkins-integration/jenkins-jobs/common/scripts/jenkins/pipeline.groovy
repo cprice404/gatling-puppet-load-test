@@ -1,5 +1,5 @@
 
-println "CLASSLOADER URLS: " + this.class.classLoader.getURLs()
+//println "CLASSLOADER URLS: " + this.class.classLoader.getURLs()
 
 //import puppetlabs.jenkins.puppetserver.perf_testing.CodeDeployType
 //
