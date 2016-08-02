@@ -1,9 +1,7 @@
-
-//println "CLASSLOADER URLS: " + this.class.classLoader.getURLs()
-
-//import puppetlabs.jenkins.puppetserver.perf_testing.CodeDeployType
-//
-//println "LOADING PIPELINE.GROOVY: CDT.R10K:" + CodeDeployType.R10K
+// NOTE: would really like to start writing some classes for some of this stuff,
+// and importing them here, but it doesn't seem like support for that is really
+// viable yet.  See https://issues.jenkins-ci.org/browse/JENKINS-37125 and
+// https://issues.jenkins-ci.org/browse/JENKINS-31155 .
 
 def step000_provision_sut(SKIP_PROVISIONING, script_dir) {
     echo "SKIP PROVISIONING?: ${SKIP_PROVISIONING} (${SKIP_PROVISIONING.class})"
