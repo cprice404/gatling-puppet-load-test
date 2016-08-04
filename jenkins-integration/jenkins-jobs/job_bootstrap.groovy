@@ -64,9 +64,6 @@ scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
                     scriptPath(relative_jenkinsfile)
                 }
             }
-            publishers {
-                archiveArtifacts('build/test-output/**/*.html')
-            }
         }
     }
 }

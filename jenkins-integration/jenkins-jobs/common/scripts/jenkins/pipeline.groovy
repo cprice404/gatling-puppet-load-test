@@ -31,7 +31,16 @@ def step030_customize_settings() {
     echo "Hi! TODO: I should be customizing PE settings on the SUT, but I'm not."
 }
 
-def step040_install_puppet_code(script_dir) {
+def step040_install_puppet_code(script_dir, code_deploy) {
+    switch (code_deploy["type"]) {
+//        case "r10k":
+//            break
+//        case "ops":
+//            break
+        default:
+            error "Unsupported code type: ${code_deploy["type"]}"
+            break
+    }
     sh "${script_dir}/040_install_puppet_code.sh"
 }
 
@@ -90,7 +99,7 @@ def single_pipeline(job) {
         step030_customize_settings()
 
         stage '040-install-puppet-code'
-        step040_install_puppet_code(SCRIPT_DIR)
+        step040_install_puppet_code(SCRIPT_DIR, job["code_deploy"])
 
         stage '050-file-sync'
         step050_file_sync(SCRIPT_DIR)
