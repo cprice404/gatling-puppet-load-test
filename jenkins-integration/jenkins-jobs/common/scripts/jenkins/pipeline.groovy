@@ -34,7 +34,12 @@ def step030_customize_settings() {
 def step040_install_puppet_code(script_dir, code_deploy) {
     switch (code_deploy["type"]) {
         case "r10k":
-            sh "${script_dir}/040_install_puppet_code-r10k.sh"
+            withEnv(["PUPPET_GATLING_R10K_CONTROL_REPO=${code_deploy["control_repo"]}",
+                     "PUPPET_GATLING_R10K_BASEDIR=${code_deploy["basedir"]}",
+                     "PUPPET_GATLING_R10K_ENVIRONMENTS=${code_deploy["environments"].join(",")}",
+                    ]) {
+                sh "${script_dir}/040_install_puppet_code-r10k.sh"
+            }
             break
         case "ops":
             sh "${script_dir}/040_install_puppet_code-ops_tarball.sh"
