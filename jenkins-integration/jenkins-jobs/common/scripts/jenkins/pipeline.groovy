@@ -33,15 +33,16 @@ def step030_customize_settings() {
 
 def step040_install_puppet_code(script_dir, code_deploy) {
     switch (code_deploy["type"]) {
-//        case "r10k":
-//            break
-//        case "ops":
-//            break
+        case "r10k":
+            sh "${script_dir}/040_install_puppet_code-r10k.sh"
+            break
+        case "ops":
+            sh "${script_dir}/040_install_puppet_code-ops_tarball.sh"
+            break
         default:
             error "Unsupported code type: ${code_deploy["type"]}"
             break
     }
-    sh "${script_dir}/040_install_puppet_code.sh"
 }
 
 def step050_file_sync(script_dir) {

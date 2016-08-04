@@ -21,8 +21,8 @@ bundle exec beaker \
         --log-level debug \
         --no-color \
         --tests \
-jenkins-jobs/common/scripts/ops-deployment/hack_hostname_into_etc_hosts.rb,\
-jenkins-jobs/common/scripts/ops-deployment/disable_firewall.rb,\
+beaker/install/shared/hack_hostname_into_etc_hosts.rb,\
+beaker/install/shared/disable_firewall.rb,\
 beaker/install/pe/10_install_pe.rb
 
 # without this set +x, rvm will log 10 gigs of garbage

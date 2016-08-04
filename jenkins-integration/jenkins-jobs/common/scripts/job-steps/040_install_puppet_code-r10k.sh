@@ -3,17 +3,9 @@
 pushd jenkins-integration
 source jenkins-jobs/common/scripts/job-steps/initialize_ruby_env.sh
 
-# This job sets up the following:
-# - OPS environments installed on master
-# - CatalogZero module added to production environment
-#
-# Note that we only need the OPS environments installed, we don't need to
-# explicitly reference them or use any of their classes; simply having them
-# there will exhibit the slow performance behavior we're trying to highlight
-# with this job.
-
-# TODO TODO TODO: this should *NOT* be hard-coded in the job template,
-#  this is very specific to a given job.
+# This job takes some parameters for an r10k deploy.  It will then
+# use r10k to deploy the specified environments from the specified
+# control repo to the specified directory on the SUT node.
 
 set -x
 set -e
