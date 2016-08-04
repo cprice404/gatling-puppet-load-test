@@ -33,7 +33,7 @@ def create_r10k_config(host, r10k_config)
     basedir: '#{r10k_config[:basedir]}'
 EOS
 
-  host.create_remote_file(R10K_CONFIG_PATH, r10k_config_contents)
+  create_remote_file(host, R10K_CONFIG_PATH, r10k_config_contents)
 end
 
 def run_r10k_deploy(host, r10k_config)
