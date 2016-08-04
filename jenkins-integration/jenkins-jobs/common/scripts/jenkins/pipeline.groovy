@@ -70,7 +70,8 @@ def step080_launch_bg_scripts() {
 
 def step090_run_gatling_sim(job_name, script_dir) {
     withEnv(["PUPPET_GATLING_SIMULATION_CONFIG=${PUPPET_GATLING_SIMULATION_CONFIG}",
-             "PUPPET_GATLING_SIMULATION_ID=${job_name}"]) {
+             "PUPPET_GATLING_SIMULATION_ID=${job_name}",
+             "PUPPET_GATLING_MASTER_BASE_URL=${PUPPET_GATLING_MASTER_BASE_URL}"]) {
         sh "${script_dir}/090_run_simulation.sh"
     }
 }
