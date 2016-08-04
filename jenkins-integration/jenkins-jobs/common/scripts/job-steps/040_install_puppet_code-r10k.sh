@@ -20,8 +20,7 @@ bundle exec beaker \
         --log-level debug \
         --no-color \
         --tests \
-jenkins-jobs/common/scripts/ops-deployment/install_ops_modules_snapshot.rb,\
-jenkins-jobs/common/scripts/ops-deployment/install_catalog_zero.rb
+beaker/install/shared/r10k_deploy.rb
 
 # without this set +x, rvm will log 10 gigs of garbage
 set +x
