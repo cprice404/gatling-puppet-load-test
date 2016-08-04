@@ -18,7 +18,7 @@ def install_r10k(host)
   on(host, "#{gem} install r10k --no-document")
 end
 
-def create_r10k_config(host, r10k)
+def create_r10k_config(host, r10k_config)
 
   on(host, "mkdir -p #{R10K_DIR}")
 
@@ -29,8 +29,8 @@ def create_r10k_config(host, r10k)
 
 :sources:
   :perf-test:
-    remote: '#{r10k["control_repo"]}'
-    basedir: '#{r10k["basedir"]}'
+    remote: '#{r10k_config[:control_repo]}'
+    basedir: '#{r10k_config[:basedir]}'
 EOS
 
   host.create_remote_file(R10K_CONFIG_PATH, r10k_config_contents)
@@ -38,7 +38,7 @@ end
 
 def run_r10k_deploy(host, r10k_config)
   r10k = '/opt/puppetlabs/puppet/bin/r10k'
-  r10k_config["environments"].each do |env|
+  r10k_config[:environments].each do |env|
     on(host, "#{r10k} deploy environment #{env} -p -v debug -c #{R10K_CONFIG_PATH}")
   end
 end
