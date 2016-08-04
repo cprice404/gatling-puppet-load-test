@@ -2,5 +2,5 @@
     "certname_prefix": "catzero",
     "environment": "production",
     "simulation_class": "com.puppetlabs.gatling.node_simulations.PE201530CatalogZero",
-    "classes": ["role::by_size::medium"],
+    "classes": ["role::by_size::medium"]
 }
