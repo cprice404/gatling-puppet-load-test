@@ -120,7 +120,7 @@ def single_pipeline(job) {
         step080_launch_bg_scripts()
 
         stage '090-run-gatling-sim'
-        step090_run_gatling_sim(job['name'], SCRIPT_DIR)
+        step090_run_gatling_sim(job['job_name'], SCRIPT_DIR)
 
         stage '100-collect-sut-artifacts'
         step100_collect_sut_artifacts()
