@@ -3,10 +3,4 @@
     "environment": "production",
     "simulation_class": "com.puppetlabs.gatling.node_simulations.PE201530CatalogZero",
     "classes": ["role::by_size::medium"],
-    #"modules": [
-        #{
-            #"name": "catalog_zero",
-            #"path": "/root/test-catalogs/catalog_zero/modules/catalog_zero"
-        #}
-    #]
 }
