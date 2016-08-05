@@ -6,7 +6,7 @@ def generate_sitepp(node_configs)
   node_configs.map do |config|
     config['classes'].
       map { |klass| "include #{klass}" }.
-      insert(0, "node '#{config['certname']}' {").
+      insert(0, "node /#{config['certname_prefix']}.*/ {").
       push('}').
       join("\n")
   end.join("\n").strip
@@ -29,7 +29,8 @@ def classify_foss_nodes(host, nodes)
 
     on(host, "mkdir -p #{manifestdir}")
     create_remote_file(host, manifestfile, sitepp)
-    on(host, "chmod 644 #{manifestdir}/site.pp")
+    on(host, "chmod 644 #{manifestfile}")
+    on(host, "cat #{manifestfile}")
   end
 end
 
