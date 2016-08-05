@@ -14,11 +14,16 @@ end
 
 def classify_foss_nodes(host, nodes)
   environments = on(host, puppet('config print environmentpath')).stdout.chomp
-  # on old PEs (3.3 at least), this returns an empty string, so we'll hard-code
-  #  the path for now.  This may need to be changed to support more versions of
-  #  PE and/or OSS in the future.
+  # on old PEs (3.3 at least), directory environments have to be enabled. We
+  # can detect this situation because the command above will return an empty
+  # string.  In that case we'll take a swing at enabling them by modifying the
+  # puppet config file, and then running the command again.
+  #
+  # This may need to be changed to support more versions of PE and/or OSS in
+  # the future.
   if environments == ""
-    environments = '/etc/puppetlabs/puppet/environments'
+    on(host, puppet('config set --section master environmentpath $confdir/environments'))
+    environments = on(host, puppet('config print environmentpath')).stdout.chomp
   end
   nodes = group_by_environment(nodes)
   nodes.each_pair do |env, node_configs|
