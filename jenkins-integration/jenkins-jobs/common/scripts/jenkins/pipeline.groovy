@@ -1,7 +1,25 @@
-// NOTE: would really like to start writing some classes for some of this stuff,
+// NOTE: would really like to start writing some classes/enums for some of this stuff,
 // and importing them here, but it doesn't seem like support for that is really
 // viable yet.  See https://issues.jenkins-ci.org/browse/JENKINS-37125 and
 // https://issues.jenkins-ci.org/browse/JENKINS-31155 .
+
+def get_server_era(pe_version) {
+    switch (pe_version) {
+        case ~/^3\.[78]\./: return [service_name: "pe-puppetserver",
+                                    tk_auth: false]
+        case ~/^3\./: return [service_name: "pe-httpd",
+                              tk_auth: false]
+        case ~/^2016\./: return [service_name: "pe-puppetserver",
+                                 tk_auth: true]
+        case ~/^2015\.3\./: return [service_name: "pe-puppetserver",
+                                    tk_auth: true]
+        case ~/^2015\./: return [service_name: "pe-puppetserver",
+                                 tk_auth: false]
+        default:
+            error "Unrecognized PE version: '${pe_version}'"
+    }
+}
+
 
 def step000_provision_sut(SKIP_PROVISIONING, script_dir) {
     echo "SKIP PROVISIONING?: ${SKIP_PROVISIONING} (${SKIP_PROVISIONING.class})"
@@ -24,12 +42,15 @@ def step010_setup_beaker(script_dir, server_version) {
     }
 }
 
-def step020_install_pe(SKIP_PE_INSTALL, script_dir) {
+def step020_install_pe(SKIP_PE_INSTALL, script_dir, server_era) {
     echo "SKIP PE INSTALL?: ${SKIP_PE_INSTALL} (${SKIP_PE_INSTALL.class})"
     if (SKIP_PE_INSTALL) {
         echo "Skipping PE install because SKIP_PE_INSTALL is set."
     } else {
-        sh "${script_dir}/020_install_pe.sh"
+        withEnv(["PUPPET_SERVER_SERVICE_NAME=${server_era["service_name"]}",
+                 "PUPPET_SERVER_TK_AUTH=${server_era["tk_auth"]}"]) {
+            sh "${script_dir}/020_install_pe.sh"
+        }
     }
 }
 
@@ -105,8 +126,10 @@ def single_pipeline(job) {
         stage '010-setup-beaker'
         step010_setup_beaker(SCRIPT_DIR, job["server_version"])
 
+        pe_version = get_server_era(job["server_version"]["pe_version"])
+
         stage '020-install-pe'
-        step020_install_pe(SKIP_PE_INSTALL, SCRIPT_DIR)
+        step020_install_pe(SKIP_PE_INSTALL, SCRIPT_DIR, pe_version)
 
         stage '030-customize-settings'
         step030_customize_settings()
@@ -154,8 +177,9 @@ def multipass_pipeline(jobs) {
 
             stage job_name
             step000_provision_sut(SKIP_PROVISIONING, SCRIPT_DIR)
-            step010_setup_beaker(SCRIPT_DIR)
-            step020_install_pe(SKIP_PE_INSTALL, SCRIPT_DIR)
+            step010_setup_beaker(SCRIPT_DIR, job["server_version"])
+            pe_version = get_server_era(job["server_version"]["pe_version"])
+            step020_install_pe(SKIP_PE_INSTALL, SCRIPT_DIR, pe_version)
             step030_customize_settings()
             step040_install_puppet_code(SCRIPT_DIR, job["code_deploy"])
             step050_file_sync(SCRIPT_DIR)
