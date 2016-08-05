@@ -13,9 +13,9 @@ R10K_CONFIG_PATH = "#{R10K_DIR}/r10k.yaml"
 ##      be overridden. For example, any modules defined in the JSON node files
 ##      that aren't defined in the r10k control repo will be removed.
 
-def install_r10k(host, bin)
+def install_r10k(host, bin, r10k_version)
   gem = "#{bin}/gem"
-  on(host, "#{gem} install r10k --no-rdoc --no-ri")
+  on(host, "#{gem} install r10k -v #{r10k_version} --no-rdoc --no-ri")
 end
 
 def create_r10k_config(host, r10k_config)
@@ -47,6 +47,7 @@ end
 ########################
 
 bin = ENV['PUPPET_BIN_DIR']
+r10k_version = ENV['PUPPET_R10K_VERSION']
 
 step "Install git" do
   on(master, puppet_resource("package git ensure=installed"))
@@ -75,7 +76,7 @@ end
 step "install and configure r10k" do
   r10k_config = get_r10k_config_from_env()
   if r10k_config
-    install_r10k(master, bin)
+    install_r10k(master, bin, r10k_version)
     create_r10k_config(master, r10k_config)
     run_r10k_deploy(master, bin, r10k_config)
   else

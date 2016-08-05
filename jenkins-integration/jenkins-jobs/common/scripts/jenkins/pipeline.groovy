@@ -9,23 +9,33 @@ def get_server_era(pe_version) {
     if (pe_version ==~ /^3\.[78]\..*/) {
         return [service_name: "pe-puppetserver",
                 tk_auth     : false,
-                puppet_bin_dir: "/opt/puppet/bin"]
+                puppet_bin_dir: "/opt/puppet/bin",
+                r10k_version: "1.5.1",
+                file_sync: false]
     } else if (pe_version ==~ /^3\..*/) {
         return [service_name: "pe-httpd",
                 tk_auth     : false,
-                puppet_bin_dir: "/opt/puppet/bin"]
+                puppet_bin_dir: "/opt/puppet/bin",
+                r10k_version: "1.5.1",
+                file_sync: false]
     } else if (pe_version ==~ /^2016\..*/) {
         return [service_name: "pe-puppetserver",
                 tk_auth     : true,
-                puppet_bin_dir: "/opt/puppetlabs/puppet/bin"]
+                puppet_bin_dir: "/opt/puppetlabs/puppet/bin",
+                r10k_version: "2.3.0",
+                file_sync: true]
     } else if (pe_version ==~ /^2015\.3\..*/) {
         return [service_name: "pe-puppetserver",
                 tk_auth     : true,
-                puppet_bin_dir: "/opt/puppetlabs/puppet/bin"]
+                puppet_bin_dir: "/opt/puppetlabs/puppet/bin",
+                r10k_version: "2.3.0",
+                file_sync: true]
     } else if (pe_version ==~ /^2015\..*/) {
         return [service_name: "pe-puppetserver",
                 tk_auth     : false,
-                puppet_bin_dir: "/opt/puppetlabs/puppet/bin"]
+                puppet_bin_dir: "/opt/puppetlabs/puppet/bin",
+                r10k_version: "2.3.0",
+                file_sync: false]
     } else {
         error "Unrecognized PE version: '${pe_version}'"
     }
@@ -75,7 +85,8 @@ def step040_install_puppet_code(script_dir, code_deploy, server_era) {
             withEnv(["PUPPET_GATLING_R10K_CONTROL_REPO=${code_deploy["control_repo"]}",
                      "PUPPET_GATLING_R10K_BASEDIR=${code_deploy["basedir"]}",
                      "PUPPET_GATLING_R10K_ENVIRONMENTS=${code_deploy["environments"].join(",")}",
-                     "PUPPET_BIN_DIR=${server_era["puppet_bin_dir"]}"
+                     "PUPPET_BIN_DIR=${server_era["puppet_bin_dir"]}",
+                     "PUPPET_R10K_VERSION=${server_era["r10k_version"]}"
                     ]) {
                 sh "${script_dir}/040_install_puppet_code-r10k.sh"
             }
@@ -89,8 +100,12 @@ def step040_install_puppet_code(script_dir, code_deploy, server_era) {
     }
 }
 
-def step050_file_sync(script_dir) {
-    sh "${script_dir}/050_file_sync.sh"
+def step050_file_sync(script_dir, server_era) {
+    if (server_era["file_sync"] == true) {
+        sh "${script_dir}/050_file_sync.sh"
+    } else {
+        echo "Server does not support file sync, skipping."
+    }
 }
 
 def step060_classify_nodes(script_dir) {
@@ -150,7 +165,7 @@ def single_pipeline(job) {
         step040_install_puppet_code(SCRIPT_DIR, job["code_deploy"], server_era)
 
         stage '050-file-sync'
-        step050_file_sync(SCRIPT_DIR)
+        step050_file_sync(SCRIPT_DIR, server_era)
 
         stage '060-classify-nodes'
         step060_classify_nodes(SCRIPT_DIR)
@@ -193,8 +208,8 @@ def multipass_pipeline(jobs) {
             server_era = get_server_era(job["server_version"]["pe_version"])
             step020_install_pe(SKIP_PE_INSTALL, SCRIPT_DIR, server_era)
             step030_customize_settings()
-            step040_install_puppet_code(SCRIPT_DIR, job["code_deploy"])
-            step050_file_sync(SCRIPT_DIR)
+            step040_install_puppet_code(SCRIPT_DIR, job["code_deploy"], server_era)
+            step050_file_sync(SCRIPT_DIR, server_era)
             step060_classify_nodes(SCRIPT_DIR)
             step070_classify_nodes()
             step080_launch_bg_scripts()
