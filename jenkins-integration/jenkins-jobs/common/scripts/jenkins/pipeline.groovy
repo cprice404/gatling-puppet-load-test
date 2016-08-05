@@ -12,8 +12,14 @@ def step000_provision_sut(SKIP_PROVISIONING, script_dir) {
     }
 }
 
-def step010_setup_beaker(script_dir) {
-    withEnv(["SUT_HOST=${SUT_HOST}"]) {
+def step010_setup_beaker(script_dir, server_version) {
+    if (server_version["type"] != "pe") {
+        error "Unsupported server type: ${server_version["type"]}"
+    }
+
+    withEnv(["SUT_HOST=${SUT_HOST}",
+             "pe_version=${server_version["pe_version"]}",
+             "pe_family=${server_version["pe_version"]}"]) {
         sh "${script_dir}/010_setup_beaker.sh"
     }
 }
@@ -97,7 +103,7 @@ def single_pipeline(job) {
         step000_provision_sut(SKIP_PROVISIONING, SCRIPT_DIR)
 
         stage '010-setup-beaker'
-        step010_setup_beaker(SCRIPT_DIR)
+        step010_setup_beaker(SCRIPT_DIR, job["server_version"])
 
         stage '020-install-pe'
         step020_install_pe(SKIP_PE_INSTALL, SCRIPT_DIR)
