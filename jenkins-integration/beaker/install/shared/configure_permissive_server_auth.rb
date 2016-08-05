@@ -26,7 +26,7 @@ authorization: {
   else
     Beaker::Log.notify "Server does not support tk auth, configuring legacy auth.conf"
 
-    auth_conf = '/etc/puppet/auth.conf'
+    auth_conf = '/etc/puppetlabs/puppet/auth.conf'
     create_remote_file(master, auth_conf, <<-EOF)
 path /
 auth any
