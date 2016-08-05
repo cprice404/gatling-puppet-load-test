@@ -36,11 +36,15 @@ EOS
   create_remote_file(host, R10K_CONFIG_PATH, r10k_config_contents)
 end
 
-def run_r10k_deploy(host, bin, r10k_config)
+def run_r10k_deploy(host, bin, environments, exec_options)
   r10k = "#{bin}/r10k"
-  r10k_config[:environments].each do |env|
-    on(host, "#{r10k} deploy environment #{env} -p -v debug -c #{R10K_CONFIG_PATH}")
+  results = {}
+  environments.each do |env|
+    result = on(host, "#{r10k} deploy environment #{env} -p -v debug -c #{R10K_CONFIG_PATH}",
+                exec_options)
+    results[env] = result.exit_code
   end
+  results
 end
 
 
@@ -78,7 +82,19 @@ step "install and configure r10k" do
   if r10k_config
     install_r10k(master, bin, r10k_version)
     create_r10k_config(master, r10k_config)
-    run_r10k_deploy(master, bin, r10k_config)
+
+    # This is straight up horrific.  Sorry.
+    # Old versions of r10k can do fun things like throw NPEs and return a non-zero
+    # exit code even when they've actually successfully deployed.  If you then
+    # simply re-run the same r10k command afterward, it'll get a zero exit code.
+    # So, we will do an initial deploy and then if we got any non-zero exit codes,
+    # we'll try those environments one more time.  Sorry.
+    results = run_r10k_deploy(master, bin, r10k_config[:environments],
+                              {:acceptable_exit_codes => [0, 1]})
+    failed_envs = results.select { |env,exit_code| exit_code == 1 }
+    if failed_envs.size > 0
+      run_r10k_deploy(master, bin, failed_envs, {})
+    end
   else
     raise "No R10K config found in environment!"
   end
