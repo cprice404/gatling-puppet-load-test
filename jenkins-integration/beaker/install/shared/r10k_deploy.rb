@@ -91,8 +91,9 @@ step "install and configure r10k" do
     # we'll try those environments one more time.  Sorry.
     results = run_r10k_deploy(master, bin, r10k_config[:environments],
                               {:acceptable_exit_codes => [0, 1]})
-    failed_envs = results.select { |env,exit_code| exit_code == 1 }
+    failed_envs = results.select { |env,exit_code| exit_code == 1 }.keys
     if failed_envs.size > 0
+      Beaker::Log.warn("R10K deploy failed on environments: #{failed_envs}; trying one more time.")
       run_r10k_deploy(master, bin, failed_envs, {})
     end
   else
