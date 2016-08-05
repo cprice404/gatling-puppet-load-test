@@ -4,19 +4,25 @@
 // https://issues.jenkins-ci.org/browse/JENKINS-31155 .
 
 def get_server_era(pe_version) {
-    switch (pe_version) {
-        case ~/^3\.[78]\./: return [service_name: "pe-puppetserver",
-                                    tk_auth: false]
-        case ~/^3\./: return [service_name: "pe-httpd",
-                              tk_auth: false]
-        case ~/^2016\./: return [service_name: "pe-puppetserver",
-                                 tk_auth: true]
-        case ~/^2015\.3\./: return [service_name: "pe-puppetserver",
-                                    tk_auth: true]
-        case ~/^2015\./: return [service_name: "pe-puppetserver",
-                                 tk_auth: false]
-        default:
-            error "Unrecognized PE version: '${pe_version}'"
+    // A normal groovy switch/case statement with regex matchers doesn't seem
+    // to work in Jenkins: https://issues.jenkins-ci.org/browse/JENKINS-37214
+    if (pe_version ==~ /^3\.[78]\..*/) {
+        return [service_name: "pe-puppetserver",
+                tk_auth     : false]
+    } else if (pe_version ==~ /^3\..*/) {
+        return [service_name: "pe-httpd",
+                tk_auth     : false]
+    } else if (pe_version ==~ /^2016\..*/) {
+        return [service_name: "pe-puppetserver",
+                tk_auth     : true]
+    } else if (pe_version ==~ /^2015\.3\..*/) {
+        return [service_name: "pe-puppetserver",
+                tk_auth     : true]
+    } else if (pe_version ==~ /^2015\..*/) {
+        return [service_name: "pe-puppetserver",
+                tk_auth     : false]
+    } else {
+        error "Unrecognized PE version: '${pe_version}'"
     }
 }
 
