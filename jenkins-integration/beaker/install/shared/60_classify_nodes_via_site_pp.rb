@@ -22,7 +22,7 @@ def classify_foss_nodes(host, nodes)
   # This may need to be changed to support more versions of PE and/or OSS in
   # the future.
   if environments == ""
-    on(host, puppet('config set --section master environmentpath \$confdir/environments'))
+    on(host, puppet('config set environmentpath \$confdir/environments'))
     environments = on(host, puppet('config print environmentpath')).stdout.chomp
   end
   nodes = group_by_environment(nodes)
