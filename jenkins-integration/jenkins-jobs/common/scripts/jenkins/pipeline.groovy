@@ -8,19 +8,24 @@ def get_server_era(pe_version) {
     // to work in Jenkins: https://issues.jenkins-ci.org/browse/JENKINS-37214
     if (pe_version ==~ /^3\.[78]\..*/) {
         return [service_name: "pe-puppetserver",
-                tk_auth     : false]
+                tk_auth     : false,
+                puppet_bin_dir: "/opt/puppet/bin"]
     } else if (pe_version ==~ /^3\..*/) {
         return [service_name: "pe-httpd",
-                tk_auth     : false]
+                tk_auth     : false,
+                puppet_bin_dir: "/opt/puppet/bin"]
     } else if (pe_version ==~ /^2016\..*/) {
         return [service_name: "pe-puppetserver",
-                tk_auth     : true]
+                tk_auth     : true,
+                puppet_bin_dir: "/opt/puppetlabs/puppet/bin"]
     } else if (pe_version ==~ /^2015\.3\..*/) {
         return [service_name: "pe-puppetserver",
-                tk_auth     : true]
+                tk_auth     : true,
+                puppet_bin_dir: "/opt/puppetlabs/puppet/bin"]
     } else if (pe_version ==~ /^2015\..*/) {
         return [service_name: "pe-puppetserver",
-                tk_auth     : false]
+                tk_auth     : false,
+                puppet_bin_dir: "/opt/puppetlabs/puppet/bin"]
     } else {
         error "Unrecognized PE version: '${pe_version}'"
     }

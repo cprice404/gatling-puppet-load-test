@@ -13,8 +13,8 @@ R10K_CONFIG_PATH = "#{R10K_DIR}/r10k.yaml"
 ##      be overridden. For example, any modules defined in the JSON node files
 ##      that aren't defined in the r10k control repo will be removed.
 
-def install_r10k(host)
-  gem = '/opt/puppetlabs/puppet/bin/gem'
+def install_r10k(host, bin)
+  gem = "#{bin}/gem"
   on(host, "#{gem} install r10k --no-document")
 end
 
@@ -36,8 +36,8 @@ EOS
   create_remote_file(host, R10K_CONFIG_PATH, r10k_config_contents)
 end
 
-def run_r10k_deploy(host, r10k_config)
-  r10k = '/opt/puppetlabs/puppet/bin/r10k'
+def run_r10k_deploy(host, bin, r10k_config)
+  r10k = "#{bin}/r10k"
   r10k_config[:environments].each do |env|
     on(host, "#{r10k} deploy environment #{env} -p -v debug -c #{R10K_CONFIG_PATH}")
   end
@@ -45,6 +45,8 @@ end
 
 
 ########################
+
+bin = ENV['PUPPET_BIN_DIR']
 
 step "Install git" do
   on(master, puppet_resource("package git ensure=installed"))
@@ -73,9 +75,9 @@ end
 step "install and configure r10k" do
   r10k_config = get_r10k_config_from_env()
   if r10k_config
-    install_r10k(master)
+    install_r10k(master, bin)
     create_r10k_config(master, r10k_config)
-    run_r10k_deploy(master, r10k_config)
+    run_r10k_deploy(master, bin, r10k_config)
   else
     raise "No R10K config found in environment!"
   end
