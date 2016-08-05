@@ -69,12 +69,13 @@ def step030_customize_settings() {
     echo "Hi! TODO: I should be customizing PE settings on the SUT, but I'm not."
 }
 
-def step040_install_puppet_code(script_dir, code_deploy) {
+def step040_install_puppet_code(script_dir, code_deploy, server_era) {
     switch (code_deploy["type"]) {
         case "r10k":
             withEnv(["PUPPET_GATLING_R10K_CONTROL_REPO=${code_deploy["control_repo"]}",
                      "PUPPET_GATLING_R10K_BASEDIR=${code_deploy["basedir"]}",
                      "PUPPET_GATLING_R10K_ENVIRONMENTS=${code_deploy["environments"].join(",")}",
+                     "PUPPET_BIN_DIR=${server_era["puppet_bin_dir"]}"
                     ]) {
                 sh "${script_dir}/040_install_puppet_code-r10k.sh"
             }
@@ -137,10 +138,10 @@ def single_pipeline(job) {
         stage '010-setup-beaker'
         step010_setup_beaker(SCRIPT_DIR, job["server_version"])
 
-        pe_version = get_server_era(job["server_version"]["pe_version"])
+        server_era = get_server_era(job["server_version"]["pe_version"])
 
         stage '020-install-pe'
-        step020_install_pe(SKIP_PE_INSTALL, SCRIPT_DIR, pe_version)
+        step020_install_pe(SKIP_PE_INSTALL, SCRIPT_DIR, server_era)
 
         stage '030-customize-settings'
         step030_customize_settings()
@@ -189,8 +190,8 @@ def multipass_pipeline(jobs) {
             stage job_name
             step000_provision_sut(SKIP_PROVISIONING, SCRIPT_DIR)
             step010_setup_beaker(SCRIPT_DIR, job["server_version"])
-            pe_version = get_server_era(job["server_version"]["pe_version"])
-            step020_install_pe(SKIP_PE_INSTALL, SCRIPT_DIR, pe_version)
+            server_era = get_server_era(job["server_version"]["pe_version"])
+            step020_install_pe(SKIP_PE_INSTALL, SCRIPT_DIR, server_era)
             step030_customize_settings()
             step040_install_puppet_code(SCRIPT_DIR, job["code_deploy"])
             step050_file_sync(SCRIPT_DIR)
