@@ -23,6 +23,16 @@ def classify_foss_nodes(host, nodes)
   # the future.
   if environments == ""
     on(host, puppet('config set environmentpath \$confdir/environments'))
+    # need to restart the server to make this change take effect.
+    # TODO: should move the restart into a helper method or something, this
+    # is duplicated in 99_restart_server.rb.
+    service_name = ENV['PUPPET_SERVER_SERVICE_NAME']
+
+    on(host, "systemctl restart #{service_name}")
+
+    Beaker::Log.notify("Finished restarting service #{service_name}")
+
+    # now update the value for environments dir
     environments = on(host, puppet('config print environmentpath')).stdout.chomp
   end
   nodes = group_by_environment(nodes)

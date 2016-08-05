@@ -114,7 +114,8 @@ def step050_file_sync(script_dir, server_era) {
 }
 
 def step060_classify_nodes(script_dir, server_era) {
-    withEnv(["PUPPET_GATLING_SIMULATION_CONFIG=${PUPPET_GATLING_SIMULATION_CONFIG}"]) {
+    withEnv(["PUPPET_GATLING_SIMULATION_CONFIG=${PUPPET_GATLING_SIMULATION_CONFIG}",
+             "PUPPET_SERVER_SERVICE_NAME=${server_era["service_name"]}"]) {
         if (server_era["node_classifier"] == true) {
             sh "${script_dir}/060_classify_nodes-NC-API.sh"
         } else {
