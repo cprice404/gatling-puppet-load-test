@@ -15,7 +15,7 @@ R10K_CONFIG_PATH = "#{R10K_DIR}/r10k.yaml"
 
 def install_r10k(host, bin)
   gem = "#{bin}/gem"
-  on(host, "#{gem} install r10k --no-document")
+  on(host, "#{gem} install r10k --no-rdoc --no-ri")
 end
 
 def create_r10k_config(host, r10k_config)
