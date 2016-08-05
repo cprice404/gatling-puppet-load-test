@@ -27,6 +27,8 @@ beaker/install/pe/10_install_pe.rb,\
 beaker/install/shared/configure_permissive_server_auth.rb,\
 beaker/install/pe/99_restart_server.rb
 
+echo "Finished installing PE!"
+
 # without this set +x, rvm will log 10 gigs of garbage
 set +x
 popd
