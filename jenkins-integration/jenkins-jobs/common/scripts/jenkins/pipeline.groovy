@@ -11,31 +11,36 @@ def get_server_era(pe_version) {
                 tk_auth     : false,
                 puppet_bin_dir: "/opt/puppet/bin",
                 r10k_version: "1.5.1",
-                file_sync: false]
+                file_sync: false,
+                node_classifier: true]
     } else if (pe_version ==~ /^3\..*/) {
         return [service_name: "pe-httpd",
                 tk_auth     : false,
                 puppet_bin_dir: "/opt/puppet/bin",
                 r10k_version: "1.5.1",
-                file_sync: false]
+                file_sync: false,
+                node_classifier: false]
     } else if (pe_version ==~ /^2016\..*/) {
         return [service_name: "pe-puppetserver",
                 tk_auth     : true,
                 puppet_bin_dir: "/opt/puppetlabs/puppet/bin",
                 r10k_version: "2.3.0",
-                file_sync: true]
+                file_sync: true,
+                node_classifier: true]
     } else if (pe_version ==~ /^2015\.3\..*/) {
         return [service_name: "pe-puppetserver",
                 tk_auth     : true,
                 puppet_bin_dir: "/opt/puppetlabs/puppet/bin",
                 r10k_version: "2.3.0",
-                file_sync: true]
+                file_sync: true,
+                node_classifier: true]
     } else if (pe_version ==~ /^2015\..*/) {
         return [service_name: "pe-puppetserver",
                 tk_auth     : false,
                 puppet_bin_dir: "/opt/puppetlabs/puppet/bin",
                 r10k_version: "2.3.0",
-                file_sync: false]
+                file_sync: false,
+                node_classifier: true]
     } else {
         error "Unrecognized PE version: '${pe_version}'"
     }
@@ -108,13 +113,18 @@ def step050_file_sync(script_dir, server_era) {
     }
 }
 
-def step060_classify_nodes(script_dir) {
+def step060_classify_nodes(script_dir, server_era) {
     withEnv(["PUPPET_GATLING_SIMULATION_CONFIG=${PUPPET_GATLING_SIMULATION_CONFIG}"]) {
-        sh "${script_dir}/060_classify_nodes.sh"
+        if (server_era["node_classifier"] == true) {
+            sh "${script_dir}/060_classify_nodes-NC-API.sh"
+        } else {
+            echo "Node classifier not available, modifying site.pp"
+            sh "${script_dir}/060_classify_nodes-site-pp.sh"
+        }
     }
 }
 
-def step070_classify_nodes() {
+def step070_validate_classification() {
     echo "Hi! TODO: I should be validating classification on your SUT, but I'm not."
 }
 
@@ -168,10 +178,10 @@ def single_pipeline(job) {
         step050_file_sync(SCRIPT_DIR, server_era)
 
         stage '060-classify-nodes'
-        step060_classify_nodes(SCRIPT_DIR)
+        step060_classify_nodes(SCRIPT_DIR, server_era)
 
         stage '070-validate-classification'
-        step070_classify_nodes()
+        step070_validate_classification()
 
         stage '080-launch-bg-scripts'
         step080_launch_bg_scripts()
@@ -210,8 +220,8 @@ def multipass_pipeline(jobs) {
             step030_customize_settings()
             step040_install_puppet_code(SCRIPT_DIR, job["code_deploy"], server_era)
             step050_file_sync(SCRIPT_DIR, server_era)
-            step060_classify_nodes(SCRIPT_DIR)
-            step070_classify_nodes()
+            step060_classify_nodes(SCRIPT_DIR, server_era)
+            step070_validate_classification()
             step080_launch_bg_scripts()
             step090_run_gatling_sim(job_name, SCRIPT_DIR)
             step100_collect_sut_artifacts()
