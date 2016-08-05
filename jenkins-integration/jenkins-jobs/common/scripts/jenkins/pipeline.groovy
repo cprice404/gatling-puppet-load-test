@@ -147,7 +147,7 @@ def single_pipeline(job) {
         step030_customize_settings()
 
         stage '040-install-puppet-code'
-        step040_install_puppet_code(SCRIPT_DIR, job["code_deploy"])
+        step040_install_puppet_code(SCRIPT_DIR, job["code_deploy"], server_era)
 
         stage '050-file-sync'
         step050_file_sync(SCRIPT_DIR)
