@@ -112,7 +112,7 @@ def step040_install_puppet_code(script_dir, code_deploy, server_era) {
 
 def step050_file_sync(script_dir, server_era) {
     if (server_era["file_sync_available"] == true) {
-        if (server_era["file_sync_enabled" == false]) {
+        if (server_era["file_sync_enabled"] == false) {
             echo "Server supports file sync, but it is not enabled.  Enabling."
             sh "${script_dir}/050_enable_file_sync.sh"
         }
