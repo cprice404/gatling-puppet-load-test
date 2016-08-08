@@ -11,35 +11,40 @@ def get_server_era(pe_version) {
                 tk_auth     : false,
                 puppet_bin_dir: "/opt/puppet/bin",
                 r10k_version: "1.5.1",
-                file_sync: false,
+                file_sync_available: false,
+                file_sync_enabled: false,
                 node_classifier: true]
     } else if (pe_version ==~ /^3\..*/) {
         return [service_name: "pe-httpd",
                 tk_auth     : false,
                 puppet_bin_dir: "/opt/puppet/bin",
                 r10k_version: "1.5.1",
-                file_sync: false,
+                file_sync_available: false,
+                file_sync_enabled: false,
                 node_classifier: false]
     } else if (pe_version ==~ /^2016\..*/) {
         return [service_name: "pe-puppetserver",
                 tk_auth     : true,
                 puppet_bin_dir: "/opt/puppetlabs/puppet/bin",
                 r10k_version: "2.3.0",
-                file_sync: true,
+                file_sync_available: true,
+                file_sync_enabled: false,
                 node_classifier: true]
     } else if (pe_version ==~ /^2015\.3\..*/) {
         return [service_name: "pe-puppetserver",
                 tk_auth     : true,
                 puppet_bin_dir: "/opt/puppetlabs/puppet/bin",
                 r10k_version: "2.3.0",
-                file_sync: true,
+                file_sync_available: true,
+                file_sync_enabled: true,
                 node_classifier: true]
     } else if (pe_version ==~ /^2015\..*/) {
         return [service_name: "pe-puppetserver",
                 tk_auth     : false,
                 puppet_bin_dir: "/opt/puppetlabs/puppet/bin",
                 r10k_version: "2.3.0",
-                file_sync: false,
+                file_sync_available: false,
+                file_sync_enabled: false,
                 node_classifier: true]
     } else {
         error "Unrecognized PE version: '${pe_version}'"
@@ -106,8 +111,12 @@ def step040_install_puppet_code(script_dir, code_deploy, server_era) {
 }
 
 def step050_file_sync(script_dir, server_era) {
-    if (server_era["file_sync"] == true) {
-        sh "${script_dir}/050_file_sync.sh"
+    if (server_era["file_sync_available"] == true) {
+        if (server_era["file_sync_enabled" == false]) {
+            echo "Server supports file sync, but it is not enabled.  Enabling."
+            sh "${script_dir}/050_enable_file_sync.sh"
+        }
+        sh "${script_dir}/055_perform_file_sync.sh"
     } else {
         echo "Server does not support file sync, skipping."
     }
