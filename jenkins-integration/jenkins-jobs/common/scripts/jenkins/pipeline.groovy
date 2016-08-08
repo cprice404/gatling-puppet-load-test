@@ -203,6 +203,7 @@ def multipass_pipeline(jobs) {
         checkout scm
 
         SKIP_PE_INSTALL = (SKIP_PE_INSTALL == "true")
+        SKIP_PROVISIONING = (SKIP_PROVISIONING == "true")
 
         // NOTE: jenkins does not appear to like groovy's
         // closure syntax:
