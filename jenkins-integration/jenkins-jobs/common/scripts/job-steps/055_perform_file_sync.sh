@@ -18,7 +18,7 @@ bundle exec beaker \
         --log-level debug \
         --no-color \
         --tests \
-beaker/install/pe/98_sync_codedir.rb
+beaker/install/pe/97_enable_file_sync.rb
 
 # without this set +x, rvm will log 10 gigs of garbage
 set +x
