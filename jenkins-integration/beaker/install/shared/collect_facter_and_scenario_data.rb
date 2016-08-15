@@ -44,7 +44,7 @@ end
 
 puts "Gathering facter data and processing data..."
 # config = Puppet::Gatling::LoadTest::ScenarioConfig.config_instance
-config = get_scenario_from_env()
+config = parse_scenario_file(get_scenario_from_env())
 
 facter_data = get_facter_data
 data_hash = get_data_hash facter_data
