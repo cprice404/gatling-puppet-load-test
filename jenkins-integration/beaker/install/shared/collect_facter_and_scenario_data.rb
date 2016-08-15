@@ -11,8 +11,8 @@ def get_facter_data
   result.stdout
 end
 
-def save_data(facter_data, data_hash, config)
-  simulation_dir = File.join("..", "puppet-gatling", config.simulation_id)
+def save_data(facter_data, data_hash, simulation_id, config)
+  simulation_dir = File.join("..", "puppet-gatling", simulation_id)
   unless File.exist?(simulation_dir)
     FileUtils.mkdir_p simulation_dir
   end
@@ -45,6 +45,7 @@ end
 puts "Gathering facter data and processing data..."
 # config = Puppet::Gatling::LoadTest::ScenarioConfig.config_instance
 config = parse_scenario_file(get_scenario_from_env())
+simulation_id = get_simulation_id_from_env()
 
 facter_data = get_facter_data
 data_hash = get_data_hash facter_data
@@ -57,4 +58,4 @@ beaker_version = `bundle exec gem list beaker |grep beaker`.chomp
 data_hash['beaker-version'] = beaker_version
 puts "Beaker version: #{beaker_version}"
 
-save_data(facter_data, data_hash, config)
+save_data(facter_data, data_hash, simulation_id, config)
