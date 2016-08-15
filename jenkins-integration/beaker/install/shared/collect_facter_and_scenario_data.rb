@@ -2,6 +2,7 @@
 # Collect artifacts from machines
 # Brian Cain {brian.cain@puppetlabs.com}
 
+require 'puppet/gatling/config'
 require 'csv'
 require 'json'
 
