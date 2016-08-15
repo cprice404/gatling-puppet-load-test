@@ -187,7 +187,7 @@ def single_pipeline(job) {
         step020_install_pe(SKIP_PE_INSTALL, SCRIPT_DIR, server_era)
 
         stage '025-collect-facter-data'
-        step020_install_pe(SCRIPT_DIR)
+        step025_collect_facter_data(SCRIPT_DIR)
 
         stage '030-customize-settings'
         step030_customize_settings()
