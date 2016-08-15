@@ -86,9 +86,8 @@ def step020_install_pe(SKIP_PE_INSTALL, script_dir, server_era) {
 }
 
 def step025_collect_facter_data(script_dir) {
-        withEnv(["PUPPET_GATLING_SIMULATION_CONFIG=${PUPPET_GATLING_SIMULATION_CONFIG}"]) {
-            sh "${script_dir}/025_collect_facter_data.sh"
-        }
+    withEnv(["PUPPET_GATLING_SIMULATION_CONFIG=${PUPPET_GATLING_SIMULATION_CONFIG}"]) {
+        sh "${script_dir}/025_collect_facter_data.sh"
     }
 }
 
