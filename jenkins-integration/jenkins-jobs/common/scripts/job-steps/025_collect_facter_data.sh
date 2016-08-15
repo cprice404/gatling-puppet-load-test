@@ -3,8 +3,11 @@
 pushd jenkins-integration
 source jenkins-jobs/common/scripts/job-steps/initialize_ruby_env.sh
 
-# This job sets up the following:
-# - Specified PE version installed installation on provided master
+# This job does the following:
+# - Collects facter data
+# - Collects some basic information about the gatling scenario
+# - writes these to a file path that can be found by the puppet-gatling-jenkins
+#   plugin after the run
 
 set -x
 set -e
@@ -21,13 +24,7 @@ bundle exec beaker \
         --log-level debug \
         --no-color \
         --tests \
-beaker/install/shared/hack_hostname_into_etc_hosts.rb,\
-beaker/install/shared/disable_firewall.rb,\
-beaker/install/pe/10_install_pe.rb,\
-beaker/install/shared/configure_permissive_server_auth.rb,\
-beaker/install/pe/99_restart_server.rb
-
-echo "Finished installing PE!"
+beaker/install/shared/collect_facter_and_scenario_data.rb
 
 # without this set +x, rvm will log 10 gigs of garbage
 set +x

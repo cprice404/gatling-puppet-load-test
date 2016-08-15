@@ -85,6 +85,14 @@ def step020_install_pe(SKIP_PE_INSTALL, script_dir, server_era) {
     }
 }
 
+def step025_collect_facter_data(script_dir) {
+        withEnv(["PUPPET_GATLING_SIMULATION_CONFIG=${PUPPET_GATLING_SIMULATION_CONFIG}"]) {
+            sh "${script_dir}/025_collect_facter_data.sh"
+        }
+    }
+}
+
+
 def step030_customize_settings() {
     echo "Hi! TODO: I should be customizing PE settings on the SUT, but I'm not."
 }
@@ -178,6 +186,9 @@ def single_pipeline(job) {
         stage '020-install-pe'
         step020_install_pe(SKIP_PE_INSTALL, SCRIPT_DIR, server_era)
 
+        stage '025-collect-facter-data'
+        step020_install_pe(SCRIPT_DIR)
+
         stage '030-customize-settings'
         step030_customize_settings()
 
@@ -228,6 +239,7 @@ def multipass_pipeline(jobs) {
             step010_setup_beaker(SCRIPT_DIR, job["server_version"])
             server_era = get_server_era(job["server_version"]["pe_version"])
             step020_install_pe(SKIP_PE_INSTALL, SCRIPT_DIR, server_era)
+            step025_collect_facter_data(SCRIPT_DIR)
             step030_customize_settings()
             step040_install_puppet_code(SCRIPT_DIR, job["code_deploy"], server_era)
             step050_file_sync(SCRIPT_DIR, server_era)
