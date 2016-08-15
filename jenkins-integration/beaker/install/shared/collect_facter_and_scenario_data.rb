@@ -21,8 +21,8 @@ def save_data(facter_data, data_hash, simulation_id, config)
   CSV.open(File.join(simulation_dir, 'important_data.csv'), 'w') { |csv| data_hash.to_a.each { |elem| csv << elem} }
 
   File.open(File.join(simulation_dir, 'gatling_sim_data.csv'), 'w') do |file|
-    config.nodes.each do |node|
-      file.write("#{node.node_config},#{node.num_instances},#{node.num_repetitions}\n")
+    config["nodes"].each do |node|
+      file.write("#{node["node_config"]},#{node["num_instances"]},#{node["num_repetitions"]}\n")
     end
   end
   puts "Files now saved within #{simulation_dir}"
