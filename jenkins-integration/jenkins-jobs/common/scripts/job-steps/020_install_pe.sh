@@ -25,7 +25,8 @@ beaker/install/shared/hack_hostname_into_etc_hosts.rb,\
 beaker/install/shared/disable_firewall.rb,\
 beaker/install/pe/10_install_pe.rb,\
 beaker/install/shared/configure_permissive_server_auth.rb,\
-beaker/install/pe/99_restart_server.rb
+beaker/install/pe/99_restart_server.rb,\
+beaker/install/shared/collect_facter_and_scenario_data.rb
 
 echo "Finished installing PE!"
 
