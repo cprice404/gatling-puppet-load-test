@@ -52,7 +52,7 @@ pgl_git_rev = `git rev-parse HEAD`
 data_hash['gatling-puppet-load-test'] = pgl_git_rev.chomp
 puts "gatling-puppet-load-test HEAD: #{data_hash['gatling-puppet-load-test']}"
 
-beaker_version = `bundle exec gem list beaker |grep beaker`.chomp
+beaker_version = `bundle exec gem list ^beaker$ |grep beaker`.chomp
 data_hash['beaker-version'] = beaker_version
 puts "Beaker version: #{beaker_version}"
 
