@@ -6,7 +6,7 @@ require 'csv'
 require 'json'
 
 def get_facter_data
-  result = on master, "facter"
+  result = on master, "facter -p -j"
   result.stdout
 end
 
@@ -16,7 +16,7 @@ def save_data(facter_data, data_hash, simulation_id, config)
     FileUtils.mkdir_p simulation_dir
   end
 
-  File.open(File.join(simulation_dir, 'facter-data.txt'), 'w') { |file| file.write(facter_data) }
+  File.open(File.join(simulation_dir, 'facter-data.json'), 'w') { |file| file.write(facter_data) }
   CSV.open(File.join(simulation_dir, 'important_data.csv'), 'w') { |csv| data_hash.to_a.each { |elem| csv << elem} }
 
   File.open(File.join(simulation_dir, 'gatling_sim_data.csv'), 'w') do |file|
@@ -29,14 +29,14 @@ end
 
 # disk, num cpus, speed of cpus, ram
 def get_data_hash(data)
-  facts = ['processor0', 'processorcount', 'puppetversion', 'blockdevice_sda_size', 'memorysize']
-  data.split("\n").reduce({}) do |result, line|
-    hash = line.split(/ => /)
-    if facts.include? hash[0]
-      result[hash[0]] = hash[1]
-    end
-    result
-  end
+  facts_data = JSON.parse(data)
+  {
+      'processor0' => facts_data['processors']['models'][0],
+      'processorcount' => facts_data['processors']['count'],
+      'puppetversion' => facts_data['puppetversion'],
+      'blockdevice_sda_size' => facts_data['disks']['sda']['size'],
+      'memorysize' => facts_data['memory']['system']['total']
+  }
 end
 
 # Begin work
