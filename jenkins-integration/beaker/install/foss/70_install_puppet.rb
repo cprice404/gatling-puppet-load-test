@@ -85,5 +85,6 @@ step "Install Puppet Server." do
       "rundir" => "/var/run/puppetserver",
       "initdir" => "/etc/init.d",
   }
-  install_puppet_server master, make_env
+
+  install_package master, 'puppetserver'
 end
