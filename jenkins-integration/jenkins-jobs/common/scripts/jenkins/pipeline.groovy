@@ -7,7 +7,8 @@ def get_pe_server_era(pe_version) {
     // A normal groovy switch/case statement with regex matchers doesn't seem
     // to work in Jenkins: https://issues.jenkins-ci.org/browse/JENKINS-37214
     if (pe_version ==~ /^3\.[78]\..*/) {
-        return [service_name: "pe-puppetserver",
+        return [type: "pe",
+                service_name: "pe-puppetserver",
                 tk_auth     : false,
                 puppet_bin_dir: "/opt/puppet/bin",
                 r10k_version: "1.5.1",
@@ -15,7 +16,8 @@ def get_pe_server_era(pe_version) {
                 file_sync_enabled: false,
                 node_classifier: true]
     } else if (pe_version ==~ /^3\..*/) {
-        return [service_name: "pe-httpd",
+        return [type: "pe",
+                service_name: "pe-httpd",
                 tk_auth     : false,
                 puppet_bin_dir: "/opt/puppet/bin",
                 r10k_version: "1.5.1",
@@ -23,7 +25,8 @@ def get_pe_server_era(pe_version) {
                 file_sync_enabled: false,
                 node_classifier: false]
     } else if (pe_version ==~ /^2016\..*/) {
-        return [service_name: "pe-puppetserver",
+        return [type: "pe",
+                service_name: "pe-puppetserver",
                 tk_auth     : true,
                 puppet_bin_dir: "/opt/puppetlabs/puppet/bin",
                 r10k_version: "2.3.0",
@@ -31,7 +34,8 @@ def get_pe_server_era(pe_version) {
                 file_sync_enabled: false,
                 node_classifier: true]
     } else if (pe_version ==~ /^2015\.3\..*/) {
-        return [service_name: "pe-puppetserver",
+        return [type: "pe",
+                service_name: "pe-puppetserver",
                 tk_auth     : true,
                 puppet_bin_dir: "/opt/puppetlabs/puppet/bin",
                 r10k_version: "2.3.0",
@@ -39,7 +43,8 @@ def get_pe_server_era(pe_version) {
                 file_sync_enabled: true,
                 node_classifier: true]
     } else if (pe_version ==~ /^2015\..*/) {
-        return [service_name: "pe-puppetserver",
+        return [type: "pe",
+                service_name: "pe-puppetserver",
                 tk_auth     : false,
                 puppet_bin_dir: "/opt/puppetlabs/puppet/bin",
                 r10k_version: "2.3.0",
@@ -53,7 +58,8 @@ def get_pe_server_era(pe_version) {
 
 def get_oss_server_era(oss_version) {
     if (oss_version == "latest") {
-        return [service_name: "puppetserver",
+        return [type: "oss",
+                service_name: "puppetserver",
                 tk_auth     : false,
                 puppet_bin_dir: "/opt/puppetlabs/puppet/bin",
                 r10k_version: "2.3.0",
@@ -107,9 +113,18 @@ def step020_install_server(SKIP_PE_INSTALL, script_dir, server_era) {
     if (SKIP_PE_INSTALL) {
         echo "Skipping PE install because SKIP_PE_INSTALL is set."
     } else {
-        withEnv(["PUPPET_SERVER_SERVICE_NAME=${server_era["service_name"]}",
-                 "PUPPET_SERVER_TK_AUTH=${server_era["tk_auth"]}"]) {
-            sh "${script_dir}/020_install_pe.sh"
+        if (server_era["type"] == "pe") {
+            withEnv(["PUPPET_SERVER_SERVICE_NAME=${server_era["service_name"]}",
+                     "PUPPET_SERVER_TK_AUTH=${server_era["tk_auth"]}"]) {
+                sh "${script_dir}/020_install_pe.sh"
+            }
+        } else if (server_era["type"] == "oss") {
+            withEnv(["PUPPET_SERVER_SERVICE_NAME=${server_era["service_name"]}",
+                     "PUPPET_SERVER_TK_AUTH=${server_era["tk_auth"]}"]) {
+                sh "${script_dir}/020_install_oss.sh"
+            }
+        } else {
+            error "Unsupported server type: ${server_era["type"]}"
         }
     }
 }
