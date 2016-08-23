@@ -17,7 +17,7 @@ end
 
 step "Setup Puppet Server repositories." do
   package_build_version = ENV['PACKAGE_BUILD_VERSION']
-  if package_build_version = "latest"
+  if package_build_version == "latest"
     package_build_version = get_latest_master_version()
   end
   if package_build_version
