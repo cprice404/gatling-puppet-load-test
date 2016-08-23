@@ -12,8 +12,21 @@ def get_latest_master_version
     match = l.match(/^.*href="([^"]+)\/\?C=M&amp;O=D".*$/)
     return match[1]
   end
-
 end
+
+
+def get_latest_agent_version
+  response = Net::HTTP.get(URI('http://builds.puppetlabs.lan/puppet-agent/?C=M&O=D'))
+
+  response.lines do |l|
+    next unless l =~ /<td><a /
+    match = l.match(/^.*href="(\d+\.\d+\.\d+)\/\?C=M&amp;O=D".*$/)
+    next unless match
+    return match[1]
+  end
+end
+
+
 
 step "Setup Puppet Server repositories." do
   package_build_version = ENV['PACKAGE_BUILD_VERSION']
