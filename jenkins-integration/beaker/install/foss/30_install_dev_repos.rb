@@ -1,6 +1,5 @@
-Beaker::Log.notify("ABOUT TO SET UP DEV REPOS; OPTIONS IS: #{options}")
-
-install_opts = options.merge( { :dev_builds_repos => ["PC1"] })
+install_opts = options.merge( { :dev_builds_repos => ["PC1"],
+                                :type => "aio" })
 repo_config_dir = 'tmp/repo_configs'
 
 require 'net/http'
