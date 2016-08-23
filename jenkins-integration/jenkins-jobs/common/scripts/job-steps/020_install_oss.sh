@@ -17,6 +17,7 @@ ssh-add ${HOME}/.ssh/id_rsa
 
 bundle exec beaker \
         --config hosts.yaml \
+        --type aio
         --load-path lib \
         --log-level debug \
         --no-color \

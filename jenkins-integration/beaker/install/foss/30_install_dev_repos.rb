@@ -1,5 +1,4 @@
-install_opts = options.merge( { :dev_builds_repos => ["PC1"],
-                                :type => "aio" })
+install_opts = options.merge( { :dev_builds_repos => ["PC1"] })
 repo_config_dir = 'tmp/repo_configs'
 
 require 'net/http'
