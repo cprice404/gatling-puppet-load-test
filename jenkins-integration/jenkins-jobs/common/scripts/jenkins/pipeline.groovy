@@ -66,6 +66,7 @@ def get_oss_server_era(oss_version) {
         return [type: "oss",
                 service_name: "puppetserver",
                 version: "latest",
+                agent_version: "latest",
                 tk_auth: false,
                 puppet_bin_dir: "/opt/puppetlabs/puppet/bin",
                 r10k_version: "2.3.0",
@@ -127,7 +128,8 @@ def step020_install_server(SKIP_PE_INSTALL, script_dir, server_era) {
         } else if (server_era["type"] == "oss") {
             withEnv(["PUPPET_SERVER_SERVICE_NAME=${server_era["service_name"]}",
                      "PUPPET_SERVER_TK_AUTH=${server_era["tk_auth"]}",
-                     "PACKAGE_BUILD_VERSION=${server_era["version"]}"]) {
+                     "PACKAGE_BUILD_VERSION=${server_era["version"]}",
+                     "PUPPET_AGENT_VERSION=${server_era["agent_version"]}"]) {
                 sh "${script_dir}/020_install_oss.sh"
             }
         } else {
