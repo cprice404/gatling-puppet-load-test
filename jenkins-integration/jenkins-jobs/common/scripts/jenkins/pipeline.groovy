@@ -3,7 +3,7 @@
 // viable yet.  See https://issues.jenkins-ci.org/browse/JENKINS-37125 and
 // https://issues.jenkins-ci.org/browse/JENKINS-31155 .
 
-def get_server_era(pe_version) {
+def get_pe_server_era(pe_version) {
     // A normal groovy switch/case statement with regex matchers doesn't seem
     // to work in Jenkins: https://issues.jenkins-ci.org/browse/JENKINS-37214
     if (pe_version ==~ /^3\.[78]\..*/) {
@@ -51,6 +51,30 @@ def get_server_era(pe_version) {
     }
 }
 
+def get_oss_server_era(oss_version) {
+    if (oss_version == "latest") {
+        return [service_name: "puppetserver",
+                tk_auth     : false,
+                puppet_bin_dir: "/opt/puppetlabs/puppet/bin",
+                r10k_version: "2.3.0",
+                file_sync_available: false,
+                file_sync_enabled: false,
+                node_classifier: false]
+    } else {
+        error "Unrecognized OSS version: '${oss_version}'"
+    }
+}
+
+def get_server_era(server_version) {
+    if (server_version["type"] == "pe") {
+        return get_pe_server_era(server_version["pe_version"])
+    } else if (server_version["type"] == "oss") {
+        return get_oss_server_era(server_version["version"])
+    } else {
+        error "Unsupported server type: ${server_version["type"]}"
+    }
+}
+
 
 def step000_provision_sut(SKIP_PROVISIONING, script_dir) {
     echo "SKIP PROVISIONING?: ${SKIP_PROVISIONING} (${SKIP_PROVISIONING.class})"
@@ -62,18 +86,23 @@ def step000_provision_sut(SKIP_PROVISIONING, script_dir) {
 }
 
 def step010_setup_beaker(script_dir, server_version) {
-    if (server_version["type"] != "pe") {
-        error "Unsupported server type: ${server_version["type"]}"
-    }
+    if (server_version["type"] == "pe") {
+        withEnv(["SUT_HOST=${SUT_HOST}",
+                 "pe_version=${server_version["pe_version"]}",
+                 "pe_family=${server_version["pe_version"]}"]) {
+            sh "${script_dir}/010_setup_beaker.sh"
+        }
+    } else if (server_version["type"] == "oss") {
+        withEnv(["SUT_HOST=${SUT_HOST}"]) {
+            sh "${script_dir}/010_setup_beaker.sh"
+        }
 
-    withEnv(["SUT_HOST=${SUT_HOST}",
-             "pe_version=${server_version["pe_version"]}",
-             "pe_family=${server_version["pe_version"]}"]) {
-        sh "${script_dir}/010_setup_beaker.sh"
+    } else {
+        error "Unsupported server type: ${server_version["type"]}"
     }
 }
 
-def step020_install_pe(SKIP_PE_INSTALL, script_dir, server_era) {
+def step020_install_server(SKIP_PE_INSTALL, script_dir, server_era) {
     echo "SKIP PE INSTALL?: ${SKIP_PE_INSTALL} (${SKIP_PE_INSTALL.class})"
     if (SKIP_PE_INSTALL) {
         echo "Skipping PE install because SKIP_PE_INSTALL is set."
@@ -197,10 +226,10 @@ def single_pipeline(job) {
         stage '010-setup-beaker'
         step010_setup_beaker(SCRIPT_DIR, job["server_version"])
 
-        server_era = get_server_era(job["server_version"]["pe_version"])
+        server_era = get_server_era(job["server_version"])
 
-        stage '020-install-pe'
-        step020_install_pe(SKIP_PE_INSTALL, SCRIPT_DIR, server_era)
+        stage '020-install-server'
+        step020_install_server(SKIP_PE_INSTALL, SCRIPT_DIR, server_era)
 
         stage '025-collect-facter-data'
         step025_collect_facter_data(job['job_name'],
@@ -262,8 +291,8 @@ def multipass_pipeline(jobs) {
             stage job_name
             step000_provision_sut(SKIP_PROVISIONING, SCRIPT_DIR)
             step010_setup_beaker(SCRIPT_DIR, job["server_version"])
-            server_era = get_server_era(job["server_version"]["pe_version"])
-            step020_install_pe(SKIP_PE_INSTALL, SCRIPT_DIR, server_era)
+            server_era = get_server_era(job["server_version"])
+            step020_install_server(SKIP_PE_INSTALL, SCRIPT_DIR, server_era)
             step025_collect_facter_data(job_name,
                     job['gatling_simulation_config'],
                     SCRIPT_DIR)
