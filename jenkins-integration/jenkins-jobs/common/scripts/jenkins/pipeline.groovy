@@ -9,7 +9,8 @@ def get_pe_server_era(pe_version) {
     if (pe_version ==~ /^3\.[78]\..*/) {
         return [type: "pe",
                 service_name: "pe-puppetserver",
-                tk_auth     : false,
+                version: pe_version,
+                tk_auth: false,
                 puppet_bin_dir: "/opt/puppet/bin",
                 r10k_version: "1.5.1",
                 file_sync_available: false,
@@ -18,6 +19,7 @@ def get_pe_server_era(pe_version) {
     } else if (pe_version ==~ /^3\..*/) {
         return [type: "pe",
                 service_name: "pe-httpd",
+                version: pe_version,
                 tk_auth     : false,
                 puppet_bin_dir: "/opt/puppet/bin",
                 r10k_version: "1.5.1",
@@ -27,6 +29,7 @@ def get_pe_server_era(pe_version) {
     } else if (pe_version ==~ /^2016\..*/) {
         return [type: "pe",
                 service_name: "pe-puppetserver",
+                version: pe_version,
                 tk_auth     : true,
                 puppet_bin_dir: "/opt/puppetlabs/puppet/bin",
                 r10k_version: "2.3.0",
@@ -36,6 +39,7 @@ def get_pe_server_era(pe_version) {
     } else if (pe_version ==~ /^2015\.3\..*/) {
         return [type: "pe",
                 service_name: "pe-puppetserver",
+                version: pe_version,
                 tk_auth     : true,
                 puppet_bin_dir: "/opt/puppetlabs/puppet/bin",
                 r10k_version: "2.3.0",
@@ -45,6 +49,7 @@ def get_pe_server_era(pe_version) {
     } else if (pe_version ==~ /^2015\..*/) {
         return [type: "pe",
                 service_name: "pe-puppetserver",
+                version: pe_version,
                 tk_auth     : false,
                 puppet_bin_dir: "/opt/puppetlabs/puppet/bin",
                 r10k_version: "2.3.0",
@@ -60,7 +65,8 @@ def get_oss_server_era(oss_version) {
     if (oss_version == "latest") {
         return [type: "oss",
                 service_name: "puppetserver",
-                tk_auth     : false,
+                version: "latest",
+                tk_auth: false,
                 puppet_bin_dir: "/opt/puppetlabs/puppet/bin",
                 r10k_version: "2.3.0",
                 file_sync_available: false,
@@ -120,7 +126,8 @@ def step020_install_server(SKIP_PE_INSTALL, script_dir, server_era) {
             }
         } else if (server_era["type"] == "oss") {
             withEnv(["PUPPET_SERVER_SERVICE_NAME=${server_era["service_name"]}",
-                     "PUPPET_SERVER_TK_AUTH=${server_era["tk_auth"]}"]) {
+                     "PUPPET_SERVER_TK_AUTH=${server_era["tk_auth"]}",
+                     "PACKAGE_BUILD_VERSION=${server_era["version"]}"]) {
                 sh "${script_dir}/020_install_oss.sh"
             }
         } else {
