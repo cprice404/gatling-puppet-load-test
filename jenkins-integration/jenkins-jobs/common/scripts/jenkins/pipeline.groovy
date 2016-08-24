@@ -13,7 +13,8 @@ def get_server_era(pe_version) {
                 r10k_version: "1.5.1",
                 file_sync_available: false,
                 file_sync_enabled: false,
-                node_classifier: true]
+                node_classifier: true,
+                facter_structured_facts: false]
     } else if (pe_version ==~ /^3\..*/) {
         return [service_name: "pe-httpd",
                 tk_auth     : false,
@@ -21,7 +22,8 @@ def get_server_era(pe_version) {
                 r10k_version: "1.5.1",
                 file_sync_available: false,
                 file_sync_enabled: false,
-                node_classifier: false]
+                node_classifier: false,
+                facter_structured_facts: false]
     } else if (pe_version ==~ /^2016\..*/) {
         return [service_name: "pe-puppetserver",
                 tk_auth     : true,
@@ -29,7 +31,8 @@ def get_server_era(pe_version) {
                 r10k_version: "2.3.0",
                 file_sync_available: true,
                 file_sync_enabled: false,
-                node_classifier: true]
+                node_classifier: true,
+                facter_structured_facts: true]
     } else if (pe_version ==~ /^2015\.3\..*/) {
         return [service_name: "pe-puppetserver",
                 tk_auth     : true,
@@ -37,7 +40,8 @@ def get_server_era(pe_version) {
                 r10k_version: "2.3.0",
                 file_sync_available: true,
                 file_sync_enabled: true,
-                node_classifier: true]
+                node_classifier: true,
+                facter_structured_facts: true]
     } else if (pe_version ==~ /^2015\..*/) {
         return [service_name: "pe-puppetserver",
                 tk_auth     : false,
@@ -45,7 +49,8 @@ def get_server_era(pe_version) {
                 r10k_version: "2.3.0",
                 file_sync_available: false,
                 file_sync_enabled: false,
-                node_classifier: true]
+                node_classifier: true,
+                facter_structured_facts: true]
     } else {
         error "Unrecognized PE version: '${pe_version}'"
     }
