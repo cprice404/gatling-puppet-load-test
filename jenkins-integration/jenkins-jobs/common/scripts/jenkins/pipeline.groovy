@@ -186,6 +186,15 @@ def step100_run_gatling_sim(job_name, gatling_simulation_config, script_dir) {
     }
 }
 
+def step105_stop_bg_scripts(background_scripts) {
+    if (background_scripts == null) {
+        echo "No background scripts configured, skipping."
+    } else {
+        echo "TODO: start bg scripts!"
+    }
+
+}
+
 def step110_collect_sut_artifacts() {
     echo "Hi! TODO: I should be collecting artifacts from your SUT, but I'm not."
 }
@@ -252,6 +261,9 @@ def single_pipeline(job) {
                 job["gatling_simulation_config"],
                 SCRIPT_DIR)
 
+        stage '105-stop-bg-scripts'
+        step105_stop_bg_scripts()
+
         stage '110-collect-sut-artifacts'
         step110_collect_sut_artifacts()
 
@@ -295,10 +307,11 @@ def multipass_pipeline(jobs) {
             step080_customize_settings(SCRIPT_DIR,
                     job["server_java_args"],
                     server_era)
-            step090_launch_bg_scripts()
+            step090_launch_bg_scripts(job['background_scripts'])
             step100_run_gatling_sim(job_name,
                     job['gatling_simulation_config'],
                     SCRIPT_DIR)
+            step105_stop_bg_scripts(job['background_scripts'])
             step110_collect_sut_artifacts()
         }
 
