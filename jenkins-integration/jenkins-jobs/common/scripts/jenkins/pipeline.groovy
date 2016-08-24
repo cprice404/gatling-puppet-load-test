@@ -206,7 +206,8 @@ def single_pipeline(job) {
         stage '025-collect-facter-data'
         step025_collect_facter_data(job['job_name'],
                 job['gatling_simulation_config'],
-                SCRIPT_DIR)
+                SCRIPT_DIR,
+                server_era)
 
         stage '030-customize-settings'
         step030_customize_settings()
@@ -267,7 +268,8 @@ def multipass_pipeline(jobs) {
             step020_install_pe(SKIP_PE_INSTALL, SCRIPT_DIR, server_era)
             step025_collect_facter_data(job_name,
                     job['gatling_simulation_config'],
-                    SCRIPT_DIR)
+                    SCRIPT_DIR,
+                    server_era)
             step030_customize_settings()
             step040_install_puppet_code(SCRIPT_DIR, job["code_deploy"], server_era)
             step045_install_hiera_config(SCRIPT_DIR, job["code_deploy"], server_era)
