@@ -180,7 +180,7 @@ def step100_collect_sut_artifacts() {
 }
 
 def step900_collect_driver_artifacts() {
-    gatlingArchive()
+    puppetGatlingArchive()
 }
 
 SCRIPT_DIR = "./jenkins-integration/jenkins-jobs/common/scripts/job-steps"
