@@ -59,9 +59,9 @@ simulation_id = get_simulation_id_from_env()
 facter_data = get_facter_data()
 data_hash =
   if ENV["FACTER_STRUCTURED_FACTS"] == "true"
-    get_data_hash_from_structured_facts(f)
+    get_data_hash_from_structured_facts()
   else
-    get_data_hash_from_legacy_facts(f)
+    get_data_hash_from_legacy_facts()
   end
 
 pgl_git_rev = `git rev-parse HEAD`
