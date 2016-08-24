@@ -85,9 +85,10 @@ def step020_install_pe(SKIP_PE_INSTALL, script_dir, server_era) {
     }
 }
 
-def step025_collect_facter_data(job_name, gatling_simulation_config, script_dir) {
+def step025_collect_facter_data(job_name, gatling_simulation_config, script_dir, server_era) {
     withEnv(["PUPPET_GATLING_SIMULATION_CONFIG=${gatling_simulation_config}",
-             "PUPPET_GATLING_SIMULATION_ID=${job_name}"]) {
+             "PUPPET_GATLING_SIMULATION_ID=${job_name}",
+             "FACTER_STRUCTURED_FACTS=${server_era["facter_structured_facts"]}"]) {
         sh "${script_dir}/025_collect_facter_data.sh"
     }
 }
