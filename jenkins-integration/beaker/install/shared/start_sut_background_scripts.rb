@@ -7,7 +7,7 @@ step "Launch background scripts on SUT" do
     remote_path = File.join(master_tempdir, script_filename)
     Beaker::Log.notify("Launching script '#{s}'")
     scp_to(master, s, master_tempdir)
-    on(master, "chmod 644 #{remote_path}")
+    # on(master, "chmod 644 #{remote_path}")
     on(master, "#{remote_path} &")
   end
 end
