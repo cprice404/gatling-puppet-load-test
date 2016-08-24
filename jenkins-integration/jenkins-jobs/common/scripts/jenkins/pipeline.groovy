@@ -179,7 +179,7 @@ def step090_launch_bg_scripts(script_dir, background_scripts) {
         echo "No background scripts configured, skipping."
     } else {
         withEnv(["SUT_BACKGROUND_SCRIPTS=${background_scripts.join("\n")}"]) {
-            sh "${script_dir}"
+            sh "${script_dir}/090_start_bg_scripts.sh"
         }
     }
 }
