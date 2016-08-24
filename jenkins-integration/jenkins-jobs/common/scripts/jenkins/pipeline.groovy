@@ -178,7 +178,9 @@ def step090_launch_bg_scripts(background_scripts) {
     if (background_scripts == null) {
         echo "No background scripts configured, skipping."
     } else {
-        echo "TODO: start bg scripts!"
+        withEnv(["SUT_BACKGROUND_SCRIPTS=${background_scripts.join("\n")}"]) {
+            sh "${script_dir}"
+        }
     }
 }
 
@@ -186,7 +188,7 @@ def step100_run_gatling_sim(job_name, gatling_simulation_config, script_dir) {
     withEnv(["PUPPET_GATLING_SIMULATION_CONFIG=${gatling_simulation_config}",
              "PUPPET_GATLING_SIMULATION_ID=${job_name}",
              "SUT_HOST=${SUT_HOST}"]) {
-        sh "${script_dir}/090_run_simulation.sh"
+        sh "${script_dir}/100_run_simulation.sh"
     }
 }
 
