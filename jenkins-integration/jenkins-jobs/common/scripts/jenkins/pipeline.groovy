@@ -275,7 +275,10 @@ def step110_collect_sut_artifacts(script_dir, archive_sut_files) {
         for (f in archive_sut_files) {
             String filename = get_filename(f);
             echo "Archiving SUT file: './sut_archive_files/${filename}'"
+            sh "pwd"
+            sh "ls -l"
             sh "tail ./sut_archive_files/${filename}"
+            archive "nothing"
             archive "./sut_archive_files/${filename}"
         }
     }
