@@ -8,7 +8,8 @@ def get_filename(path) {
     // appear to be blacklisted in their groovy security sandbox thingy, so rather
     // than trying to figure out how to puppetize changes to the whitelist, we're
     // just rolling our own for now.
-    return path.substring(path.lastIndexOf("/") + 1)
+    return path.substring(path.lastIndexOf("/") + 1,
+            path.length())
 }
 
 def get_pe_server_era(pe_version) {
