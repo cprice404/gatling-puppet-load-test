@@ -256,8 +256,19 @@ def step105_stop_bg_scripts(script_dir, background_scripts) {
     }
 }
 
-def step110_collect_sut_artifacts() {
-    echo "Hi! TODO: I should be collecting artifacts from your SUT, but I'm not."
+def step110_collect_sut_artifacts(archive_sut_files) {
+    if (archive_sut_files == null) {
+        echo "No SUT archive files configured, skipping."
+    } else {
+        withEnv(["SUT_ARCHIVE_FILES=${archive_sut_files.join("\n")}"]) {
+            sh "${script_dir}/110_archive_sut_files.sh"
+        }
+        for (f in archive_sut_files) {
+            String filename = new File(f).getName();
+            echo "Archiving SUT file: '${filename}'"
+            archive "./sut_archive_files/${filename}"
+        }
+    }
 }
 
 def step900_collect_driver_artifacts() {
@@ -326,7 +337,7 @@ def single_pipeline(job) {
         step105_stop_bg_scripts(SCRIPT_DIR, job['background_scripts'])
 
         stage '110-collect-sut-artifacts'
-        step110_collect_sut_artifacts()
+        step110_collect_sut_artifacts(job['archive_sut_files'])
 
         stage '900-collect-driver-artifacts'
         step900_collect_driver_artifacts()
