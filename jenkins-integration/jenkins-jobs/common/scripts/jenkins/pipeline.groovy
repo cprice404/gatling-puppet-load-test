@@ -280,7 +280,7 @@ def step110_collect_sut_artifacts(script_dir, archive_sut_files) {
             sh "ls -l jenkins-integration"
             sh "tail ./jenkins-integration/sut_archive_files/${filename}"
             archive "README.md"
-            archive "./jenkins-integration/sut_archive_files/${filename}"
+            archive "jenkins-integration/sut_archive_files/${filename}"
         }
     }
 }
