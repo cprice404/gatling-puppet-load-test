@@ -256,7 +256,7 @@ def step105_stop_bg_scripts(script_dir, background_scripts) {
     }
 }
 
-def step110_collect_sut_artifacts(archive_sut_files) {
+def step110_collect_sut_artifacts(script_dir, archive_sut_files) {
     if (archive_sut_files == null) {
         echo "No SUT archive files configured, skipping."
     } else {
@@ -337,7 +337,7 @@ def single_pipeline(job) {
         step105_stop_bg_scripts(SCRIPT_DIR, job['background_scripts'])
 
         stage '110-collect-sut-artifacts'
-        step110_collect_sut_artifacts(job['archive_sut_files'])
+        step110_collect_sut_artifacts(SCRIPT_DIR, job['archive_sut_files'])
 
         stage '900-collect-driver-artifacts'
         step900_collect_driver_artifacts()
@@ -384,7 +384,7 @@ def multipass_pipeline(jobs) {
                     job['gatling_simulation_config'],
                     SCRIPT_DIR)
             step105_stop_bg_scripts(SCRIPT_DIR, job['background_scripts'])
-            step110_collect_sut_artifacts()
+            step110_collect_sut_artifacts(SCRIPT_DIR, job['archive_sut_files'])
         }
 
         // it's critical that the gatling archiving happens outside
