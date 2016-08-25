@@ -19,6 +19,6 @@ pipeline.single_pipeline([
         ],
         server_java_args: "-Xms12g -Xmx12g",
         background_scripts: [
-                "./jenkins-jobs/common/scripts/background/echo_loop.sh"
+                "./jenkins-jobs/common/scripts/background/curl-server-metrics-loop.sh"
         ]
 ])
