@@ -271,12 +271,13 @@ def step105_stop_bg_scripts(script_dir, background_scripts) {
     }
 }
 
-def step110_collect_sut_artifacts(script_dir, job_name, archive_sut_files) {
+def step110_collect_sut_artifacts(script_dir, job_prefix, archive_sut_files) {
     if (archive_sut_files == null) {
         echo "No SUT archive files configured, skipping."
     } else {
+        echo "Collecting SUT archive files for job '${job_prefix}'"
         withEnv(["SUT_ARCHIVE_FILES=${archive_sut_files.join("\n")}",
-                 "PUPPET_GATLING_JOB_NAME=${job_name}"]) {
+                 "PUPPET_GATLING_JOB_NAME=${job_prefix}"]) {
             sh "${script_dir}/110_archive_sut_files.sh"
         }
         for (f in archive_sut_files) {
@@ -284,7 +285,7 @@ def step110_collect_sut_artifacts(script_dir, job_name, archive_sut_files) {
             // TODO: probably would be nicer for the scripts to be saving
             // the files somewhere outside of the git working directory,
             // but didn't want to hassle with figuring that out for the moment.
-            String filePath = "jenkins-integration/sut_archive_files/${job_name}/${filename}"
+            String filePath = "jenkins-integration/sut_archive_files/${job_prefix}/${filename}"
             echo "Archiving SUT file: '${filePath}'"
             archive "${filePath}"
         }
