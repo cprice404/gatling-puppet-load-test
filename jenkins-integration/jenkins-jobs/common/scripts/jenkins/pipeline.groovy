@@ -285,7 +285,7 @@ def step110_collect_sut_artifacts(script_dir, job_name, archive_sut_files) {
             // TODO: probably would be nicer for the scripts to be saving
             // the files somewhere outside of the git working directory,
             // but didn't want to hassle with figuring that out for the moment.
-            String filePath = "jenkins-integrationy/sut_archive_files/${job_name}/${filename}"
+            String filePath = "jenkins-integration/sut_archive_files/${job_name}/${filename}"
             echo "Archiving SUT file: '${filePath}'"
             sh "if [ ! -f './${filePath}' ] ; then echo 'ERROR! FILE DOES NOT EXIST!'; false ; fi"
             archive "${filePath}"
