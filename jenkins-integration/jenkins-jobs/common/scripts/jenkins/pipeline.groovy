@@ -274,13 +274,12 @@ def step110_collect_sut_artifacts(script_dir, archive_sut_files) {
         }
         for (f in archive_sut_files) {
             String filename = get_filename(f);
-            echo "Archiving SUT file: './sut_archive_files/${filename}'"
-            sh "pwd"
-            sh "ls -l"
-            sh "ls -l jenkins-integration"
-            sh "tail ./jenkins-integration/sut_archive_files/${filename}"
-            archive "README.md"
-            archive "jenkins-integration/sut_archive_files/${filename}"
+            // TODO: probably would be nicer for the scripts to be saving
+            // the files somewhere outside of the git working directory,
+            // but didn't want to hassle with figuring that out for the moment.
+            String filePath = "jenkins-integration/sut_archive_files/${filename}"
+            echo "Archiving SUT file: '${filePath}'"
+            archive "${filePath}"
         }
     }
 }
