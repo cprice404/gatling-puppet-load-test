@@ -196,7 +196,7 @@ def step105_stop_bg_scripts(script_dir, background_scripts) {
     if (background_scripts == null) {
         echo "No background scripts configured, skipping."
     } else {
-        echo "TODO: stop bg scripts!"
+        sh "${script_dir}/105_stop_bg_scripts.sh"
     }
 }
 
