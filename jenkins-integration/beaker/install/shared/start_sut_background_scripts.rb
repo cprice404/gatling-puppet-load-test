@@ -26,5 +26,5 @@ step "Launch background scripts on SUT" do
   File.open("bg_pids.json", "w") do |f|
     f.write(JSON.pretty_generate(pids))
   end
-  Beaker::Log.notify(File.read(bg_pids.json))
+  Beaker::Log.notify(File.read("bg_pids.json"))
 end
