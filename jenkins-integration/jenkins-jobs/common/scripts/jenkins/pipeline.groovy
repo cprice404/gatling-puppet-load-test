@@ -277,9 +277,10 @@ def step110_collect_sut_artifacts(script_dir, archive_sut_files) {
             echo "Archiving SUT file: './sut_archive_files/${filename}'"
             sh "pwd"
             sh "ls -l"
-            sh "tail ./sut_archive_files/${filename}"
+            sh "ls -l jenkins-integration"
+            sh "tail ./jenkins-integration/sut_archive_files/${filename}"
             archive "nothing"
-            archive "./sut_archive_files/${filename}"
+            archive "./jenkins-integration/sut_archive_files/${filename}"
         }
     }
 }
