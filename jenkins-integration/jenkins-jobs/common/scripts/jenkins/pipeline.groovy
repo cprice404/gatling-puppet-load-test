@@ -287,7 +287,7 @@ def step110_collect_sut_artifacts(script_dir, job_name, archive_sut_files) {
             // but didn't want to hassle with figuring that out for the moment.
             String filePath = "jenkins-integrationy/sut_archive_files/${job_name}/${filename}"
             echo "Archiving SUT file: '${filePath}'"
-            sh "if [ ! -f './${filePath}' ] ; then echo 'ERROR! FILE DOESN'T EXIST!'; false ; fi"
+            sh "if [ ! -f './${filePath}' ] ; then echo 'ERROR! FILE DOES NOT EXIST!'; false ; fi"
             archive "${filePath}"
         }
     }
