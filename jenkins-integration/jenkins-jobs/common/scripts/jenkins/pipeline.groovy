@@ -3,6 +3,14 @@
 // viable yet.  See https://issues.jenkins-ci.org/browse/JENKINS-37125 and
 // https://issues.jenkins-ci.org/browse/JENKINS-31155 .
 
+def get_filename(path) {
+    // This is a bummer, but all of the JVM built-ins for manipulating file paths
+    // appear to be blacklisted in their groovy security sandbox thingy, so rather
+    // than trying to figure out how to puppetize changes to the whitelist, we're
+    // just rolling our own for now.
+    return path.substring(path.lastIndexOf("/") + 1)
+}
+
 def get_pe_server_era(pe_version) {
     // A normal groovy switch/case statement with regex matchers doesn't seem
     // to work in Jenkins: https://issues.jenkins-ci.org/browse/JENKINS-37214
@@ -264,7 +272,7 @@ def step110_collect_sut_artifacts(script_dir, archive_sut_files) {
             sh "${script_dir}/110_archive_sut_files.sh"
         }
         for (f in archive_sut_files) {
-            String filename = new File(f).getName();
+            String filename = get_filename(f);
             echo "Archiving SUT file: '${filename}'"
             archive "./sut_archive_files/${filename}"
         }
