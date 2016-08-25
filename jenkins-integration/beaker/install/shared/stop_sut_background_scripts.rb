@@ -5,6 +5,11 @@ step "Stop background scripts on SUT" do
 
   Beaker::Log.notify("Stopping #{pids.count} background scripts")
   Beaker::Log.notify(JSON.pretty_generate(pids))
+  pids.each do |k, v|
+    Beaker::Log.notify("Stopping script '#{k}' with pid '#{v}'")
+    on(master, "kill #{v}")
+  end
+
   # master_tempdir = master.tmpdir('gplt_bg_scripts')
   # pids = {}
   # bg_scripts.each do |s|
