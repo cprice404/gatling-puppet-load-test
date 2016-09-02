@@ -168,7 +168,7 @@ PRESS ENTER"
 read
 
 FIND_COMMAND='find ./user-files/bodies -name *.txt'
-FIND_COUNT=`${FIND_COMMAND} |wc -l`
+FIND_COUNT=`${FIND_COMMAND} |wc -l |sed -e 's/^[ \t]*//'`
 if [ "${FIND_COUNT}" != "1" ]
 then
    echo "
