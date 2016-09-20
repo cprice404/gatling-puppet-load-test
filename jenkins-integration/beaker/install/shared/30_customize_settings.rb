@@ -3,7 +3,7 @@ require 'json'
 test_name 'Configure settings on SUT'
 
 def get_puppet_settings_from_env()
-  ENV['PUPPET_SERVER_PUPPET_SETTINGS']
+  ENV['PUPPET_GATLING_PUPPET_SETTINGS']
 end
 
 # def update_service_config(host, source_path, service_name)
