@@ -166,7 +166,7 @@ def step025_collect_facter_data(job_name, gatling_simulation_config, script_dir,
     }
 }
 
-def step030_customize_settings(puppet_settings) {
+def step030_customize_settings(script_dir, puppet_settings) {
     puppet_settings_json = JsonOutput.toJson(puppet_settings)
     withEnv(["PUPPET_GATLING_PUPPET_SETTINGS=${puppet_settings_json}"]) {
         sh "${script_dir}/030_customize_settings.sh"
@@ -397,7 +397,7 @@ def multipass_pipeline(jobs) {
                     job['gatling_simulation_config'],
                     SCRIPT_DIR,
                     server_era)
-            step030_customize_settings(job['puppet_settings'])
+            step030_customize_settings(SCRIPT_DIR, job['puppet_settings'])
             step040_install_puppet_code(SCRIPT_DIR, job["code_deploy"], server_era)
             step045_install_hiera_config(SCRIPT_DIR, job["code_deploy"], server_era)
             step050_file_sync(SCRIPT_DIR, server_era)
