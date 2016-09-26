@@ -167,10 +167,12 @@ def step025_collect_facter_data(job_name, gatling_simulation_config, script_dir,
 }
 
 def step030_customize_settings(script_dir, puppet_settings) {
-    puppet_settings_json = JsonOutput.toJson(puppet_settings)
-    withEnv(["PUPPET_GATLING_PUPPET_SETTINGS=${puppet_settings_json}",
-             "PUPPET_SERVER_SERVICE_NAME=${server_era["service_name"]}"]) {
-        sh "${script_dir}/030_customize_settings.sh"
+    if (puppet_settings != null) {
+        puppet_settings_json = JsonOutput.toJson(puppet_settings)
+        withEnv(["PUPPET_GATLING_PUPPET_SETTINGS=${puppet_settings_json}",
+                 "PUPPET_SERVER_SERVICE_NAME=${server_era["service_name"]}"]) {
+            sh "${script_dir}/030_customize_settings.sh"
+        }
     }
 }
 
