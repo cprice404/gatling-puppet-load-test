@@ -36,7 +36,7 @@ pipeline.multipass_pipeline([
 //                 hiera_config_datadir: "/etc/puppetlabs/puppet/environments/%{environment}/hieradata"
 //         ]],
         [job_name: 'pe-couch-medium-no-static-catalogs',
-         gatling_simulation_config: '../simulation-runner/config/scenarios/pe-couch-medium-3.json',
+         gatling_simulation_config: '../simulation-runner/config/scenarios/pe-couch-medium-no-static-catalogs-3.json',
          server_version: [
                  type: "pe",
                  pe_version: "2016.2.0"
