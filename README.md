@@ -1,6 +1,20 @@
 ## Welcome to load testing Puppet with Gatling!
 
-NOTE: recent versions of Puppet Server and PE require some manipulation of the tk-auth rules in order to get proxy recordings and simulations to work properly.  For more info, see [README_tk_auth.md](./README_tk_auth.md).
+This repo contains tools for load testing Puppet Enterprise, Puppet Server, and other components.  It works by building
+an existing [open source load testing called Gatling](http://gatling.io), which allows you to record HTTP traffic
+and replay it, and then generate reports about the performance of the simulated requests.  We use this to simulate
+Puppet agent requests to Puppet Server, but in a full PE installation, since Puppet Server is driving communication
+with PuppetDB, the Node Classifier, etc., we end up exercising all of the PE components.
+
+### What's in this repo?
+
+The repo is broken up into three main projects, which can be found in the [`jenkins-integration`](./jenkins-integration),
+[`proxy-recorder`](./proxy-recorder), and [`simulation-runner`](./simulation-runner) directories.  Read on for additional
+info about each.
+
+#### `jenkins-integration`
+
+This directory
 
 This is the main Puppetlabs load testing repository for its http services. The repository is currently split into three projects:
 
