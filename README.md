@@ -12,14 +12,20 @@ The repo is broken up into three main projects, which can be found in the [`jenk
 [`proxy-recorder`](./proxy-recorder), and [`simulation-runner`](./simulation-runner) directories.  Read on for additional
 info about each.
 
-#### `jenkins-integration`
+#### [`jenkins-integration`](./jenkins-integration)
 
-This directory
+This directory contains tools and code that can be used to build up a "driver" server, which includes a Jenkins server
+pre-configured to run our perf testing jobs, as well as all of the prerequisites required to run gatling and the other
+components of the jobs.  The [jenkins-integration/dev](./jenkins-integration/dev) directory contains documentation on
+how you can quickly spin up a development server to use for creating / testing new perf testing jobs.
 
-This is the main Puppetlabs load testing repository for its http services. The repository is currently split into three projects:
+#### [`proxy-recorder`](./proxy-recorder)
 
-  1. `proxy_recorder` -- This is the shell based tool to record http interactions of a client against a server so they can be re-used as a Gatling load testing scenario.
-  2. `simulation_runner` -- This is the tool to replay the recorded scenarios as a preconfigured simulation run using Gatling.
-  3. `jenkins_integration` -- This project leverages Beaker to provision new environments in Puppetlabs' Jenkins infrastructure that are suitable for being load tested using `simulation_runner`.
+This directory contains a helper script that is geared towards making it easy to launch the Gatling recorder, use it to
+record traffic between an agent and a master, and then prepare that recording for use in a perf test.
 
-Note that the state of the various config files required by all the parts of this system is a bit chaotic and confusing; hopefully we can figure out some ways to simplify it going forward, but for now, see [./README_CONFIG_FILE_MADNESS.md](README_CONFIG_FILE_MADNESS.md) for some info on the current state of affairs.
+#### [`simulation-runner`](./simulation-runner)
+
+This directory contains all of the existing Gatling recordings we've taken from various kinds of agents.  It also contains
+some configuration files that are used by the perf tests, and some helper code that makes it easier to configure the options
+about how to use a recording in a perf test: sleep time, number of simulated agents, number of repetitions, etc.
