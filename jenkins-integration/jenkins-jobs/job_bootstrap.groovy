@@ -35,6 +35,10 @@ scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
         def script = new GroovyScriptEngine( '.' ).with {
             result = run(relative_foofile, "hi")
             System.out.println("GOT RESULT FROM FOO SCRIPT:" + result)
+            out.println("OUT PRINTER, GOT RESULT FROM FOO SCRIPT: " + result)
+
+            Logger logger = Logger.getLogger('org.example.jobdsl')
+            logger.info('Hello from a Job DSL script! RESULT:"' + result)
         }
 
         job = workflowJob(job_prefix) {
