@@ -33,8 +33,9 @@ scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
         relative_jenkinsfile = relativize(root_dir, file)
 
         relative_foofile = new File(scenarios_dir, "buildhistory-test/foo.groovy")
-        def script = new GroovyScriptEngine( '.' ).with {
-            result = run(relative_foofile, new Binding([out: out, foo: "foo"]))
+        def engine = new GroovyScriptEngine('.');
+//        def script = new GroovyScriptEngine( '.' ).with {
+            result = engine.run(relative_foofile, new Binding([out: out, foo: "foo"]))
             System.out.println("GOT RESULT FROM FOO SCRIPT:" + result)
             out.println("OUT PRINTER, GOT RESULT FROM FOO SCRIPT: " + result)
 
@@ -42,7 +43,7 @@ scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
 
             Logger logger = Logger.getLogger('org.example.jobdsl')
             logger.info('Hello from a Job DSL script! RESULT:"' + result)
-        }
+//        }
 
         job = workflowJob(job_prefix) {
             // TODO: this should be moved into the Jenkinsfile by use of
