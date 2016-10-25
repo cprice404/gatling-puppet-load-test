@@ -34,7 +34,7 @@ scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
 
         relative_foofile = new File(scenarios_dir, "buildhistory-test/foo.groovy")
         def script = new GroovyScriptEngine( '.' ).with {
-            result = run(relative_foofile, "hi")
+            result = run(relative_foofile, [out: out, foo: "foo"])
             System.out.println("GOT RESULT FROM FOO SCRIPT:" + result)
             out.println("OUT PRINTER, GOT RESULT FROM FOO SCRIPT: " + result)
 
