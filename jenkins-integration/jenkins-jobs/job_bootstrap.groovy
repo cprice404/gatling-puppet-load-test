@@ -30,7 +30,7 @@ scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
     if (file.name.equals("Jenkinsfile")) {
         job_prefix = file.parentFile.name
         relative_jenkinsfile = relativize(root_dir, file)
-        workflowJob(job_prefix) {
+        job = workflowJob(job_prefix) {
             // TODO: this should be moved into the Jenkinsfile by use of
             // the 'properties' step, see https://issues.jenkins-ci.org/browse/JENKINS-32780
             parameters {
@@ -54,9 +54,13 @@ scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
                     scriptPath(relative_jenkinsfile)
                 }
             }
+        }
+
+        job.with {
             logRotator {
-                numToKeep(5)
+                numToKeep(3)
             }
         }
     }
+
 }
