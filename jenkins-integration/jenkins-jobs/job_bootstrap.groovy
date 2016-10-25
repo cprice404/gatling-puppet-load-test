@@ -52,6 +52,11 @@ scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
                     scriptPath(relative_jenkinsfile)
                 }
             }
+            publishers {
+                publishBuild {
+                    discardOldBuilds(-1, 5)
+                }
+            }
         }
     }
 }
