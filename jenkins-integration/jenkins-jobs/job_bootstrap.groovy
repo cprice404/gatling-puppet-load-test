@@ -37,6 +37,7 @@ scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
                         'The host/IP address of the system to use as the SUT')
                 booleanParam('SKIP_SERVER_INSTALL', false, 'If checked, will skip over the PE/OSS Server Install step.  Useful if you are doing development and already have a server SUT.')
                 booleanParam('SKIP_PROVISIONING', true, 'If checked, will skip over the Razor provisioning step.  Useful if you already have an SUT provisioned, e.g. via the VM Pooler.')
+                booleanParam('FAKE_PARAM', true, "This param doesn't do anything!")
             }
             definition {
                 cpsScm {
