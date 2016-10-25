@@ -33,7 +33,8 @@ scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
 
         relative_foofile = new File(scenarios_dir, "buildhistory-test/foo.groovy")
         def script = new GroovyScriptEngine( '.' ).with {
-            run(relative_foofile, "hi")
+            result = run(relative_foofile, "hi")
+            System.out.println("GOT RESULT FROM FOO SCRIPT:" + result)
         }
 
         job = workflowJob(job_prefix) {
