@@ -1,1 +1,5 @@
+node {
+    checkout scm
+}
+
 echo "hi!"
