@@ -1,5 +1,6 @@
 import groovy.io.FileType
 import java.nio.file.Paths
+import java.util.logging.Logger
 
 // NOTE: these determine the default repo/branch that the seed job will
 // poll to look for Jenkinsfiles.  For production they should always
@@ -36,6 +37,8 @@ scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
             result = run(relative_foofile, "hi")
             System.out.println("GOT RESULT FROM FOO SCRIPT:" + result)
             out.println("OUT PRINTER, GOT RESULT FROM FOO SCRIPT: " + result)
+
+
 
             Logger logger = Logger.getLogger('org.example.jobdsl')
             logger.info('Hello from a Job DSL script! RESULT:"' + result)
