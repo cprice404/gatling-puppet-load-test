@@ -36,7 +36,7 @@ scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
         def engine = new GroovyScriptEngine('.');
 //        def script = new GroovyScriptEngine( '.' ).with {
             result = engine.run(relative_foofile.getAbsolutePath(),
-                    new Binding(["out": out, "foo": "foo"]))
+                    new Binding(["out": out, "foozy": "foo"]))
             System.out.println("GOT RESULT FROM FOO SCRIPT:" + result)
             out.println("OUT PRINTER, GOT RESULT FROM FOO SCRIPT: " + result)
 
