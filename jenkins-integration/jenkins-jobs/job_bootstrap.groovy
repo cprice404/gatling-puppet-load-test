@@ -32,23 +32,11 @@ scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
         job_prefix = file.parentFile.name
         relative_jenkinsfile = relativize(root_dir, file)
 
-//        relative_foofile = new File(scenarios_dir, "buildhistory-test/foo.groovy")
-//        def engine = new GroovyScriptEngine('.');
-////        def script = new GroovyScriptEngine( '.' ).with {
-//            result = engine.run(relative_foofile.getAbsolutePath(),
-//                    new Binding([out: out, foozy: "foo"]))
-//            System.out.println("GOT RESULT FROM FOO SCRIPT:" + result)
-//            out.println("OUT PRINTER, GOT RESULT FROM FOO SCRIPT: " + result)
-//
-//
-//
-//            Logger logger = Logger.getLogger('org.example.jobdsl')
-//            logger.info('Hello from a Job DSL script! RESULT:"' + result)
-////        }
-
         def job = workflowJob(job_prefix) {
             // TODO: this should be moved into the Jenkinsfile by use of
-            // the 'properties' step, see https://issues.jenkins-ci.org/browse/JENKINS-32780
+            // the 'properties' step, see https://issues.jenkins-ci.org/browse/JENKINS-32780,
+            // or alternately it could be handled in the JobDSL.groovy files alongside
+            // each Jenkinsfile.
             parameters {
                 stringParam('SUT_HOST',
                         'foo-sut.delivery.puppetlabs.net',
@@ -70,6 +58,8 @@ scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
                     scriptPath(relative_jenkinsfile)
                 }
             }
+            // Default number of builds to retain history for.  This can be overridden
+            // for specific jobs by creating a JobDSL.groovy file alongside the Jenkinsfile.
             logRotator {
                 numToKeep(50)
             }
@@ -84,24 +74,6 @@ scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
                                  out: out])
             )
         }
-
-
-//
-//        relative_foofile = new File(scenarios_dir, "buildhistory-test/foo.groovy")
-//        def engine = new GroovyScriptEngine('.');
-////        def script = new GroovyScriptEngine( '.' ).with {
-//        result = engine.run(relative_foofile.getAbsolutePath(),
-//                new Binding([out: out, foozy: "foo"]))
-//        System.out.println("GOT RESULT FROM FOO SCRIPT:" + result)
-//        out.println("OUT PRINTER, GOT RESULT FROM FOO SCRIPT: " + result)
-//
-//
-//
-//        Logger logger = Logger.getLogger('org.example.jobdsl')
-//        logger.info('Hello from a Job DSL script! RESULT:"' + result)
-////        }
-
-
     }
 
 }
