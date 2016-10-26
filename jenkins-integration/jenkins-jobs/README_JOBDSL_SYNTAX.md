@@ -33,4 +33,17 @@ a binding context that makes two variables available in it's local scope:
   in the Jenkins console output when the seed job (`refresh-gplt-jobs`) is run.
 * `job`: this variable will contain a reference to
   [the actual job definition](https://github.com/jenkinsci/job-dsl-plugin/wiki/Job-DSL-Commands#job)
-  that the seed job is building up.  To make changes to the job,
+  that the seed job is building up.  To make changes to the job, you call `job.with { ... }`, where the code inside
+  of those braces will be calls to the JobDSL to modify the job.  Here's an example of how you could change the
+  maximum number of builds stored in the job history to 10:
+
+```groovy
+job.with {
+    logRotator {
+        numToKeep(10)
+    }
+}
+```
+
+Theoretically you should be able to use any feature of the JobDSL within these scripts; refer to the
+[JobDSL API](https://jenkinsci.github.io/job-dsl-plugin/) for more info.
