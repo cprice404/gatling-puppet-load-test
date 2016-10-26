@@ -80,7 +80,8 @@ scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
             out.println("Found JobDSL script: '${jobdslfile.getAbsolutePath()}', executing")
             def engine = new GroovyScriptEngine('.')
             engine.run(jobdslfile.getAbsolutePath(),
-                    new Binding([out: out])
+                    new Binding([job: job,
+                                 out: out])
             )
         }
 
