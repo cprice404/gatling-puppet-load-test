@@ -81,7 +81,7 @@ def get_oss_server_era(oss_version) {
     // TODO: eventually we will probably want to do something more sophisticated
     //  here; currently only support 'latest'/'master'/'stable' OSS puppetserver,
     //  and 'latest' agent
-    if (["latest", "master", "stable"].contains(oss_version)) {
+//    if (["latest", "master", "stable"].contains(oss_version)) {
         return [type: "oss",
                 service_name: "puppetserver",
                 version: oss_version,
@@ -93,9 +93,9 @@ def get_oss_server_era(oss_version) {
                 file_sync_enabled: false,
                 node_classifier: false,
                 facter_structured_facts: true]
-    } else {
-        error "Unrecognized OSS version: '${oss_version}'"
-    }
+//    } else {
+//        error "Unrecognized OSS version: '${oss_version}'"
+//    }
 }
 
 def get_server_era(server_version) {
