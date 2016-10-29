@@ -1,6 +1,41 @@
 install_opts = options.merge( { :dev_builds_repos => ["PC1"] })
 repo_config_dir = 'tmp/repo_configs'
 
+
+# require 'net/http'
+#
+# BASE_URL = 'http://builds.puppetlabs.lan/puppetserver'
+#
+# def has_cent7_repo?(version)
+#   cent7_uri = URI("#{BASE_URL}/#{version}/repo_configs/rpm/pl-puppetserver-#{version}-el-7-x86_64.repo")
+#
+#   response_code = Net::HTTP.start(cent7_uri.host, cent7_uri.port) do |http|
+#     http.head(cent7_uri.path).code
+#   end
+#
+#   if response_code != "200"
+#     puts "Skipping version #{version} because it doesn't appear to have a cent7 repo"
+#     false
+#   else
+#     true
+#   end
+# end
+#
+# def get_latest_master_version(branch)
+#   response = Net::HTTP.get(URI(BASE_URL + '/?C=M&O=D'))
+#
+#   if branch == "latest"
+#     branch = "master"
+#   end
+#
+#   response.lines.
+#       select { |l| l =~ /<td><a / }.
+#       select { |l| l =~ /#{branch}/}.
+#       map { |l| l.match(/^.*href="([^"]+)\/\?C=M&amp;O=D".*$/)[1] }.
+#       find { |v| has_cent7_repo?(v) }
+# end
+
+
 require 'net/http'
 
 def get_latest_master_version(branch)
