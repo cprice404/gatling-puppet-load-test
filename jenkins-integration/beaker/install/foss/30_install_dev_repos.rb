@@ -13,9 +13,10 @@ def has_cent7_repo?(version)
   end
 
   if response_code != "200"
-    puts "Skipping version #{version} because it doesn't appear to have a cent7 repo"
+    Beaker::Log.notify("Skipping version #{version} because it doesn't appear to have a cent7 repo")
     false
   else
+    Beaker::Log.notify("Found Cent7 repo for version #{version}")
     true
   end
 end
