@@ -1,6 +1,6 @@
 out.println("EXECUTING JOBDSL.GROOVY FOR OSS LATEST")
 
-myjob.with {
+job.with {
     out.println("IN JOB.WITH BLOCK")
     triggers {
         // This should run the job at a semi-random time between 9:00 and 10:59PM,
@@ -51,3 +51,5 @@ myjob.with {
 //        }
     }
 }
+
+helper.overrideParameterDefault(job, "SUT_HOST", "BOOYAH!")

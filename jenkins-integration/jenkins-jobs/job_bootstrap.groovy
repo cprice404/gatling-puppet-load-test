@@ -1,6 +1,12 @@
 import groovy.io.FileType
 import java.nio.file.Paths
 
+class DSLHelper {
+    def overrideParameterDefault(job, param_name, new_default_value) {
+        out.println("OVERRIDING '${param_name}' default value to '${new_default_value}' for job '${job}'")
+    }
+}
+
 // NOTE: these determine the default repo/branch that the seed job will
 // poll to look for Jenkinsfiles.  For production they should always
 // be set to the PL gplt repo's master branch.  For dev, you may want
@@ -24,12 +30,14 @@ while (root_dir.name != "jenkins-integration") {
 root_dir = root_dir.parentFile
 scenarios_dir = new File(dir, "scenarios")
 
+def helper = new DSLHelper();
+
 scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
     if (file.name.equals("Jenkinsfile")) {
         job_prefix = file.parentFile.name
         relative_jenkinsfile = relativize(root_dir, file)
 
-        def myjob = workflowJob(job_prefix) {
+        def job = workflowJob(job_prefix) {
             // TODO: this should be moved into the Jenkinsfile by use of
             // the 'properties' step, see https://issues.jenkins-ci.org/browse/JENKINS-32780,
             // or alternately it could be handled in the JobDSL.groovy files alongside
@@ -66,8 +74,9 @@ scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
             out.println("Found JobDSL script: '${jobdslfile.getAbsolutePath()}', executing")
             def engine = new GroovyScriptEngine('.')
             engine.run(jobdslfile.getAbsolutePath(),
-                    new Binding([myjob: myjob,
-                                 out: out])
+                    new Binding([job: job,
+                                 out: out,
+                                 helper: helper])
             )
         }
     }
