@@ -15,9 +15,9 @@ class DSLHelper {
                 out.println("EXECUTING NODE.CONFIGURE")
                 Node node = project / 'properties' / 'hudson.model.ParametersDefinitionProperty' / 'parameterDefinitions'
 //                List children = node.children().collect()
-                out.println("Found children: ${node.children.size()}")
+                out.println("Found children: ${node.children().size()}")
 //                def found = false
-                def result = node.children.find { child ->
+                def result = node.children().find { child ->
                     //            out.println("CHILD CLASS: ${child.getClass()}")
                     //            out.println("CHILD NAME: ${child.name()}")
                     //            out.println("REMOVING CHILD NODE: ${child.value().size()}")
