@@ -51,6 +51,7 @@ class DSLHelper {
                 }
                 if (! result) {
                     out.println("WARNING!! Parameter '${param_name}' not found, ignoring attempt to override!")
+                    state[param_name] = true
                 }
 //                out.println("BACK FROM FIND! found?: ${found}, result: ${result}")
                 //        context.buildParameterNodes.values().each {
