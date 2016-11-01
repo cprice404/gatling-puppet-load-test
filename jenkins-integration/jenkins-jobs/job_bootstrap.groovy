@@ -10,12 +10,20 @@ class DSLHelper {
     def overrideParameterDefault(job, param_name, new_default_value) {
         this.out.println("Attempting to override '${param_name}' default value to '${new_default_value}' for job '${job.name}'")
 
-        // TODO: splain
+        // NOTE: HACK.  for some reason, the 'configure' block may get called
+        //  several times.  See https://issues.jenkins-ci.org/browse/JENKINS-39417 .
+        // Worse, it seems like on the subsequent calls to the configure block,
+        // the state of the job is reset to still include the original parameter
+        // data.  It seems harmless to simply execute the overrides multiple times,
+        // but logging the messages about the overrides multiple times looks very
+        // confusing in the seed job output.  By closing over this local variable,
+        // we can make sure the log messages only show up once, which makes
+        // the seed job output a little less confusing.
         def param_checked = false
 
         job.with {
             configure { Node project ->
-                out.println("EXECUTING NODE.CONFIGURE")
+//                out.println("EXECUTING NODE.CONFIGURE")
 //                if (!param_checked) {
                     Node node = project / 'properties' / 'hudson.model.ParametersDefinitionProperty' / 'parameterDefinitions'
 //                List children = node.children().collect()
@@ -36,7 +44,9 @@ class DSLHelper {
 //                        out.println("DEFAULT VALUE[0].class: ${my_defaultValue[0].getClass()}")
                             def old_value = my_default_value_node[0].value()
                             my_default_value_node[0].setValue(new_default_value)
-                            out.println("Parameter '${param_name}' found, default value changed from '${old_value}' to '${new_default_value}'")
+                            if (!param_checked) {
+                                out.println("Parameter '${param_name}' found, default value changed from '${old_value}' to '${new_default_value}'")
+                            }
 //                        found = true
                             return true
                         } else {
@@ -51,7 +61,9 @@ class DSLHelper {
                         return false
                     }
                     if (! result) {
-                        out.println("WARNING!! Parameter '${param_name}' not found, ignoring attempt to override!")
+                        if (!param_checked) {
+                            out.println("WARNING!! Parameter '${param_name}' not found, ignoring attempt to override!")
+                        }
                     }
                     param_checked = true
 //                out.println("BACK FROM FIND! found?: ${found}, result: ${result}")
