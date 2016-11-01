@@ -18,7 +18,7 @@ job.with {
         Node node = project / 'properties' / 'hudson.model.ParametersDefinitionProperty' / 'parameterDefinitions'
         List children = node.children().collect()
         children.each { child ->
-            out.println("REMOVING CHILD NODE: ${child.getName()}")
+            out.println("REMOVING CHILD NODE: ${child.value()}")
             node.remove(child)
         }
 //        context.buildParameterNodes.values().each {
