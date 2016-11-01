@@ -1,3 +1,5 @@
+out.println("EXECUTING JOBDSL.GROOVY FOR OSS LATEST")
+
 job.with {
     triggers {
         // This should run the job at a semi-random time between 9:00 and 10:59PM,
