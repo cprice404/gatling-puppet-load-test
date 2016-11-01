@@ -34,7 +34,7 @@ job.with {
 //            child.value().each { nested ->
 //                out.println("nested node: ${nested} (name: ${nested.name()}) (${nested.getClass()})")
 //            }
-//            node.remove(child)
+            node.remove(child)
         }
 //        context.buildParameterNodes.values().each {
 //            node << it
