@@ -25,6 +25,9 @@ job.with {
         out.println("Found children: ${children.size()}")
         children.each { child ->
             out.println("REMOVING CHILD NODE: ${child.value().size()}")
+            child.value().each { nested ->
+                out.println("nested node: ${nested} (${nested.getClass()}")
+            }
             node.remove(child)
         }
 //        context.buildParameterNodes.values().each {
