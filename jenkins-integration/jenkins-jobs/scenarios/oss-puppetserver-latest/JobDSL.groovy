@@ -29,7 +29,8 @@ job.with {
 //            out.println("REMOVING CHILD NODE: ${child.value().size()}")
             def my_name = child.get("name")
             def my_defaultValue = child.get("defaultValue")
-            out.println("FOUND NAME NODE: ${my_name}")
+            def my_name_value = my_name.value()
+            out.println("FOUND NAME NODE: ${my_name_value}")
             out.println("FOUND DEFAULTVALUE NODE: ${my_defaultValue}")
 //            child.value().each { nested ->
 //                out.println("nested node: ${nested} (name: ${nested.name()}) (${nested.getClass()})")
