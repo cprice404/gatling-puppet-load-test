@@ -16,7 +16,7 @@ class DSLHelper {
         job.with {
             configure { Node project ->
                 out.println("EXECUTING NODE.CONFIGURE")
-                if (!param_checked) {
+//                if (!param_checked) {
                     Node node = project / 'properties' / 'hudson.model.ParametersDefinitionProperty' / 'parameterDefinitions'
 //                List children = node.children().collect()
 //                out.println("Found children: ${node.children().size()}")
@@ -34,8 +34,9 @@ class DSLHelper {
                         if (my_name == param_name) {
 //                        out.println("!!!!! FOUND SUT_HOST NODE!!!")
 //                        out.println("DEFAULT VALUE[0].class: ${my_defaultValue[0].getClass()}")
+                            def old_value = my_default_value_node[0].value()
                             my_default_value_node[0].setValue(new_default_value)
-                            out.println("Parameter '${param_name}' found, default value set to '${new_default_value}'")
+                            out.println("Parameter '${param_name}' found, default value changed from '${old_value}' to '${new_default_value}'")
 //                        found = true
                             return true
                         } else {
@@ -57,7 +58,7 @@ class DSLHelper {
                     //        context.buildParameterNodes.values().each {
                     //            node << it
                     //        }
-                }
+//                }
             }
         }
     }
