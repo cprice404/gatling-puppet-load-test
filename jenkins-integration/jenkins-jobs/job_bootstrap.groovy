@@ -2,6 +2,8 @@ import groovy.io.FileType
 import java.nio.file.Paths
 
 class DSLHelper {
+    PrintStream out;
+
     DSLHelper(out) {
         this.out = out
     }
