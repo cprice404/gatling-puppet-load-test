@@ -4,4 +4,7 @@ job.with {
         //  on Mondays.
         scm('H H(21-22) * * 1')
     }
+    parameters {
+        booleanParam("FAKE_PARAM", true, "JUST TESTING ADDITIVITY OF PARAMS")
+    }
 }
