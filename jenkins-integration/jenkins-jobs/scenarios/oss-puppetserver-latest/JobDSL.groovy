@@ -33,6 +33,9 @@ job.with {
             out.println("NAME CHILDREN: (${my_name.size()})")
             def my_name_value = my_name[0].value()
             out.println("NAME NODE VALUE: ${my_name_value}")
+            if (my_name_value == "SUT_HOST") {
+                out.println("!!!!! FOUND SUT_HOST NODE!!!")
+            }
             out.println("FOUND DEFAULTVALUE NODE: ${my_defaultValue}")
 //            child.value().each { nested ->
 //                out.println("nested node: ${nested} (name: ${nested.name()}) (${nested.getClass()})")
