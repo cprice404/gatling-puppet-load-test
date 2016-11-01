@@ -2,8 +2,11 @@ import groovy.io.FileType
 import java.nio.file.Paths
 
 class DSLHelper {
+    def DSLHelper(out) {
+        this.out = out
+    }
     def overrideParameterDefault(job, param_name, new_default_value) {
-        out.println("OVERRIDING '${param_name}' default value to '${new_default_value}' for job '${job}'")
+        this.out.println("OVERRIDING '${param_name}' default value to '${new_default_value}' for job '${job}'")
     }
 }
 
@@ -30,7 +33,7 @@ while (root_dir.name != "jenkins-integration") {
 root_dir = root_dir.parentFile
 scenarios_dir = new File(dir, "scenarios")
 
-def helper = new DSLHelper();
+def helper = new DSLHelper(out);
 
 scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
     if (file.name.equals("Jenkinsfile")) {
