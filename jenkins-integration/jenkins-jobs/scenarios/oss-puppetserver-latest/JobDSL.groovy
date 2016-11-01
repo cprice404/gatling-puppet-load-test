@@ -25,9 +25,10 @@ job.with {
         out.println("Found children: ${children.size()}")
         children.each { child ->
             out.println("CHILD CLASS: ${child.getClass()}")
+            out.println("CHILD NAME: ${child.name()()}")
             out.println("REMOVING CHILD NODE: ${child.value().size()}")
             child.value().each { nested ->
-                out.println("nested node: ${nested} (${nested.getClass()}")
+                out.println("nested node: ${nested} (name: ${nested.name()}) (${nested.getClass()})")
             }
             node.remove(child)
         }
