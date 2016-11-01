@@ -10,9 +10,12 @@ class DSLHelper {
     def overrideParameterDefault(job, param_name, new_default_value) {
         this.out.println("Attempting to override '${param_name}' default value to '${new_default_value}' for job '${job.name}'")
 
+        def state = [:]
+
         job.with {
             configure { Node project ->
                 out.println("EXECUTING NODE.CONFIGURE")
+                out.println("STATE: ${state}")
                 Node node = project / 'properties' / 'hudson.model.ParametersDefinitionProperty' / 'parameterDefinitions'
 //                List children = node.children().collect()
 //                out.println("Found children: ${node.children().size()}")
@@ -32,6 +35,7 @@ class DSLHelper {
 //                        out.println("DEFAULT VALUE[0].class: ${my_defaultValue[0].getClass()}")
                         my_default_value_node[0].setValue(new_default_value)
                         out.println("Parameter '${param_name}' found, default value set to '${new_default_value}'")
+                        state[param_name] = true
 //                        found = true
                         return true
                     } else {
