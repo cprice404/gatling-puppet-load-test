@@ -17,7 +17,8 @@ job.with {
 //        booleanParam('SKIP_PROVISIONING', false)
 //    }
     configure { Node project ->
-        out.println("EXECUTING JOB CONFIGURE; project: ${project}")
+//        out.println("EXECUTING JOB CONFIGURE; project: ${project}")
+        out.println("EXECUTING JOB CONFIGURE")
 
         Node node = project / 'properties' / 'hudson.model.ParametersDefinitionProperty' / 'parameterDefinitions'
         List children = node.children().collect()
