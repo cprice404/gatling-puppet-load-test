@@ -29,7 +29,7 @@ scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
         job_prefix = file.parentFile.name
         relative_jenkinsfile = relativize(root_dir, file)
 
-        def job = workflowJob(job_prefix) {
+        def myjob = workflowJob(job_prefix) {
             // TODO: this should be moved into the Jenkinsfile by use of
             // the 'properties' step, see https://issues.jenkins-ci.org/browse/JENKINS-32780,
             // or alternately it could be handled in the JobDSL.groovy files alongside
@@ -66,7 +66,7 @@ scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
             out.println("Found JobDSL script: '${jobdslfile.getAbsolutePath()}', executing")
             def engine = new GroovyScriptEngine('.')
             engine.run(jobdslfile.getAbsolutePath(),
-                    new Binding([job: job,
+                    new Binding([myjob: myjob,
                                  out: out])
             )
         }
