@@ -31,7 +31,7 @@ job.with {
             def my_defaultValue = child.get("defaultValue")
             out.println("FOUND NAME NODE: ${my_name}")
             out.println("NAME CHILDREN: (${my_name.size()})")
-            def my_name_value = my_name.value()
+            def my_name_value = my_name[0].value()
             out.println("NAME NODE VALUE: ${my_name_value}")
             out.println("FOUND DEFAULTVALUE NODE: ${my_defaultValue}")
 //            child.value().each { nested ->
