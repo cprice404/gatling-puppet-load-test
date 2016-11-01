@@ -8,7 +8,7 @@ class DSLHelper {
         this.out = out
     }
     def overrideParameterDefault(job, param_name, new_default_value) {
-        this.out.println("Attempting to override '${param_name}' default value to '${new_default_value}' for job '${job.name}'")
+        this.out.println("\tAttempting to override '${param_name}' default value to '${new_default_value}' for job '${job.name}'")
 
         // NOTE: HACK.  for some reason, the 'configure' block may get called
         //  several times.  See https://issues.jenkins-ci.org/browse/JENKINS-39417 .
@@ -32,7 +32,7 @@ class DSLHelper {
                             def old_value = my_default_value_node[0].value()
                             my_default_value_node[0].setValue(new_default_value)
                             if (!param_checked) {
-                                out.println("Parameter '${param_name}' found, default value changed from '${old_value}' to '${new_default_value}'")
+                                out.println("\tParameter '${param_name}' found, default value changed from '${old_value}' to '${new_default_value}'")
                             }
                             return true
                         }
@@ -40,7 +40,7 @@ class DSLHelper {
                     }
                     if (! result) {
                         if (!param_checked) {
-                            out.println("WARNING!! Parameter '${param_name}' not found, ignoring attempt to override!")
+                            out.println("\tWARNING!! Parameter '${param_name}' not found, ignoring attempt to override!")
                         }
                     }
                     param_checked = true
