@@ -18,7 +18,8 @@ class DSLHelper {
                 Node node = project / 'properties' / 'hudson.model.ParametersDefinitionProperty' / 'parameterDefinitions'
                 List children = node.children().collect()
                 out.println("Found children: ${children.size()}")
-                children.each { child ->
+                def found = false
+                children.find { child ->
                     //            out.println("CHILD CLASS: ${child.getClass()}")
                     //            out.println("CHILD NAME: ${child.name()}")
                     //            out.println("REMOVING CHILD NODE: ${child.value().size()}")
@@ -28,10 +29,12 @@ class DSLHelper {
                     out.println("NAME CHILDREN: (${my_name.size()})")
                     def my_name_value = my_name[0].value()
                     out.println("NAME NODE VALUE: ${my_name_value}")
-                    if (my_name_value == "SUT_HOST") {
+                    if (my_name_value == param_name) {
                         out.println("!!!!! FOUND SUT_HOST NODE!!!")
                         out.println("DEFAULT VALUE[0].class: ${my_defaultValue[0].getClass()}")
-                        my_defaultValue[0].setValue("REPLACED, YO")
+                        my_defaultValue[0].setValue(new_default_value)
+                        found = true
+                        return true
                     }
                     out.println("FOUND DEFAULTVALUE NODE: ${my_defaultValue}")
                     //            child.value().each { nested ->
@@ -39,7 +42,9 @@ class DSLHelper {
                     //            }
                     //            node.remove(child)
                     out.println("hi! []")
+                    return false
                 }
+                out.println("BACK FROM FIND! found?: ${found}")
                 //        context.buildParameterNodes.values().each {
                 //            node << it
                 //        }
