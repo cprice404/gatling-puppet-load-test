@@ -19,7 +19,7 @@ class DSLHelper {
                 List children = node.children().collect()
                 out.println("Found children: ${children.size()}")
                 def found = false
-                children.find { child ->
+                def result = children.find { child ->
                     //            out.println("CHILD CLASS: ${child.getClass()}")
                     //            out.println("CHILD NAME: ${child.name()}")
                     //            out.println("REMOVING CHILD NODE: ${child.value().size()}")
@@ -44,7 +44,7 @@ class DSLHelper {
                     out.println("hi! []")
                     return false
                 }
-                out.println("BACK FROM FIND! found?: ${found}")
+                out.println("BACK FROM FIND! found?: ${found}, result: ${result}")
                 //        context.buildParameterNodes.values().each {
                 //            node << it
                 //        }
