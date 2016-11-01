@@ -27,8 +27,8 @@ job.with {
 //            out.println("CHILD CLASS: ${child.getClass()}")
 //            out.println("CHILD NAME: ${child.name()}")
 //            out.println("REMOVING CHILD NODE: ${child.value().size()}")
-            name = child.get("name")
-            defaultValue = child.get("defaultValue")
+            my_name = child.get("name")
+            my_defaultValue = child.get("defaultValue")
 //            out.println("FOUND NAME NODE: ${name}")
 //            out.println("FOUND DEFAULTVALUE NODE: ${defaultValue}")
 //            child.value().each { nested ->
