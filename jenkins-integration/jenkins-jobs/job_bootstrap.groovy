@@ -15,27 +15,27 @@ class DSLHelper {
                 out.println("EXECUTING NODE.CONFIGURE")
                 Node node = project / 'properties' / 'hudson.model.ParametersDefinitionProperty' / 'parameterDefinitions'
 //                List children = node.children().collect()
-                out.println("Found children: ${node.children().size()}")
+//                out.println("Found children: ${node.children().size()}")
 //                def found = false
                 def result = node.children().find { child ->
                     //            out.println("CHILD CLASS: ${child.getClass()}")
                     //            out.println("CHILD NAME: ${child.name()}")
                     //            out.println("REMOVING CHILD NODE: ${child.value().size()}")
-                    def my_name = child.get("name")
-                    def my_defaultValue = child.get("defaultValue")
+                    def my_name_node = child.get("name")
+                    def my_default_value_node = child.get("defaultValue")
 //                    out.println("FOUND NAME NODE: ${my_name}")
 //                    out.println("NAME CHILDREN: (${my_name.size()})")
-                    def my_name_value = my_name[0].value()
+                    def my_name = my_name_node[0].value()
 //                    out.println("NAME NODE VALUE: ${my_name_value}")
-                    if (my_name_value == param_name) {
+                    if (my_name == param_name) {
 //                        out.println("!!!!! FOUND SUT_HOST NODE!!!")
 //                        out.println("DEFAULT VALUE[0].class: ${my_defaultValue[0].getClass()}")
-                        my_defaultValue[0].setValue(new_default_value)
+                        my_default_value_node[0].setValue(new_default_value)
                         out.println("Parameter '${param_name}' found, default value set to '${new_default_value}'")
 //                        found = true
                         return true
                     } else {
-                        out.println("SKIPPING '${my_name_value}' because it doesn't match '${param_name}'")
+//                        out.println("SKIPPING '${my_name}' because it doesn't match '${param_name}'")
                     }
 //                    out.println("FOUND DEFAULTVALUE NODE: ${my_defaultValue}")
                     //            child.value().each { nested ->
