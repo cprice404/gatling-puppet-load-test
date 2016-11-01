@@ -36,6 +36,7 @@ job.with {
             if (my_name_value == "SUT_HOST") {
                 out.println("!!!!! FOUND SUT_HOST NODE!!!")
                 out.println("DEFAULT VALUE[0].class: ${my_defaultValue[0].getClass()}" )
+                my_defaultValue[0].setValue("REPLACED, YO")
             }
             out.println("FOUND DEFAULTVALUE NODE: ${my_defaultValue}")
 //            child.value().each { nested ->
