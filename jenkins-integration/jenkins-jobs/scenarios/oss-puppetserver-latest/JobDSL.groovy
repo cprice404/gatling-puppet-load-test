@@ -54,3 +54,4 @@ job.with {
 
 helper.overrideParameterDefault(job, "SUT_HOST", "COOLIN")
 helper.overrideParameterDefault(job, "TACO", "BOOYAH!")
+helper.overrideParameterDefault(job, "SKIP_PROVISIONING", false)
