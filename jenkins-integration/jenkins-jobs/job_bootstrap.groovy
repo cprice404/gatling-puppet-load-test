@@ -23,41 +23,19 @@ class DSLHelper {
 
         job.with {
             configure { Node project ->
-//                out.println("EXECUTING NODE.CONFIGURE")
-//                if (!param_checked) {
                     Node node = project / 'properties' / 'hudson.model.ParametersDefinitionProperty' / 'parameterDefinitions'
-//                List children = node.children().collect()
-//                out.println("Found children: ${node.children().size()}")
-//                def found = false
                     def result = node.children().find { child ->
-                        //            out.println("CHILD CLASS: ${child.getClass()}")
-                        //            out.println("CHILD NAME: ${child.name()}")
-                        //            out.println("REMOVING CHILD NODE: ${child.value().size()}")
                         def my_name_node = child.get("name")
                         def my_default_value_node = child.get("defaultValue")
-//                    out.println("FOUND NAME NODE: ${my_name}")
-//                    out.println("NAME CHILDREN: (${my_name.size()})")
                         def my_name = my_name_node[0].value()
-//                    out.println("NAME NODE VALUE: ${my_name_value}")
                         if (my_name == param_name) {
-//                        out.println("!!!!! FOUND SUT_HOST NODE!!!")
-//                        out.println("DEFAULT VALUE[0].class: ${my_defaultValue[0].getClass()}")
                             def old_value = my_default_value_node[0].value()
                             my_default_value_node[0].setValue(new_default_value)
                             if (!param_checked) {
                                 out.println("Parameter '${param_name}' found, default value changed from '${old_value}' to '${new_default_value}'")
                             }
-//                        found = true
                             return true
-                        } else {
-//                        out.println("SKIPPING '${my_name}' because it doesn't match '${param_name}'")
                         }
-//                    out.println("FOUND DEFAULTVALUE NODE: ${my_defaultValue}")
-                        //            child.value().each { nested ->
-                        //                out.println("nested node: ${nested} (name: ${nested.name()}) (${nested.getClass()})")
-                        //            }
-                        //            node.remove(child)
-//                    out.println("hi! []")
                         return false
                     }
                     if (! result) {
@@ -66,11 +44,6 @@ class DSLHelper {
                         }
                     }
                     param_checked = true
-//                out.println("BACK FROM FIND! found?: ${found}, result: ${result}")
-                    //        context.buildParameterNodes.values().each {
-                    //            node << it
-                    //        }
-//                }
             }
         }
     }
