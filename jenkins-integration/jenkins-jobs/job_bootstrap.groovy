@@ -8,7 +8,7 @@ class DSLHelper {
         this.out = out
     }
     def overrideParameterDefault(job, param_name, new_default_value) {
-        this.out.println("OVERRIDING '${param_name}' default value to '${new_default_value}' for job '${job}'")
+        this.out.println("OVERRIDING '${param_name}' default value to '${new_default_value}' for job '${job.name}'")
     }
 }
 
