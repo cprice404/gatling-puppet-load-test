@@ -16,7 +16,7 @@ job.with {
 //    }
     configure { Node project ->
         Node node = project / 'properties' / 'hudson.model.ParametersDefinitionProperty' / 'parameterDefinitions'
-        List children = node.children()
+        List children = node.children().collect()
         children.each { child ->
             node.remove(child)
         }
