@@ -27,10 +27,14 @@ job.with {
             out.println("CHILD CLASS: ${child.getClass()}")
             out.println("CHILD NAME: ${child.name()}")
             out.println("REMOVING CHILD NODE: ${child.value().size()}")
-            child.value().each { nested ->
-                out.println("nested node: ${nested} (name: ${nested.name()}) (${nested.getClass()})")
-            }
-            node.remove(child)
+            Node name = child.get("name")
+            Node defaultValue = child.get("defaultValue")
+            out.println("FOUND NAME NODE: ${name}")
+            out.println("FOUND DEFAULTVALUE NODE: ${defaultValue}")
+//            child.value().each { nested ->
+//                out.println("nested node: ${nested} (name: ${nested.name()}) (${nested.getClass()})")
+//            }
+//            node.remove(child)
         }
 //        context.buildParameterNodes.values().each {
 //            node << it
