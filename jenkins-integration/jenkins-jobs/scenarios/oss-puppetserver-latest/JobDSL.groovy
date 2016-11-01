@@ -23,7 +23,7 @@ job.with {
         List children = node.children().collect()
         out.println("Found children: ${children.size()}")
         children.each { child ->
-            out.println("REMOVING CHILD NODE: ${child.value().getClass()}")
+            out.println("REMOVING CHILD NODE: ${child.getClass()}")
             node.remove(child)
         }
 //        context.buildParameterNodes.values().each {
