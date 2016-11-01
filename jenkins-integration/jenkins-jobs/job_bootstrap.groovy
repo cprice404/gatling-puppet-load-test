@@ -8,43 +8,44 @@ class DSLHelper {
         this.out = out
     }
     def overrideParameterDefault(job, param_name, new_default_value) {
-        this.out.println("OVERRIDING '${param_name}' default value to '${new_default_value}' for job '${job.name}'")
+        this.out.println("Attempting to override '${param_name}' default value to '${new_default_value}' for job '${job.name}'")
 
         job.with {
             configure { Node project ->
-                //        out.println("EXECUTING JOB CONFIGURE; project: ${project}")
-                out.println("EXECUTING JOB CONFIGURE")
-
                 Node node = project / 'properties' / 'hudson.model.ParametersDefinitionProperty' / 'parameterDefinitions'
-                List children = node.children().collect()
+//                List children = node.children().collect()
                 out.println("Found children: ${children.size()}")
-                def found = false
-                def result = children.find { child ->
+//                def found = false
+                def result = node.children.find { child ->
                     //            out.println("CHILD CLASS: ${child.getClass()}")
                     //            out.println("CHILD NAME: ${child.name()}")
                     //            out.println("REMOVING CHILD NODE: ${child.value().size()}")
                     def my_name = child.get("name")
                     def my_defaultValue = child.get("defaultValue")
-                    out.println("FOUND NAME NODE: ${my_name}")
-                    out.println("NAME CHILDREN: (${my_name.size()})")
+//                    out.println("FOUND NAME NODE: ${my_name}")
+//                    out.println("NAME CHILDREN: (${my_name.size()})")
                     def my_name_value = my_name[0].value()
-                    out.println("NAME NODE VALUE: ${my_name_value}")
+//                    out.println("NAME NODE VALUE: ${my_name_value}")
                     if (my_name_value == param_name) {
                         out.println("!!!!! FOUND SUT_HOST NODE!!!")
                         out.println("DEFAULT VALUE[0].class: ${my_defaultValue[0].getClass()}")
                         my_defaultValue[0].setValue(new_default_value)
-                        found = true
+                        out.println("Parameter '${param_name}' found, default value set to '${new_default_value}'")
+//                        found = true
                         return true
                     }
-                    out.println("FOUND DEFAULTVALUE NODE: ${my_defaultValue}")
+//                    out.println("FOUND DEFAULTVALUE NODE: ${my_defaultValue}")
                     //            child.value().each { nested ->
                     //                out.println("nested node: ${nested} (name: ${nested.name()}) (${nested.getClass()})")
                     //            }
                     //            node.remove(child)
-                    out.println("hi! []")
+//                    out.println("hi! []")
                     return false
                 }
-                out.println("BACK FROM FIND! found?: ${found}, result: ${result}")
+                if (! result) {
+                    out.println("WARNING!! Parameter '${param_name}' not found, ignoring attempt to override!")
+                }
+//                out.println("BACK FROM FIND! found?: ${found}, result: ${result}")
                 //        context.buildParameterNodes.values().each {
                 //            node << it
                 //        }
