@@ -2,7 +2,7 @@ import groovy.io.FileType
 import java.nio.file.Paths
 
 class DSLHelper {
-    def DSLHelper(out) {
+    DSLHelper(out) {
         this.out = out
     }
     def overrideParameterDefault(job, param_name, new_default_value) {
