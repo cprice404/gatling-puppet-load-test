@@ -78,7 +78,7 @@ scenarios_dir = new File(dir, "scenarios")
 
 def helper = new DSLHelper(out);
 
-def allServersConfigFile = new File(root_dir, "jenkins-jobs/server_config.json")
+def allServersConfigFile = new File(dir, "server_config.json")
 def allServersConfig = new JsonSlurper().parseText(allServersConfigFile.text)
 
 def defaultServerConfig = [environment: "development"]
