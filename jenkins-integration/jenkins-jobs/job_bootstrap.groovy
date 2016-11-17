@@ -76,6 +76,8 @@ scenarios_dir = new File(dir, "scenarios")
 
 def helper = new DSLHelper(out);
 
+def defaultServerConfig = [environment: "dev"]
+
 scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
     if (file.name.equals("Jenkinsfile")) {
         job_prefix = file.parentFile.name
@@ -112,6 +114,10 @@ scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
                 numToKeep(50)
             }
         }
+
+        out.println("CALLING HOSTNAME")
+        out.println("hostname -f".execute())
+        out.println("CALLED HOSTNAME")
 
         def serverConfig = [environment: "production"]
 
