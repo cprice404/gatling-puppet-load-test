@@ -113,6 +113,8 @@ scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
             }
         }
 
+        def serverConfig = [environment: "production"]
+
         jobdslfile = new File(scenarios_dir, "${job_prefix}/JobDSL.groovy")
         if (jobdslfile.isFile()) {
             out.println("Found JobDSL script: '${jobdslfile.getAbsolutePath()}', executing")
@@ -120,7 +122,9 @@ scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
             engine.run(jobdslfile.getAbsolutePath(),
                     new Binding([job: job,
                                  out: out,
-                                 helper: helper])
+                                 helper: helper,
+                                 serverConfig: serverConfig
+                    ])
             )
         }
     }

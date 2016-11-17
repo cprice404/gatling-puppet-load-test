@@ -1,5 +1,7 @@
 out.println("HI! from osp-latest-jobdsl")
 
+out.println("SERVER ENVIRONMENT: ${serverConfig["environment"]}")
+
 job.with {
     triggers {
         // This should run the job at a semi-random time between 9:00 and 10:59PM,
