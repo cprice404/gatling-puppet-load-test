@@ -84,7 +84,7 @@ def allServersConfig = new JsonSlurper().parseText(allServersConfigFile.text)
 def defaultServerConfig = [environment: "development"]
 def serverHostname = "hostname -f".execute().text.trim()
 def serverConfig = defaultServerConfig + [hostname: serverHostname]
-if (allServersConfig.contains(serverHostname)) {
+if (allServersConfig.containsKey(serverHostname)) {
     serverConfig += allServersConfig[serverHostname]
 }
 
