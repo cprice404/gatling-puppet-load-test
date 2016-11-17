@@ -1,5 +1,6 @@
 out.println("HI! from osp-latest-jobdsl")
 
+out.println("SERVER HOSTNAME: ${serverConfig["hostname"]}")
 out.println("SERVER ENVIRONMENT: ${serverConfig["environment"]}")
 
 job.with {

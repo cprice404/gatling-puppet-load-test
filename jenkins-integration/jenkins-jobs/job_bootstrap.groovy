@@ -77,6 +77,9 @@ scenarios_dir = new File(dir, "scenarios")
 def helper = new DSLHelper(out);
 
 def defaultServerConfig = [environment: "dev"]
+def serverHostname = "hostname -f".execute().text.trim()
+def serverConfig = defaultServerConfig + [hostname: serverHostname]
+
 
 scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
     if (file.name.equals("Jenkinsfile")) {
@@ -115,11 +118,11 @@ scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
             }
         }
 
-        out.println("CALLING HOSTNAME")
-        out.println("hostname -f".execute().text.trim())
-        out.println("CALLED HOSTNAME")
+//        out.println("CALLING HOSTNAME")
+//        out.println("hostname -f".execute().text.trim())
+//        out.println("CALLED HOSTNAME")
 
-        def serverConfig = [environment: "production"]
+//        def serverConfig = [environment: "production"]
 
         jobdslfile = new File(scenarios_dir, "${job_prefix}/JobDSL.groovy")
         if (jobdslfile.isFile()) {
