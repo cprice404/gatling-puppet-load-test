@@ -88,7 +88,6 @@ if (allServersConfig.containsKey(serverHostname)) {
     serverConfig += allServersConfig[serverHostname]
 }
 
-
 scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
     if (file.name.equals("Jenkinsfile")) {
         job_prefix = file.parentFile.name
