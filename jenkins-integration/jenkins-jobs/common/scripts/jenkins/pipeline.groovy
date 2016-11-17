@@ -14,6 +14,21 @@ def get_filename(path) {
             path.length())
 }
 
+
+//echo 'hi'
+//node {
+//    sh "hostname"
+//    sh "hostname -f"
+//    sh "echo 'howdy!'"
+//    sh "echo \$(hostname -f)"
+//    sh "echo \$(hostname -f) > MY_HOSTNAME2.txt"
+//    my_hostname = readFile('MY_HOSTNAME2.txt')
+//    echo "HOSTNAME IS:"
+//    echo my_hostname
+//    echo "DONE"
+//    println "hostname".execute().text
+//}
+
 def get_pe_server_era(pe_version, find_latest) {
     // A normal groovy switch/case statement with regex matchers doesn't seem
     // to work in Jenkins: https://issues.jenkins-ci.org/browse/JENKINS-37214
