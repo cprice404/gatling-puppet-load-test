@@ -116,7 +116,7 @@ scenarios_dir.eachFileRecurse (FileType.FILES) { file ->
         }
 
         out.println("CALLING HOSTNAME")
-        out.println("hostname -f".execute())
+        out.println("hostname -f".execute().text.trim())
         out.println("CALLED HOSTNAME")
 
         def serverConfig = [environment: "production"]
